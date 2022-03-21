@@ -33,7 +33,7 @@ const userController = {
 
       const activation_token = createActivationToken(newUser);
       const url = `${CLIENT_URL}/user/activate/${activation_token}`;
-    //  SendMail(email, url);
+      //  SendMail(email, url);
       res.json({
         msg: "Register Success! Please activate your email to start",
       });
