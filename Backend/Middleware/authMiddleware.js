@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 import asyncHandler from "express-async-handler";
-import user from "../models/userModel.js";
-
+import User from "../models/userModel.js";
 const protect = asyncHandler(async (req, res, next) => {
   let token;
 
@@ -14,9 +13,9 @@ const protect = asyncHandler(async (req, res, next) => {
       token = req.headers.authorization.split(" ")[1];
 
       //verify token
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const decoded = jwt.verify(token, process.env.JWT_ACCESS);
       //get employer from the token
-      req.user = await user.findById(decoded.id).select("-password");
+      req.user = await User.findById(decoded.id).select("-password");
       next();
     } catch (error) {
       console.log(error);

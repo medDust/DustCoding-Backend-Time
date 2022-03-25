@@ -1,8 +1,18 @@
 import express from "express";
-import { userController } from "../Controllers/userController.js";
+import {
+  register,
+  login,
+  logout,
+  refreshTokens,
+  getUser,
+} from "../Controllers/userController.js";
+import protect from "../Middleware/authMiddleware.js";
 const router = express.Router();
 
-router.route("/signUp").post(userController.register);
-//router.route("/logged/").get(getClient);
+router.post("/signUp", register);
+router.post("/signIn", login);
+router.get("/logout", logout);
+router.get("/info", protect, getUser);
+router.get("/refresh_token", refreshTokens);
 
 export default router;

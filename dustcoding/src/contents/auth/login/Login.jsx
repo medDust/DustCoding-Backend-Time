@@ -1,64 +1,72 @@
 import React from "react";
-import { useState, useContext, useRef } from "react";
+import { useState } from "react";
 import dust from "../../../assets/images/dust.png";
 import contact from "../../../assets/images/contact.png";
-import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
-import AuthContext from "../../../Context/AuthProvider.jsx";
+import { Link } from "react-router-dom";
+import { FaKey } from "react-icons/fa";
+import { isEmpty, isEmail } from "validator";
+import { ShowErrMsg, ShowSuccess } from "../../../helpers/MessageFunctions";
+import { LogIn } from "../../../api/AuthFunction";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import { Loading } from "../../../helpers/LodingFunction";
+
 const Login = () => {
   const [FormData, setFromData] = useState({
+    username: "",
     email: "",
     password: "",
+    passwordConfirm: "",
+    fullName: "",
+    Err: false,
+    isLoading: false,
+    isSuccess: false,
   });
-  const { setAuth } = useContext(AuthContext);
-  const { email, password } = FormData;
-  const navigate = useNavigate();
-  const errRef = useRef("");
-  const [err, setErr] = useState("");
+  // const navigate = useNavigate();
+  const { email, password, Err, isLoading, isSuccess } = FormData;
 
   const onChange = (e) => {
     setFromData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
+      isSuccess: "",
+      Err: "",
     }));
   };
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-
-    axios
-      .post(
-        "/api/clients/logIn",
-        JSON.stringify({
-          email: email,
-          password: password,
-        }),
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      )
-      .then((response) => {
-        console.log(JSON.stringify(response?.data));
-        const accessToken = response?.data.accessToken;
-        const roles = response?.data?.roles;
-        setAuth({ email, password, roles, accessToken });
-        navigate("/Client/profile");
-      })
-      .catch((err) => {
-        if (!err?.response) {
-          setErr("NO SERVER RESPONSE");
-          console.log(err);
-          alert(err);
-        } else if (err.response?.status === 400) {
-          setErr("MISSING E-MAIL OR PASSWORD");
-        } else if (err.response?.status === 401) {
-          setErr("UNAUTHORIZED");
-        } else {
-          setErr("LOGIN FAILED");
-        }
-
-        errRef.current.focus();
+    if (isEmpty(email) || isEmpty(password)) {
+      setFromData({
+        ...FormData,
+        Err: "All fields are required",
       });
+    } else if (!isEmail(email)) {
+      setFromData({
+        ...FormData,
+        Err: "Invalid E-mail",
+      });
+    } else {
+      const { email, password } = FormData;
+
+      const data = { email, password };
+
+      setFromData({ ...FormData, isLoading: true });
+      LogIn(data)
+        .then((res) => {
+          console.log("sucess Login", res);
+          setFromData({
+            email: "",
+            password: "",
+            isLoading: false,
+            isSuccess: res.data.SuccessMsg,
+            Err: res.data.ErrMessage,
+          });
+          // navigate("/Client/Profile");
+        })
+        .catch((err) => {
+          console.log("axios have error :", err);
+          setFromData({ ...FormData, isLoading: false });
+        });
+    }
   };
 
   return (
@@ -74,6 +82,11 @@ const Login = () => {
                 <h3 className="text-center text-2xl font-bold">
                   Login to your account
                 </h3>
+                <div className="my-2 text-center">
+                  {isLoading && Loading()}
+                  {Err && ShowErrMsg(Err)}
+                  {isSuccess && ShowSuccess(isSuccess)}
+                </div>
                 <form onSubmit={onSubmit} method="POST">
                   <div className="mt-4">
                     <div>
@@ -105,7 +118,7 @@ const Login = () => {
                         className="mt-4 flex h-11 w-28 items-center justify-center space-x-5 rounded-2xl bg-dustDark p-2 text-center  text-white hover:bg-dustLight hover:text-dustDark focus:bg-dustLight focus:text-dustDark"
                         onSubmit={onSubmit}
                       >
-                        <i className="fa fa-key h-auto text-base"></i>
+                        <FaKey />
                         <p>Login</p>
                       </button>
                       <div>
@@ -122,7 +135,7 @@ const Login = () => {
                         to="/home"
                         className="mt-4 flex h-11 w-28 items-center justify-center space-x-5 rounded-2xl bg-dustDark p-2 text-center  text-white hover:bg-dustLight hover:text-dustDark focus:bg-dustLight focus:text-dustDark"
                       >
-                        <i className="fas fa-angle-left"></i>
+                        <AiOutlineLeft />
                         <p>return</p>
                       </Link>
                       <Link
@@ -130,10 +143,9 @@ const Login = () => {
                         className="mt-4 flex h-11 w-28 items-center justify-center space-x-5 rounded-2xl bg-dustDark p-2 text-center  text-white hover:bg-dustLight hover:text-dustDark focus:bg-dustLight focus:text-dustDark"
                       >
                         <p>Sign Up</p>
-                        <i className="fas fa-angle-right"></i>
+                        <AiOutlineRight />
                       </Link>
                     </div>
-                    {console.log(err)}
                   </div>
                 </form>
               </div>
