@@ -55,6 +55,10 @@ module.exports = {
       red: "#DB524E",
       green: "#32CD32",
       transparent: "transparent",
+      redtext: "#B91C1C",
+      redtext2: "#991B1B",
+      redBg: "#FEE2E2",
+      redBg2: "#FECACA",
     },
 
     extend: {
