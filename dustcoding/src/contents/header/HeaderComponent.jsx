@@ -1,15 +1,23 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { MdMenu } from "react-icons/md";
-import { FaUserAlt } from "react-icons/fa";
+import { MdMenu, MdApartment } from "react-icons/md";
+import { FaBookReader, FaUserAlt } from "react-icons/fa";
 import NavBarMobile from "./NavBarMobile";
 import logo from "../../assets/images/dust.png";
+import { AiFillHome } from "react-icons/ai";
+import { RiCustomerService2Fill } from "react-icons/ri";
+import { SiGooglesearchconsole } from "react-icons/si";
 const tabs = [
-  { id: 1, path: "/", name: "Home" },
-  { id: 2, path: "/About", name: "About" },
-  { id: 3, path: "/Service", name: "Service" },
-  { id: 4, path: "/Article", name: "Article" },
-  { id: 5, path: "/Contact", name: "Contact" },
+  { id: 1, path: "/", name: "Home", icon: <AiFillHome /> },
+  { id: 2, path: "/About", name: "About", icon: <MdApartment /> },
+  { id: 3, path: "/Service", name: "Service", icon: <SiGooglesearchconsole /> },
+  { id: 4, path: "/Article", name: "Article", icon: <FaBookReader /> },
+  {
+    id: 5,
+    path: "/Contact",
+    name: "Contact",
+    icon: <RiCustomerService2Fill />,
+  },
   { id: 6, path: "/LogIn", name: "Login", icon: <FaUserAlt /> },
 ];
 
@@ -28,13 +36,13 @@ const HeaderComponent = () => {
           {tabs.map((tab) => (
             <li
               key={tab.id}
-              className=" py-5 px-5 hover:border-b-4 hover:border-dustLight hover:bg-dustDark hover:text-dustLight active:border-dustLight"
+              className=" py-5 px-5 hover:border-dustLight hover:bg-dustDark hover:text-dustLight active:border-dustLight"
             >
               <Link
                 className="flex flex-row items-center gap-2 text-center"
                 to={tab.path}
               >
-                <span className="hidden lg:block"> {tab.icon}</span>
+                <span className="hidden w-6 text-xl lg:block"> {tab.icon}</span>
                 <span className="hidden lg:block"> {tab.name}</span>
               </Link>
             </li>

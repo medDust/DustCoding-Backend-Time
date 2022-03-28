@@ -1,24 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineLeft } from "react-icons/ai";
 import { FaCheck } from "react-icons/fa";
 import { isEmpty, isEmail, equals } from "validator";
-import { ShowErrMsg, ShowSuccess } from "../../../helpers/MessageFunctions";
+import { ShowErrMsg } from "../../../helpers/MessageFunctions";
 import { Loading } from "../../../helpers/LodingFunction";
 import dust from "../../../assets/images/dust.png";
 import contact from "../../../assets/images/contact.png";
 import { register } from "../../../api/AuthFunction";
+import { isAuthenticated, setAuthentication } from "../../../helpers/auth";
 
 const SignUp = () => {
   const [FormData, setFromData] = useState({
-    username: "test",
-    email: "testiya5ra@gmail.com",
-    password: "123456",
-    passwordConfirm: "123456",
-    fullName: "testi 5edma",
+    username: "",
+    email: "",
+    password: "",
+    passwordConfirm: "",
+    fullName: "",
     Err: false,
     isLoading: false,
-    isSuccess: false,
   });
   const navigate = useNavigate();
   const {
@@ -29,14 +29,26 @@ const SignUp = () => {
     fullName,
     Err,
     isLoading,
-    isSuccess,
   } = FormData;
 
+  useEffect(() => {
+    if (isAuthenticated()) {
+      if (isAuthenticated().data.role === 2) {
+        navigate("/Admin");
+      } else if (isAuthenticated().data.role === 1) {
+        navigate("/Employer");
+      } else if (isAuthenticated().data.role === 0) {
+        navigate("/Client");
+      }
+    } else {
+      console.log("auth problem");
+    }
+  }, [navigate]);
   const onChange = (e) => {
     setFromData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
-      isSuccess: "",
+
       Err: "",
     }));
   };
@@ -70,7 +82,6 @@ const SignUp = () => {
       setFromData({ ...FormData, isLoading: true });
       register(data)
         .then((res) => {
-          console.log(res);
           setFromData({
             username: "",
             fullName: "",
@@ -78,21 +89,17 @@ const SignUp = () => {
             password: "",
             passwordConfirm: "",
             isLoading: false,
-            isSuccess: res.data.SuccessMsg,
           });
-          navigate("/");
+          const Token = res.data.token;
+          const user = res.data;
+
+          setAuthentication(Token, user);
+          navigate("/Client/profile");
         })
         .catch((err) => {
           console.log("axios have error :", err);
           setFromData({ ...FormData, isLoading: false });
         });
-      // setFromData({
-      //   ...FormData,
-      //   isSuccess: "register success",
-      // });
-      // Axios.post("/auth/signUp", FormData)
-      //   .then((res) => console.log("response is success"))
-      //   .catch((err) => console.log(err));
     }
   };
 
@@ -112,7 +119,6 @@ const SignUp = () => {
                 <div className="my-2 text-center">
                   {isLoading && Loading()}
                   {Err && ShowErrMsg(Err)}
-                  {isSuccess && ShowSuccess(isSuccess)}
                 </div>
                 <form onSubmit={onSubmit} noValidate>
                   <div className="mt-4">

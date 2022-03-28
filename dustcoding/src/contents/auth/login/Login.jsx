@@ -1,34 +1,45 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import dust from "../../../assets/images/dust.png";
 import contact from "../../../assets/images/contact.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaKey } from "react-icons/fa";
 import { isEmpty, isEmail } from "validator";
-import { ShowErrMsg, ShowSuccess } from "../../../helpers/MessageFunctions";
+import { ShowErrMsg } from "../../../helpers/MessageFunctions";
 import { LogIn } from "../../../api/AuthFunction";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { Loading } from "../../../helpers/LodingFunction";
+import { isAuthenticated, setAuthentication } from "../../../helpers/auth";
 
 const Login = () => {
   const [FormData, setFromData] = useState({
-    username: "",
     email: "",
     password: "",
-    passwordConfirm: "",
-    fullName: "",
     Err: false,
     isLoading: false,
-    isSuccess: false,
   });
-  // const navigate = useNavigate();
-  const { email, password, Err, isLoading, isSuccess } = FormData;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated()) {
+      if (isAuthenticated().data.role === 2) {
+        navigate("/Admin/Dashboard");
+      } else if (isAuthenticated().data.role === 1) {
+        navigate("/Employer");
+      } else if (isAuthenticated().data.role === 0) {
+        navigate("/Client");
+      }
+    } else {
+      console.log("auth problem");
+    }
+  }, [navigate]);
+
+  const { email, password, Err, isLoading } = FormData;
 
   const onChange = (e) => {
     setFromData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
-      isSuccess: "",
       Err: "",
     }));
   };
@@ -47,20 +58,29 @@ const Login = () => {
     } else {
       const { email, password } = FormData;
 
-      const data = { email, password };
+      const data = { email, password, Err };
 
       setFromData({ ...FormData, isLoading: true });
       LogIn(data)
         .then((res) => {
-          console.log("sucess Login", res);
-          setFromData({
-            email: "",
-            password: "",
-            isLoading: false,
-            isSuccess: res.data.SuccessMsg,
-            Err: res.data.ErrMessage,
-          });
-          // navigate("/Client/Profile");
+          const Token = res.data.token;
+          const user = res.data;
+
+          setAuthentication(Token, user);
+          if (isAuthenticated()) {
+            if (isAuthenticated().data.role === 2) {
+              console.log("admin panel");
+              navigate("/Admin/Dashboard");
+            } else if (isAuthenticated().data.role === 1) {
+              console.log("employer panel");
+              navigate("/Employer");
+            } else if (isAuthenticated().data.role === 0) {
+              console.log("client panel");
+              navigate("/Client");
+            }
+          } else {
+            console.log("auth problem");
+          }
         })
         .catch((err) => {
           console.log("axios have error :", err);
@@ -83,9 +103,8 @@ const Login = () => {
                   Login to your account
                 </h3>
                 <div className="my-2 text-center">
-                  {isLoading && Loading()}
                   {Err && ShowErrMsg(Err)}
-                  {isSuccess && ShowSuccess(isSuccess)}
+                  {isLoading && Loading()}
                 </div>
                 <form onSubmit={onSubmit} method="POST">
                   <div className="mt-4">
@@ -98,19 +117,19 @@ const Login = () => {
                         value={email}
                         onChange={onChange}
                         placeholder="Email"
-                        className="10 1 focus:ring-blue-600 mt-2 w-full rounded-md border px-4 py-2 focus:outline-none focus:ring-1"
+                        className="10 1 mt-2 w-full rounded-md border px-4 py-2 focus:outline-none focus:ring-1 focus:ring-blue-600"
                       />
                     </div>
                     <div className="mt-4">
                       <label className="block">Password</label>
                       <input
+                        className="mt-d2 w-full rounded-md border px-4 py-2 focus:outline-none focus:ring-1 focus:ring-blue-600"
                         type="password"
                         id="password"
                         name="password"
                         value={password}
                         onChange={onChange}
                         placeholder="Password"
-                        className="focus:ring-blue-600 mt-2 w-full rounded-md border px-4 py-2 focus:outline-none focus:ring-1"
                       />
                     </div>
                     <div className="m-5 grid items-center justify-center space-y-2 text-center">

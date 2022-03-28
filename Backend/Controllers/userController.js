@@ -9,7 +9,7 @@ const register = AsyncHandler(async (req, res) => {
     const { fullName, username, email, password } = req.body;
 
     if (!username || !email || !password || !fullName) {
-      res.status(400);
+      res.status(401);
       throw new Error("please entre all filed");
     }
     if (!validator.isEmail(email)) {
@@ -52,19 +52,43 @@ const register = AsyncHandler(async (req, res) => {
 const login = AsyncHandler(async (req, res) => {
   try {
     const { email, password } = req.body;
+
+    if (!email || !password) {
+      res.status(401);
+      throw new Error("please entre all filed");
+    }
+
     const user = await Users.findOne({ email });
 
-    const passwordHash = await bcrypt.hash(password, 15);
-    const verifPwd = bcrypt.compare(passwordHash, user.password);
-    if (!passwordIsValid) {
-    return  res.status(401).send({
+    if (!validator.isEmail(email)) {
+      return res.status(401).json("Invalid mail");
+    }
+    if (!user) {
+      return res.status(400).json({ ErrMessage: "user invalid" });
+    }
+    const verifPwd = await bcrypt.compare(password, user.password);
+
+    if (!verifPwd) {
+      return res.status(401).send({
         accessToken: null,
         ErrMessage: "Invalid Password!",
       });
     }
+
+    const token = createAccessToken(user._id);
+    const data = {
+      id: user._id,
+      username: user.username,
+      fullName: user.fullName,
+      email: user.email,
+      role: user.role,
+    };
     if (user && verifPwd) {
-      res.status(201).json({
-        SuccessMsg: "Account created Success",
+   
+      res.status(200).json({
+        token,
+        data,
+        SuccessMsg: "Logged success",
       });
     } else {
       res.status(401);

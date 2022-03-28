@@ -15,7 +15,7 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-import logo from "../../../assets/images/logo_white.png";
+import logo from "../../../assets/images/logowhite.png";
 
 let routes = [
   {
@@ -54,7 +54,7 @@ let routes = [
     name: "Projects",
   },
   {
-    path: "/Admin",
+    path: "/LogIn",
     icon: <FaPowerOff />,
     name: "Log Out",
   },
@@ -62,7 +62,7 @@ let routes = [
 
 const SideBar = () => {
   return (
-    <div className="bg-dustM shadow-dustM  w-3/12 py-3 pl-3 text-white shadow-lg">
+    <div className="w-3/12 bg-dustM  py-3 pl-3 text-white shadow-lg shadow-dustM">
       <div className="mb-5 flex items-center space-x-4 p-2">
         <img
           className="h-12 rounded-full"
@@ -84,7 +84,7 @@ const SideBar = () => {
           <li>
             <Link
               to={routes.path}
-              className="focus:shadow-outline hover:text-dustDark flex items-center space-x-3 rounded-l-full p-2 px-7 font-medium text-gray-700 hover:bg-white"
+              className="focus:shadow-outline flex items-center space-x-3 rounded-l-full p-2 px-7 font-medium text-gray-700 hover:bg-white hover:text-dustDark"
             >
               <span className="text-gray-600">{routes.icon}</span>
               <span>{routes.name}</span>

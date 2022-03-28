@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import {
   Home,
   About,
@@ -11,113 +11,183 @@ import {
   Login,
   SignUp,
 } from "./contents";
+import {
+  SideBar,
+  ArticlesPage,
+  DashboardPage,
+  EmployersPages,
+  MailingPage,
+  PartnersPages,
+  ProjectsPages,
+  ServicesPage,
+} from "./Views/admin";
 import { Meeting, Messaging, NavBar, Profile } from "./Views/cLient";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { isAuthenticated } from "./helpers/auth";
 const App = () => {
-  const tabs = [
-    {
-      id: 0,
-      path: "/",
-      name: (
-        <>
-          <Home />
-        </>
-      ),
-    },
-    {
-      id: 1,
-      path: "Home",
-      name: (
-        <>
-          <Home />
-        </>
-      ),
-    },
-    {
-      id: 2,
-      path: "About",
-      name: (
-        <>
-          <About />
-        </>
-      ),
-    },
-    {
-      id: 3,
-      path: "Service",
-      name: (
-        <>
-          <HeaderComponent />
-          <Service />
-
-          <FooterComponent />
-        </>
-      ),
-    },
-    {
-      id: 4,
-      path: "Article",
-      name: (
-        <>
-          <HeaderComponent />
-          <Articles />
-          <FooterComponent />
-        </>
-      ),
-    },
-    {
-      id: 5,
-      path: "Contact",
-      name: (
-        <>
-          <HeaderComponent />
-          <Contact />
-          <FooterComponent />
-        </>
-      ),
-    },
-
-    { id: 6, path: "/LogIn", name: <Login /> },
-    { id: 7, path: "/SignUp", name: <SignUp /> },
-    {
-      id: 8,
-      path: "/Client/meeting",
-      name: (
-        <>
-          <NavBar />
-          <Meeting />
-        </>
-      ),
-    },
-    {
-      id: 9,
-      path: "/Client/profile",
-      name: (
-        <>
-          <NavBar />
-          <Profile />
-        </>
-      ),
-    },
-    {
-      id: 10,
-      path: "/Client/messaging",
-      name: (
-        <>
-          <NavBar />
-          <Messaging />
-        </>
-      ),
-    },
-    { id: 0, path: "*", name: <NotFoundPage /> },
-  ];
   return (
     <div>
       <Router>
         <Routes>
-          {tabs.map((route) => (
-            <Route key={route.id} path={route.path} element={route.name} />
-          ))}
+          <Route
+            path="/"
+            element={
+              <>
+                <Home />
+              </>
+            }
+          />
+          <Route
+            path="/Home"
+            element={
+              <>
+                <Home />
+              </>
+            }
+          />
+          <Route
+            path="/About"
+            element={
+              <>
+                <About />
+              </>
+            }
+          />
+          <Route
+            path="/Service"
+            element={
+              <>
+                <HeaderComponent />
+                <Service />
+
+                <FooterComponent />
+              </>
+            }
+          />
+          <Route
+            path="/Article"
+            element={
+              <>
+                <HeaderComponent />
+                <Articles />
+                <FooterComponent />
+              </>
+            }
+          />
+          <Route
+            path="/Contact"
+            element={
+              <>
+                <HeaderComponent />
+                <Contact />
+                <FooterComponent />
+              </>
+            }
+          />
+          {isAuthenticated() && isAuthenticated().role === 0 && (
+            <Fragment>
+              <Route
+                path="/Client/meeting"
+                element={
+                  <>
+                    <NavBar />
+                    <Meeting />
+                  </>
+                }
+              />
+              <Route
+                path="/Client/profile"
+                element={
+                  <>
+                    <NavBar />
+                    <Profile />
+                  </>
+                }
+              />
+
+              <Route
+                path="/Client/messaging"
+                element={
+                  <>
+                    <NavBar />
+                    <Messaging />
+                  </>
+                }
+              />
+            </Fragment>
+          )}
+          {isAuthenticated() && isAuthenticated().role === 2 && (
+            <Fragment>
+              <Route
+                path="/Admin/Dashboard"
+                element={
+                  <div className="flex">
+                    <SideBar />
+                    <DashboardPage />
+                  </div>
+                }
+              />
+
+              <Route
+                path="/Admin/Articles"
+                element={
+                  <div className="flex">
+                    <SideBar />
+                    <ArticlesPage />
+                  </div>
+                }
+              />
+              <Route
+                path="/Admin/Service"
+                element={
+                  <div className="flex">
+                    <SideBar />
+                    <ServicesPage />
+                  </div>
+                }
+              />
+              <Route
+                path="/Admin/Employers"
+                element={
+                  <div className="flex">
+                    <SideBar />
+                    <EmployersPages />
+                  </div>
+                }
+              />
+              <Route
+                path="/Admin/Mailing"
+                element={
+                  <div className="flex">
+                    <SideBar />
+                    <MailingPage />
+                  </div>
+                }
+              />
+              <Route
+                path="/Admin/Partners"
+                element={
+                  <div className="flex">
+                    <SideBar />
+                    <PartnersPages />
+                  </div>
+                }
+              />
+              <Route
+                path="/Admin/Projects"
+                element={
+                  <div className="flex">
+                    <SideBar />
+                    <ProjectsPages />
+                  </div>
+                }
+              />
+          
+            </Fragment>
+          )}
+          <Route path="/LogIn" element={<Login />} />
+          <Route path="/SignUp" element={<SignUp />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>
     </div>

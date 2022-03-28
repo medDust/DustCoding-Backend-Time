@@ -8,7 +8,7 @@ const SectionWelcome = () => {
       <div className=" mx-auto grid w-[500px] items-center gap-3 p-10 text-center lg:justify-center lg:text-center">
         <img className="mx-auto w-[196px]" src={logo} alt="logo" />
         <h2 className="text-xs font-extrabold text-white md:text-sm lg:text-4xl">
-          DUSTcoding is Software Company
+          DUSTcoding Technology Company
         </h2>
         <Link to="/LogIn">
           <CustomBtn children="Join Us" />
