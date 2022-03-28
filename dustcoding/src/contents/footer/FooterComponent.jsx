@@ -1,25 +1,25 @@
 import React from "react";
 import { FaFacebookF, FaLinkedin, FaTwitter } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import dust from "../../assets/images/logowhite.png";
+import dust from "../../assets/images/dust.png";
 
-import CustomBtn from "../../components/elements/CustomBtn";
+import BtnContact from "../../components/elements/BtnContact.jsx";
 
 const FooterComponent = () => {
   return (
-    <footer className="mx-auto flex h-1/4 flex-wrap items-center justify-between bg-dustDark">
-      <div className="min-h-1/6 w-full uppercase text-white">
+    <footer className="mx-auto flex h-1/4 flex-wrap items-center justify-between bg-white">
+      <div className="min-h-1/6 w-full uppercase text-dustDark">
         <div className="mx-auto flex flex-col flex-wrap items-center justify-between space-y-4 p-10">
           <div>
             <img className="w-[240px]" src={dust} alt="logo" />
           </div>
           <div>
             <Link to="/Contact" className="hover:text-dustLight">
-              <CustomBtn children="Contact Us" />
+              <BtnContact children="Contact Us" />
             </Link>
           </div>
           <div>
-            <ul className="mx-auto flex text-center text-base text-white md:text-xl">
+            <ul className="mx-auto flex text-center text-base text-dustDark md:text-xl">
               <li className="cursor-pointer p-2 hover:underline">
                 <Link to="/service" className="hover:text-dustLight">
                   Terms & Conditions
@@ -38,7 +38,7 @@ const FooterComponent = () => {
             </ul>
           </div>
           <div>
-            <ul className="mx-auto flex text-center text-xl text-white">
+            <ul className="mx-auto flex text-center text-xl text-dustDark">
               <li className="cursor-pointer p-2">
                 <a
                   href="https://www.facebook.com/DTcoding"
@@ -65,7 +65,7 @@ const FooterComponent = () => {
               </li>
             </ul>
           </div>
-          <div className="mx-auto flex text-center text-xs text-white">
+          <div className="mx-auto flex text-center text-xs text-dustDark">
             Copyright DUSTcoding © 2021
           </div>
         </div>

@@ -1,5 +1,5 @@
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  content: ["./src/**/*.{js,jsx,ts,tsx}", "./node_modules/flowbite/**/*.js"],
   variants: {
     display: [
       "children",
@@ -80,5 +80,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-children")],
+  plugins: [require("tailwindcss-children"), require("flowbite/plugin")],
 };
