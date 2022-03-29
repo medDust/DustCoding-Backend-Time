@@ -7,6 +7,7 @@ import {
   getUser,
 } from "../Controllers/userController.js";
 import protect from "../Middleware/authMiddleware.js";
+
 const router = express.Router();
 
 router.post("/signUp", register);

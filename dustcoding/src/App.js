@@ -30,6 +30,7 @@ const App = () => {
       <Router>
         <Routes>
           <Route
+            index
             path="/"
             element={
               <>
@@ -38,6 +39,7 @@ const App = () => {
             }
           />
           <Route
+            exact
             path="/Home"
             element={
               <>
@@ -46,6 +48,7 @@ const App = () => {
             }
           />
           <Route
+            exact
             path="/About"
             element={
               <>
@@ -54,6 +57,7 @@ const App = () => {
             }
           />
           <Route
+            exact
             path="/Service"
             element={
               <>
@@ -65,6 +69,7 @@ const App = () => {
             }
           />
           <Route
+            exact
             path="/Article"
             element={
               <>
@@ -75,6 +80,7 @@ const App = () => {
             }
           />
           <Route
+            exact
             path="/Contact"
             element={
               <>
@@ -84,8 +90,19 @@ const App = () => {
               </>
             }
           />
-
+          {/* client route */}
           <Route
+            exact
+            path="/Client"
+            element={
+              <>
+                <NavBar />
+                <Profile />
+              </>
+            }
+          />
+          <Route
+            exact
             path="/Client/meeting"
             element={
               <>
@@ -95,6 +112,7 @@ const App = () => {
             }
           />
           <Route
+            exact
             path="/Client/profile"
             element={
               <>
@@ -105,6 +123,7 @@ const App = () => {
           />
 
           <Route
+            exact
             path="/Client/messaging"
             element={
               <>
@@ -113,8 +132,9 @@ const App = () => {
               </>
             }
           />
-
+          {/* Admin Route */}
           <Route
+            exact
             path="/Admin/Dashboard"
             element={
               <div className="flex">
@@ -125,6 +145,7 @@ const App = () => {
           />
 
           <Route
+            exact
             path="/Admin/Articles"
             element={
               <div className="flex">
@@ -134,6 +155,7 @@ const App = () => {
             }
           />
           <Route
+            exact
             path="/Admin/Service"
             element={
               <div className="flex">
@@ -143,6 +165,7 @@ const App = () => {
             }
           />
           <Route
+            exact
             path="/Admin/Employers"
             element={
               <div className="flex">
@@ -152,6 +175,7 @@ const App = () => {
             }
           />
           <Route
+            exact
             path="/Admin/Mailing"
             element={
               <div className="flex">
@@ -161,6 +185,7 @@ const App = () => {
             }
           />
           <Route
+            exact
             path="/Admin/Partners"
             element={
               <div className="flex">
@@ -170,6 +195,7 @@ const App = () => {
             }
           />
           <Route
+            exact
             path="/Admin/Projects"
             element={
               <div className="flex">
@@ -179,8 +205,8 @@ const App = () => {
             }
           />
 
-          <Route path="/LogIn" element={<Login />} />
-          <Route path="/SignUp" element={<SignUp />} />
+          <Route exact path="/LogIn" element={<Login />} />
+          <Route exact path="/SignUp" element={<SignUp />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>

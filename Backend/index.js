@@ -6,6 +6,7 @@ import apiUser from "./Routes/userRoutes.js";
 import apiArt from "./Routes/articlesRouter.js";
 import apiSdl from "./Routes/slideRouter.js";
 import apiSrv from "./Routes/servicesRouter.js";
+import apichat from "./Routes/chatRouter.js";
 import errorHandler from "./Middleware/errorMiddleware.js";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
@@ -23,6 +24,8 @@ app.use("/api/auth", apiUser);
 app.use("/api/articles", apiArt);
 app.use("/api/slides", apiSdl);
 app.use("/api/services", apiSrv);
+app.use("/api/chat", apichat);
+
 app.use("*", (req, res) => {
   res.status(404).json({ error: "Page not found" });
 });

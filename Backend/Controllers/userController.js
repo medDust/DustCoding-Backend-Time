@@ -84,7 +84,6 @@ const login = AsyncHandler(async (req, res) => {
       role: user.role,
     };
     if (user && verifPwd) {
-   
       res.status(200).json({
         token,
         data,
@@ -140,5 +139,22 @@ const getUser = AsyncHandler(async (req, res) => {
 const createAccessToken = ({ id }) => {
   return jwt.sign({ id }, process.env.JWT_ACCESS, { expiresIn: "11m" });
 };
+
+{
+  /* const allUsers = AsyncHandler(async (req, res) => {
+  const keyword = req.query.search
+    ? {
+        $or: [
+          { name: { $regex: req.query.search, $options: "i" } },
+          { email: { $regex: req.query.search, $options: "i" } },
+        ],
+      }
+    : {};
+  const users = await users.find(keyword).find({
+    _id: { $ne: req.user_id },
+  });
+  res.send(users);
+});*/
+}
 
 export { register, login, logout, refreshTokens, getUser };
