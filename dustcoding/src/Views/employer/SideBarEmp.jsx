@@ -50,7 +50,7 @@ let routes = [
   },
 ];
 
-const SideBar = () => {
+const SideBarEmp = () => {
   return (
     <div className="sidebar fixed top-14 left-0 z-10 flex h-full w-64 flex-col border-none bg-dustDark text-white transition-all duration-300 active:w-full sm:w-64">
       <div className="flex flex-grow flex-col justify-between overflow-y-auto overflow-x-hidden">
@@ -122,4 +122,4 @@ const SideBar = () => {
   );
 };
 
-export default SideBar;
+export default SideBarEmp;

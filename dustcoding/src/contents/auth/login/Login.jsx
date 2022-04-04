@@ -69,13 +69,13 @@ const Login = () => {
           setAuthentication(Token, user);
           if (isAuthenticated()) {
             if (isAuthenticated().data.role === 2) {
-              console.log("admin panel");
+           
               navigate("/Admin/Dashboard");
             } else if (isAuthenticated().data.role === 1) {
-              console.log("employer panel");
+      
               navigate("/Employer");
             } else if (isAuthenticated().data.role === 0) {
-              console.log("client panel");
+           
               navigate("/Client");
             }
           } else {
