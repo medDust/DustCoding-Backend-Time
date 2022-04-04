@@ -1,7 +1,5 @@
 import axios from "axios";
 
-
-
 export const register = async (data) => {
   const config = {
     headers: {
@@ -16,6 +14,7 @@ export const register = async (data) => {
   );
   return res;
 };
+
 export const registerEmp = async (data) => {
   const config = {
     headers: {
@@ -44,6 +43,7 @@ export const LogIn = async (data) => {
   );
   return res;
 };
+
 export const GetUsers = async () => {
   const config = {
     headers: {
@@ -54,7 +54,6 @@ export const GetUsers = async () => {
 
   const res = await axios.get(
     "http://localhost:5000/api/auth/infos",
-
     config
   );
   return res;

@@ -25,7 +25,6 @@ import {
 import { Meeting, Messaging, NavBar, Profile } from "./Views/cLient";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import {
-
   ProtectedRouter,
   ProtectedRouterUser,
 } from "./helpers/ProtectedRouter";
@@ -105,7 +104,7 @@ const App = () => {
           {/* client route */}
           <Route element={<ProtectedRouterUser isLogged={isAuthenticated()} />}>
             <Route
-              exact
+              index
               path="/Client"
               element={
                 <>
@@ -149,7 +148,7 @@ const App = () => {
           {/* Admin Route */}
           <Route element={<ProtectedRouter isLogged={isAuthenticated()} />}>
             <Route
-              exact
+              index
               path="/Admin/Dashboard"
               element={
                 <div className="flex justify-between">

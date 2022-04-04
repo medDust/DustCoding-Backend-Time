@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { isEmpty, isEmail, equals } from "validator";
 import { registerEmp } from "../../../../api/AuthFunction";
-import { setAuthentication } from "../../../../helpers/auth";
 import { Loading } from "../../../../helpers/LodingFunction";
 import { ShowErrMsg } from "../../../../helpers/MessageFunctions";
 const ModalsEmployer = () => {
@@ -31,7 +30,6 @@ const ModalsEmployer = () => {
     setFromData((prevState) => ({
       ...prevState,
       [e.target.name]: e.target.value,
-
       Err: "",
     }));
   };
@@ -39,7 +37,7 @@ const ModalsEmployer = () => {
     e.preventDefault();
     if (
       isEmpty(username) ||
-      //   isEmpty(email) ||
+      isEmpty(email) ||
       isEmpty(fullName) ||
       isEmpty(password) ||
       isEmpty(passwordConfirm) ||
@@ -60,10 +58,10 @@ const ModalsEmployer = () => {
         Err: "Password do not match",
       });
     } else {
-      const { username, fullName, email, password } = FormData;
+      const { username, fullName, email, password, department } = FormData;
 
       const data = { username, fullName, email, password, department };
-      console.log(data);
+
       setFromData({ ...FormData, isLoading: true });
       registerEmp(data)
         .then((res) => {
@@ -76,8 +74,6 @@ const ModalsEmployer = () => {
             department: "",
             isLoading: false,
           });
-   
-     
         })
         .catch((err) => {
           console.log("axios have error :", err);
@@ -162,7 +158,7 @@ const ModalsEmployer = () => {
                       name="email"
                       value={email}
                       onChange={onChange}
-                      placeholder="E-mail"
+                      placeholder=" "
                       required
                       className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-blue-500"
                     />

@@ -5,17 +5,15 @@ import { Navigate, Outlet } from "react-router-dom";
 export const ProtectedRouter = ({ isLogged }) => {
   const admin = isAuthenticated().data.role === 2;
 
-  return isLogged && admin ? <Outlet /> : <Navigate to="/" />;
+  return isLogged && admin ? <Outlet /> : <Navigate to="/home" />;
 };
 
 export const ProtectedRouterUser = ({ isLogged }) => {
   const client = isAuthenticated().data.role === 0;
 
-  return isLogged && client ? <Outlet /> : <Navigate to="/" />;
+  return isLogged && client ? <Outlet /> : <Navigate to="/home" />;
 };
 export const ProtectedRouterEmployer = ({ isLogged }) => {
   const Employer = isAuthenticated().data.role === 1;
-
-  return isLogged && Employer ? <Outlet /> : <Navigate to="/" />;
+  return isLogged && Employer ? <Outlet /> : <Navigate to="/home" />;
 };
-
