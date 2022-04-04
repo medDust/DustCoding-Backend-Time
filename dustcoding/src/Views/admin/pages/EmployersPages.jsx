@@ -41,7 +41,7 @@ const EmployersPage = () => {
                 </tr>
               </thead>
               <tbody className="divide-y bg-white dark:divide-gray-700 dark:bg-gray-800">
-                {employers.includes(employers.role !== 0 ).map((emp) =>
+                {employers.map((emp) =>
               
                    <tr className="text-gray-700 dark:text-gray-400" key={emp.id}>
                     <td className="px-4 py-3">
