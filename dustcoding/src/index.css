@@ -2,9 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
+.header-right {
+  width: calc(100% - 3.5rem);
+}
+.sidebar:hover {
+  width: 16rem;
+}
 @layer components {
   .brand {
-    @apply flex relative w-52 h-32 sm:w-64 sm:h-36 border-4 border-dustLight border-opacity-10 rounded-lg cursor-pointer shadow-xl overflow-hidden hover:border-opacity-80 hover:shadow-2xl transform hover:scale-105 transition duration-300;
+    @apply relative flex h-32 w-52 transform cursor-pointer overflow-hidden rounded-lg border-4 border-dustLight border-opacity-10 shadow-xl transition duration-300 hover:scale-105 hover:border-opacity-80 hover:shadow-2xl sm:h-36 sm:w-64;
   }
 }
 body {
@@ -19,4 +27,10 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+@media only screen and (min-width: 768px) {
+  .header-right {
+    width: calc(100% - 16rem);
+  }
 }

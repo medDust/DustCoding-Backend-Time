@@ -1,18 +1,17 @@
-import project from "../models/projectModels";
-import Client from "../models/clientsModel";
-import Employer from "../models/employerModel";
+import project from "../models/projectModels.js";
+import user from "../models/userModel.js";
+
 import asyncHandler from "express-async-handler";
 
 const getProject = asyncHandler(async (req, res) => {
-  const projects = await project.find({
-    client: req.client.id,
-    employer: req.employer.id,
+  const project = await project.find({
+    user: req.user.id,
   });
   if (!project) {
     res.status(400);
     throw new Error("is not projects");
   }
-  res.status(200).json(projects);
+  res.status(200).json(project);
 });
 
 // create method
@@ -22,26 +21,25 @@ const setProjects = asyncHandler(async (req, res) => {
     throw new Error("please add everything ");
   }
 
-  const newProduct = await project.create({
+  const newProject = await project.create({
     title: req.body.title,
     description: req.body.description,
     planing: req.body.planing,
-    employer: req.employer.id,
-    client: req.client.id,
+    user: req.user.id,
   });
-  res.status(200).json(newProduct);
+  res.status(200).json(newProject);
 });
 
 //update method
-const updateProjects = asyncHandler((req, res) => {
-  const client = await Client.findById(req.client.id);
-  const employer = await Employer.findById(req.employer.id);
+const updateProjects = asyncHandler(async (req, res) => {
+  const project = await Projects.findById(req.project.id);
+
   //ckeck client
-  if (!client || !employer) {
+  if (!user) {
     res.status(401);
     throw new Error("user not found");
   }
-  if (project.client.toString() !== client.id) {
+  if (projects.user.toString() !== user.id) {
     res.status(401);
     throw new Error();
   }
@@ -56,14 +54,13 @@ const updateProjects = asyncHandler((req, res) => {
 
 // delate method
 const delateProjects = asyncHandler(async (req, res) => {
-  const client = await Client.findById(req.client.id);
-  const employer = await Employer.findById(req.employer.id);
+  const user = await user.findById(req.user.id);
   //check client
-  if (!client || !employer) {
+  if (!user) {
     res.status(401);
     throw new Error("user not found");
   }
-  if (project.client.toString() !== client.id) {
+  if (project.user.toString() !== user.id) {
     res.status(401);
     throw new Error();
   }

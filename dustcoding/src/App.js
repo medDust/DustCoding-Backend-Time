@@ -1,4 +1,5 @@
-import React, { Fragment } from "react";
+import React from "react";
+
 import {
   Home,
   About,
@@ -23,6 +24,11 @@ import {
 } from "./Views/admin";
 import { Meeting, Messaging, NavBar, Profile } from "./Views/cLient";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  ProtectedRouter,
+  ProtectedRouterUser,
+} from "./helpers/ProtectedRouter";
+import { isAuthenticated } from "./helpers/auth";
 
 const App = () => {
   return (
@@ -30,6 +36,7 @@ const App = () => {
       <Router>
         <Routes>
           <Route
+            index
             path="/"
             element={
               <>
@@ -38,6 +45,7 @@ const App = () => {
             }
           />
           <Route
+            exact
             path="/Home"
             element={
               <>
@@ -46,6 +54,7 @@ const App = () => {
             }
           />
           <Route
+            exact
             path="/About"
             element={
               <>
@@ -54,6 +63,7 @@ const App = () => {
             }
           />
           <Route
+            exact
             path="/Service"
             element={
               <>
@@ -65,6 +75,7 @@ const App = () => {
             }
           />
           <Route
+            exact
             path="/Article"
             element={
               <>
@@ -75,6 +86,7 @@ const App = () => {
             }
           />
           <Route
+            exact
             path="/Contact"
             element={
               <>
@@ -85,103 +97,128 @@ const App = () => {
             }
           />
 
-          <Route
-            path="/Client/meeting"
-            element={
-              <>
-                <NavBar />
-                <Meeting />
-              </>
-            }
-          />
-          <Route
-            path="/Client/profile"
-            element={
-              <>
-                <NavBar />
-                <Profile />
-              </>
-            }
-          />
+          <Route exact path="/LogIn" element={<Login />} />
+          <Route exact path="/SignUp" element={<SignUp />} />
 
-          <Route
-            path="/Client/messaging"
-            element={
-              <>
-                <NavBar />
-                <Messaging />
-              </>
-            }
-          />
-
-          <Route
-            path="/Admin/Dashboard"
-            element={
-              <div className="flex">
-                <SideBar />
-                <DashboardPage />
-              </div>
-            }
-          />
-
-          <Route
-            path="/Admin/Articles"
-            element={
-              <div className="flex">
-                <SideBar />
-                <ArticlesPage />
-              </div>
-            }
-          />
-          <Route
-            path="/Admin/Service"
-            element={
-              <div className="flex">
-                <SideBar />
-                <ServicesPage />
-              </div>
-            }
-          />
-          <Route
-            path="/Admin/Employers"
-            element={
-              <div className="flex">
-                <SideBar />
-                <EmployersPages />
-              </div>
-            }
-          />
-          <Route
-            path="/Admin/Mailing"
-            element={
-              <div className="flex">
-                <SideBar />
-                <MailingPage />
-              </div>
-            }
-          />
-          <Route
-            path="/Admin/Partners"
-            element={
-              <div className="flex">
-                <SideBar />
-                <PartnersPages />
-              </div>
-            }
-          />
-          <Route
-            path="/Admin/Projects"
-            element={
-              <div className="flex">
-                <SideBar />
-                <ProjectsPages />
-              </div>
-            }
-          />
-
-          <Route path="/LogIn" element={<Login />} />
-          <Route path="/SignUp" element={<SignUp />} />
           <Route path="*" element={<NotFoundPage />} />
+          {/* client route */}
+          <Route element={<ProtectedRouterUser isLogged={isAuthenticated()} />}>
+            <Route
+              index
+              path="/Client"
+              element={
+                <>
+                  <NavBar />
+                  <Profile />
+                </>
+              }
+            />
+            <Route
+              exact
+              path="/Client/meeting"
+              element={
+                <>
+                  <NavBar />
+                  <Meeting />
+                </>
+              }
+            />
+            <Route
+              exact
+              path="/Client/profile"
+              element={
+                <>
+                  <NavBar />
+                  <Profile />
+                </>
+              }
+            />
+
+            <Route
+              exact
+              path="/Client/messaging"
+              element={
+                <>
+                  <NavBar />
+                  <Messaging />
+                </>
+              }
+            />
+          </Route>
+          {/* Admin Route */}
+          <Route element={<ProtectedRouter isLogged={isAuthenticated()} />}>
+            <Route
+              index
+              path="/Admin/Dashboard"
+              element={
+                <div className="flex justify-between">
+                  <SideBar />
+                  <DashboardPage />
+                </div>
+              }
+            />
+
+            <Route
+              exact
+              path="/Admin/Articles"
+              element={
+                <div className="flex justify-between">
+                  <SideBar />
+                  <ArticlesPage />
+                </div>
+              }
+            />
+            <Route
+              exact
+              path="/Admin/Service"
+              element={
+                <div className="flex justify-between">
+                  <SideBar />
+                  <ServicesPage />
+                </div>
+              }
+            />
+            <Route
+              exact
+              path="/Admin/Employers"
+              element={
+                <div className="flex justify-between">
+                  <SideBar />
+                  <EmployersPages />
+                </div>
+              }
+            />
+            <Route
+              exact
+              path="/Admin/Mailing"
+              element={
+                <div className="flex justify-between">
+                  <SideBar />
+                  <MailingPage />
+                </div>
+              }
+            />
+            <Route
+              exact
+              path="/Admin/Partners"
+              element={
+                <div className="flex justify-between">
+                  <SideBar />
+                  <PartnersPages />
+                </div>
+              }
+            />
+            <Route
+              exact
+              path="/Admin/Projects"
+              element={
+                <div className="flex justify-between">
+                  <SideBar />
+                  <ProjectsPages />
+                </div>
+              }
+            />
+          </Route>
         </Routes>
       </Router>
     </div>
