@@ -4,6 +4,7 @@ import Color from "colors";
 import dovenv from "dotenv/config";
 import apiUser from "./Routes/userRoutes.js";
 import apiArt from "./Routes/articlesRouter.js";
+import apiMails from "./Routes/mailRouter.js";
 import apiSdl from "./Routes/slideRouter.js";
 import apiProject from "./Routes/projectRouter.js";
 import apiSrv from "./Routes/servicesRouter.js";
@@ -24,6 +25,7 @@ app.use(morgan("dev"));
 app.use("/api/auth", apiUser);
 // app.use("/api/reqPro", apiProject);
 app.use("/api/articles", apiArt);
+app.use("/api/mails", apiMails);
 app.use("/api/slides", apiSdl);
 app.use("/api/services", apiSrv);
 app.use("*", (req, res) => {
