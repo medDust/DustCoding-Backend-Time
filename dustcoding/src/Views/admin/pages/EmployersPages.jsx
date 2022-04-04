@@ -41,9 +41,8 @@ const EmployersPage = () => {
                 </tr>
               </thead>
               <tbody className="divide-y bg-white dark:divide-gray-700 dark:bg-gray-800">
-                {employers.map((emp) =>
-              
-                   <tr className="text-gray-700 dark:text-gray-400" key={emp.id}>
+                {employers.map((emp) => (
+                  <tr className="text-gray-700 dark:text-gray-400" key={emp.id}>
                     <td className="px-4 py-3">
                       <div className="flex items-center text-sm">
                         {/* <!-- Avatar with inset shadow --> */}
@@ -65,16 +64,19 @@ const EmployersPage = () => {
                     </td>
                     <td className="px-4 py-3 text-sm">{emp.fullName}</td>
                     <td className="px-4 py-3 text-xs">
-                  
+                      {emp.role === 2 || emp.role === 1 ? (
                         <span className="rounded-full bg-green-100 px-2 py-1 font-semibold leading-tight text-blue-700 ">
                           {emp.department}
                         </span>
-                   
+                      ) : (
+                        <span className="rounded-full bg-green-100 px-2 py-1 font-semibold leading-tight text-green-700 ">
+                          client
+                        </span>
+                      )}
                     </td>
                     <td className="px-4 py-3 text-sm">{emp.createdAt}</td>
-                  </tr> 
-                
-  )}
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
