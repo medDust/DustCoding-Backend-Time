@@ -29,6 +29,7 @@ export const registerEmp = async (data) => {
   );
   return res;
 };
+
 export const LogIn = async (data) => {
   const config = {
     headers: {
@@ -52,9 +53,6 @@ export const GetUsers = async () => {
     },
   };
 
-  const res = await axios.get(
-    "http://localhost:5000/api/auth/infos",
-    config
-  );
+  const res = await axios.get("http://localhost:5000/api/auth/infos", config);
   return res;
 };

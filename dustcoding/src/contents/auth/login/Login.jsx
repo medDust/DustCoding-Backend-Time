@@ -65,21 +65,17 @@ const Login = () => {
         .then((res) => {
           const Token = res.data.token;
           const user = res.data;
-
           setAuthentication(Token, user);
           if (isAuthenticated()) {
             if (isAuthenticated().data.role === 2) {
-           
               navigate("/Admin/Dashboard");
             } else if (isAuthenticated().data.role === 1) {
-      
               navigate("/Employer");
             } else if (isAuthenticated().data.role === 0) {
-           
               navigate("/Client");
             }
           } else {
-            console.log("auth problem");
+            console.log("login problem");
           }
         })
         .catch((err) => {
