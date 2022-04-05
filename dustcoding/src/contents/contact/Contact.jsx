@@ -1,6 +1,7 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { PostingMails } from "../../api/ContentsFunctions";
 
 const Contact = () => {
   const formik = useFormik({
@@ -8,7 +9,7 @@ const Contact = () => {
       name: "",
       email: "",
       phone: "",
-      content: "",
+      description: "",
     },
     validationSchema: Yup.object({
       name: Yup.string()
@@ -20,16 +21,24 @@ const Contact = () => {
         .min(8, "Must be 8 numbers ")
         .max(8, "Must be 8 numbers ")
         .required("Required"),
-      content: Yup.string()
+      description: Yup.string()
         .max(5000, "Must be talk about your subject")
         .required("Required"),
     }),
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      const data = JSON.stringify(values, null, 2);
+
+      PostingMails(data)
+        .then((response) => {
+          console.log("success");
+        })
+        .catch((err) => {
+          console.log("err :", err);
+        });
     },
   });
   return (
-    <section className="bg-dustCool relative z-10 overflow-hidden py-20 lg:py-32">
+    <section className="relative z-10 overflow-hidden bg-dustCool py-20 lg:py-32">
       <div className="container mx-auto">
         <div className="-mx-4 flex flex-wrap justify-center lg:justify-between">
           <div className="w-full px-4 lg:w-1/2  xl:w-6/12">
@@ -68,15 +77,15 @@ const Contact = () => {
                     name="name"
                     placeholder="Your Name"
                     className="
-                       text-dustDark
-                        border-dustLight
-                        focus:border-dustrang
-                        w-full
-                        resize-none rounded
-                        border py-3
-                        px-4
-                        text-base
+                       w-full
+                        resize-none
+                        rounded
+                        border
+                        border-dustLight py-3
+                        px-4 text-base
+                        text-dustDark
                         outline-none
+                        focus:border-dustrang
                         focus-visible:shadow-none
                         "
                     onChange={formik.handleChange}
@@ -95,15 +104,15 @@ const Contact = () => {
                     name="email"
                     placeholder="Your Email"
                     className="
-                    text-dustDark
-                    border-dustLight
-                        focus:border-dustrang
-                        w-full
-                        resize-none rounded
-                        border py-3
-                        px-4
-                        text-base
+                    w-full
+                    resize-none
+                        rounded
+                        border
+                        border-dustLight py-3
+                        px-4 text-base
+                        text-dustDark
                         outline-none
+                        focus:border-dustrang
                         focus-visible:shadow-none
                         "
                     onChange={formik.handleChange}
@@ -123,15 +132,15 @@ const Contact = () => {
                     name="phone"
                     placeholder="Your Phone"
                     className="
-                      text-dustDark
-                        border-dustLight
-                        focus:border-dustrang
-                        w-full
-                        resize-none rounded
-                        border py-3
-                        px-4
-                        text-base
+                      w-full
+                        resize-none
+                        rounded
+                        border
+                        border-dustLight py-3
+                        px-4 text-base
+                        text-dustDark
                         outline-none
+                        focus:border-dustrang
                         focus-visible:shadow-none
                         "
                     onChange={formik.handleChange}
@@ -148,26 +157,26 @@ const Contact = () => {
                   <textarea
                     rows="6"
                     placeholder="Your Message"
-                    name="content"
+                    name="description"
                     className="
-                        text-dustDark
-                        border-dustLight
-                        focus:border-dustrang
                         w-full
-                        resize-none rounded
-                        border py-3
-                        px-4
-                        text-base
+                        resize-none
+                        rounded
+                        border
+                        border-dustLight py-3
+                        px-4 text-base
+                        text-dustDark
                         outline-none
+                        focus:border-dustrang
                         focus-visible:shadow-none
                         "
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    value={formik.values.content}
+                    value={formik.values.description}
                   ></textarea>
-                  {formik.touched.content && formik.errors.content ? (
+                  {formik.touched.description && formik.errors.description ? (
                     <div className="text-red text-base">
-                      {formik.errors.content}
+                      {formik.errors.description}
                     </div>
                   ) : null}
                 </div>
@@ -175,14 +184,14 @@ const Contact = () => {
                   <button
                     type="submit"
                     className="
-                    bg-dustCool
-                    border-dustLight
-                    hover:bg-dustM
-                   shadow-dustLight hover:shadow-dustDark w-full rounded-2xl border  p-3 font-bold
-                    text-white shadow-md
-                    transition
+                    w-full
+                    rounded-2xl
+                    border
+                   border-dustLight bg-dustCool p-3 font-bold text-white  shadow-md shadow-dustLight
+                    transition hover:bg-dustM
                     hover:bg-opacity-90
                     hover:text-black
+                    hover:shadow-dustDark
                     "
                   >
                     Send Message

@@ -94,7 +94,7 @@ const SignUp = () => {
           const user = res.data;
 
           setAuthentication(Token, user);
-          navigate("/Client/profile");
+          navigate("/LogIn");
         })
         .catch((err) => {
           console.log("axios have error :", err);
