@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(morgan("dev"));
 
 app.use("/api/auth", apiUser);
-// app.use("/api/reqPro", apiProject);
+app.use("/api/reqPro", apiProject);
 app.use("/api/articles", apiArt);
 app.use("/api/mails", apiMails);
 app.use("/api/slides", apiSdl);

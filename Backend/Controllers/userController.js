@@ -1,10 +1,10 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import validator from "validator";
-import AsyncHandler from "express-async-handler";
+import asyncHandler from "express-async-handler";
 import Users from "../models/userModel.js";
 
-const register = AsyncHandler(async (req, res) => {
+const register = asyncHandler(async (req, res) => {
   try {
     const { fullName, username, email, password } = req.body;
 
@@ -48,7 +48,7 @@ const register = AsyncHandler(async (req, res) => {
     res.status(400).json({ msg: err.message });
   }
 });
-const registerEmp = AsyncHandler(async (req, res) => {
+const registerEmp = asyncHandler(async (req, res) => {
   try {
     const { fullName, username, email, password, department } = req.body;
 
@@ -95,7 +95,7 @@ const registerEmp = AsyncHandler(async (req, res) => {
   }
 });
 
-const login = AsyncHandler(async (req, res) => {
+const login = asyncHandler(async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -143,7 +143,7 @@ const login = AsyncHandler(async (req, res) => {
     return res.status(500).json({ ErrMessage: err.message });
   }
 });
-const logout = AsyncHandler(async (req, res) => {
+const logout = asyncHandler(async (req, res) => {
   try {
     res.clearCookie("refreshToken", { path: "/user/refresh_token" });
     res.clear;
@@ -153,7 +153,7 @@ const logout = AsyncHandler(async (req, res) => {
   }
 });
 
-const refreshTokens = AsyncHandler(async (req, res) => {
+const refreshTokens = asyncHandler(async (req, res) => {
   try {
     const rf_token = req.cookies.refreshToken;
     if (!rf_token) {
@@ -172,7 +172,7 @@ const refreshTokens = AsyncHandler(async (req, res) => {
   }
 });
 
-const getUsers = AsyncHandler(async (req, res) => {
+const getUsers = asyncHandler(async (req, res) => {
   try {
     const users = await Users.find().select("-password");
     res.status(200).json(users);
@@ -180,7 +180,7 @@ const getUsers = AsyncHandler(async (req, res) => {
     return res.status(500).json({ msg: err.message });
   }
 });
-const getUser = AsyncHandler(async (req, res) => {
+const getUser = asyncHandler(async (req, res) => {
   try {
     const user = await Users.findById(req.user.id).select("-password");
     if (!user) return res.status(400).json({ msg: "User does not exist." });
@@ -195,6 +195,50 @@ const createAccessToken = ({ id }) => {
   return jwt.sign({ id }, process.env.JWT_ACCESS, { expiresIn: "11m" });
 };
 
+const UpdateUser = asyncHandler(async (req, res) => {
+  try {
+    const user = await Users.findById(req.params._id);
+    if (user) {
+      user.username = req.body.username || user.username;
+      user.email = req.body.email || user.email;
+      user.fullName = req.body.fullName || user.fullName;
+      user.department = req.body.department || user.department;
+      if (req.body.password) {
+        const passwordHash = await bcrypt.hash(req.body.password, 15);
+        user.password = passwordHash || user.password;
+      }
+      const updateUser = await user.save();
+      return res.status(200).json({
+        id: updateUser.id,
+        username: updateUser.username,
+        fullName: updateUser.fullName,
+        email: updateUser.email,
+        password: updateUser.password,
+        department: updateUser.department,
+        image: updateUser.image,
+        token: createAccessToken(updateUser.id),
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
+});
+
+const deleteUser = asyncHandler(async (req, res) => {
+  try {
+    const user = Users.findById(req.params._id);
+    if (!user) {
+      return res.status(400);
+      throw new Error("is not articles");
+    } else {
+      await user.deleteOne();
+      return res.status(201).json({ id: req.params._id });
+    }
+  } catch (error) {
+    return res.status(500).json({ msg: err.message });
+  }
+});
+
 export {
   register,
   login,
@@ -203,4 +247,6 @@ export {
   getUser,
   getUsers,
   registerEmp,
+  UpdateUser,
+  deleteUser,
 };

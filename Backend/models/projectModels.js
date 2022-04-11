@@ -6,21 +6,15 @@ const projectSchema = mongoose.Schema(
       type: String,
       required: [true, "choose name please"],
     },
-    description: {
-      type: String,
-      required: [true, "let me no more about your project"],
+    Tasks: {
+      Tasks: { type: mongoose.Schema.Types.ObjectId },
     },
-
-    planing: {
-      type: String,
-      required: [true, "let see how can we work"],
-    },
-    employer: {
-      type: mongoose.Schema.Types.ObjectId,
-    },
-    client: {
-      type: mongoose.Schema.Types.ObjectId,
-    },
+    Team: [
+      {
+        Team: { type: mongoose.Schema.Types.ObjectId },
+      },
+    ],
+    
   },
   {
     timestamps: true,

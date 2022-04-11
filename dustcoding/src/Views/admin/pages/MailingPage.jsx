@@ -18,7 +18,7 @@ const MailingPage = () => {
       .catch((err) => console.log(err));
   }, []);
   const MailsList = Mails.map((mail) => (
-    <tr className="text-gray-700 dark:text-gray-400" key={mail.id}>
+    <tr className="text-gray-700 " key={mail.id}>
       <td className="px-4 py-3">
         <div className="flex items-center text-sm">
           {/* <!-- Avatar with inset shadow --> */}
@@ -29,7 +29,7 @@ const MailingPage = () => {
         </div>
       </td>
       <td className="px-4 py-3 text-sm">
-        <p className="text-xs text-gray-600 dark:text-gray-400">{mail.email}</p>
+        <p className="text-xs text-gray-600 ">{mail.email}</p>
       </td>
       <td className="px-4 py-3 text-xs">{mail.phone}</td>
       <td className="px-4 py-3 text-sm">
@@ -43,7 +43,7 @@ const MailingPage = () => {
       <HeaderComponent />
       <div className="ml-14 mt-14 mb-10 grid h-full md:ml-64 ">
         <div className="my-5 flex items-center justify-between p-2 ">
-          <span className="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
+          <span className="mb-4 text-lg font-semibold text-gray-600 ">
             List Mailing
           </span>
         </div>
@@ -52,14 +52,14 @@ const MailingPage = () => {
           <div className="w-full overflow-x-auto">
             <table className="whitespace-no-wrap w-full">
               <thead>
-                <tr className="border-b bg-gray-50 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400">
+                <tr className="border-b bg-gray-50 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 ">
                   <th className="px-4 py-3">name</th>
                   <th className="px-4 py-3">E-mail</th>
                   <th className="px-4 py-3">Phone</th>
                   <th className="px-4 py-3">Details</th>
                 </tr>
               </thead>
-              <tbody className="divide-y bg-white dark:divide-gray-700 dark:bg-gray-800">
+              <tbody className="divide-y bg-white ">
                 {MailsList}
               </tbody>
             </table>

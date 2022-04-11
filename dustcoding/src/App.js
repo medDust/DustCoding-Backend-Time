@@ -36,7 +36,6 @@ const App = () => {
       <Router>
         <Routes>
           <Route
-            index
             path="/"
             element={
               <>
@@ -45,7 +44,6 @@ const App = () => {
             }
           />
           <Route
-            exact
             path="/Home"
             element={
               <>
@@ -54,7 +52,6 @@ const App = () => {
             }
           />
           <Route
-            exact
             path="/About"
             element={
               <>
@@ -63,7 +60,6 @@ const App = () => {
             }
           />
           <Route
-            exact
             path="/Service"
             element={
               <>
@@ -75,7 +71,6 @@ const App = () => {
             }
           />
           <Route
-            exact
             path="/Article"
             element={
               <>
@@ -86,7 +81,6 @@ const App = () => {
             }
           />
           <Route
-            exact
             path="/Contact"
             element={
               <>
@@ -97,14 +91,13 @@ const App = () => {
             }
           />
 
-          <Route exact path="/LogIn" element={<Login />} />
-          <Route exact path="/SignUp" element={<SignUp />} />
+          <Route path="/LogIn" element={<Login />} />
+          <Route path="/SignUp" element={<SignUp />} />
 
           <Route path="*" element={<NotFoundPage />} />
           {/* client route */}
           <Route element={<ProtectedRouterUser isLogged={isAuthenticated()} />}>
             <Route
-              index
               path="/Client"
               element={
                 <>
@@ -114,7 +107,6 @@ const App = () => {
               }
             />
             <Route
-              exact
               path="/Client/meeting"
               element={
                 <>
@@ -124,7 +116,6 @@ const App = () => {
               }
             />
             <Route
-              exact
               path="/Client/profile"
               element={
                 <>
@@ -135,7 +126,6 @@ const App = () => {
             />
 
             <Route
-              exact
               path="/Client/messaging"
               element={
                 <>
@@ -148,7 +138,6 @@ const App = () => {
           {/* Admin Route */}
           <Route element={<ProtectedRouter isLogged={isAuthenticated()} />}>
             <Route
-              index
               path="/Admin/Dashboard"
               element={
                 <div className="flex justify-between">
@@ -159,7 +148,6 @@ const App = () => {
             />
 
             <Route
-              exact
               path="/Admin/Articles"
               element={
                 <div className="flex justify-between">
@@ -169,7 +157,6 @@ const App = () => {
               }
             />
             <Route
-              exact
               path="/Admin/Service"
               element={
                 <div className="flex justify-between">
@@ -179,7 +166,6 @@ const App = () => {
               }
             />
             <Route
-              exact
               path="/Admin/Employers"
               element={
                 <div className="flex justify-between">
@@ -189,7 +175,6 @@ const App = () => {
               }
             />
             <Route
-              exact
               path="/Admin/Mailing"
               element={
                 <div className="flex justify-between">
@@ -199,7 +184,6 @@ const App = () => {
               }
             />
             <Route
-              exact
               path="/Admin/Partners"
               element={
                 <div className="flex justify-between">
@@ -209,7 +193,6 @@ const App = () => {
               }
             />
             <Route
-              exact
               path="/Admin/Projects"
               element={
                 <div className="flex justify-between">
