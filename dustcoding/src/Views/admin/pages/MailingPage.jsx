@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { GetMails } from "../../../api/ContentsFunctions";
 import HeaderComponent from "./DashBoardComponents/HeaderComponent";
-import ShowMailModal from "./Modals/ShowMailModal.jsx";
 
 const MailingPage = () => {
   const [Mails, setMails] = useState([]);
