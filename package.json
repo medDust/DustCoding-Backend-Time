@@ -8,7 +8,8 @@
     "start": "nodemon Backend/index.js",
     "backend": "nodemon Backend/index.js",
     "frontend": "npm start --prefix dustcoding",
-    "project": "concurrently \"npm run backend\" \"npm run frontend\""
+    "project": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "heruko-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix dustcoding && npm run build --prefix dustcoding"
   },
   "author": "DustCoding",
   "license": "ISC",
