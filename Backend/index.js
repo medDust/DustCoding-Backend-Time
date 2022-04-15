@@ -45,7 +45,7 @@ app.use("/api/Tasks", apiTask);
 app.use("*", (req, res) => {
   res.status(404).json({ error: "Page not found" });
 });
-if (process.env.NODE_ENV === production) {
+if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../dustcoding/build")));
   app.get("*", (req, res) =>
     res.sendFile(
