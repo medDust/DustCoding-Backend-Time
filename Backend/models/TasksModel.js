@@ -2,14 +2,10 @@ import mongoose from "mongoose";
 
 const TasksSchema = mongoose.Schema(
   {
-    name: { type: String, require: [true, "please add name for this task"] },
-    finishTime: {
-      type: Date,
-      require: [true, "let's choose your time"],
-    },
-    Team: {
-      type: { Team: mongoose.Schema.Types.ObjectId },
-      require: [true, "please select your team"],
+    name: { type: String, required: [true, "please add name for this task"] },
+    projectId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: [true, "please add name for this task"],
     },
   },
   {

@@ -4,11 +4,12 @@ import {
   setProjects,
   updateProjects,
   delateProjects,
+  getAllProject,
 } from "../Controllers/projectController.js";
 
 const router = express.Router();
 
-router.route("/:id").get(getProject).post(setProjects);
-router.route("/:id").put(updateProjects).delete(delateProjects);
+router.route("/").get(getAllProject).post(setProjects);
+router.route("/:id").put(updateProjects).delete(delateProjects).get(getProject);
 
 export default router;

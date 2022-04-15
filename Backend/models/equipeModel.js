@@ -1,17 +1,9 @@
 import mongoose from "mongoose";
 
-
 const TeamSchema = mongoose.Schema(
   {
-    department: {
-      type: String,
-      required: [true, "choose your department team"],
-    },
-    User: [
-      {
-        User: { type: mongoose.Schema.Types.ObjectId },
-      },
-    ],
+    UserId: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    projectId: { type: mongoose.Schema.Types.ObjectId, ref: "Project" },
   },
   {
     timestamps: true,

@@ -4,30 +4,35 @@ import user from "../models/userModel.js";
 import asyncHandler from "express-async-handler";
 
 const getProject = asyncHandler(async (req, res) => {
-  const project = await project.find({
-    user: req.user.id,
+  const projects = await project.findById({
+    _id: req.params.id,
   });
-  if (!project) {
+  if (!projects) {
     res.status(400);
     throw new Error("is not projects");
   }
-  res.status(200).json(project);
+  res.status(200).json(projects);
+});
+const getAllProject = asyncHandler(async (req, res) => {
+  const projects = await project.find();
+  if (!projects) {
+    res.status(400);
+    throw new Error("is not projects");
+  }
+  res.status(200).json(projects);
 });
 
 // create method
 const setProjects = asyncHandler(async (req, res) => {
-  if (!req.body.title || !req.body.description || !req.body.planing) {
+  if (!req.body.title) {
     res.status(400);
     throw new Error("please add everything ");
   }
 
-  const newProject = await project.create({
+  const newProject = project.create({
     title: req.body.title,
-    description: req.body.description,
-    planing: req.body.planing,
-    user: req.user.id,
   });
-  res.status(200).json(newProject);
+  res.status(200).json({ Project: newProject._id });
 });
 
 //update method
@@ -49,21 +54,11 @@ const updateProjects = asyncHandler(async (req, res) => {
     return res.send("updated");
   });
 
-  res.status(200);
+  res.status(200).json({ project });
 });
 
 // delate method
 const delateProjects = asyncHandler(async (req, res) => {
-  const user = await user.findById(req.user.id);
-  //check client
-  if (!user) {
-    res.status(401);
-    throw new Error("user not found");
-  }
-  if (project.user.toString() !== user.id) {
-    res.status(401);
-    throw new Error();
-  }
   const projects = await project.findById(req.params.id);
   if (!projects) {
     res.status(400);
@@ -73,4 +68,10 @@ const delateProjects = asyncHandler(async (req, res) => {
   res.status(200).json({ id: req.params.id });
 });
 
-export { getProject, setProjects, updateProjects, delateProjects };
+export {
+  getProject,
+  setProjects,
+  getAllProject,
+  updateProjects,
+  delateProjects,
+};

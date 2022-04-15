@@ -6,15 +6,7 @@ const projectSchema = mongoose.Schema(
       type: String,
       required: [true, "choose name please"],
     },
-    Tasks: {
-      Tasks: { type: mongoose.Schema.Types.ObjectId },
-    },
-    Team: [
-      {
-        Team: { type: mongoose.Schema.Types.ObjectId },
-      },
-    ],
-    
+
   },
   {
     timestamps: true,
