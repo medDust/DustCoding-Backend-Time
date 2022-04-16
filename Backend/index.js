@@ -19,7 +19,6 @@ import morgan from "morgan";
 import connectDB from "./Config/database.js";
 const port = process.env.PORT || 5000;
 
-
 connectDB();
 
 const app = express();
@@ -48,9 +47,7 @@ app.use("*", (req, res) => {
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../dustcoding/build")));
   app.get("*", (req, res) =>
-    res.sendFile(
-      path.resolve(__dirname, "../", "dustcoding", "build", "index.html")
-    )
+    res.sendFile(path.join(__dirname, "../dustcoding/build/index.html"))
   );
 } else {
   app.get("/", (req, res) => res.send("change to production mode please"));
