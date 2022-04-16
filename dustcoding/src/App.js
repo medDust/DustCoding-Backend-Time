@@ -138,6 +138,16 @@ const App = () => {
           {/* Admin Route */}
           <Route element={<ProtectedRouter isLogged={isAuthenticated()} />}>
             <Route
+              index
+              path="/Admin"
+              element={
+                <div className="flex justify-between">
+                  <SideBar />
+                  <DashboardPage />
+                </div>
+              }
+            />
+            <Route
               path="/Admin/Dashboard"
               element={
                 <div className="flex justify-between">
