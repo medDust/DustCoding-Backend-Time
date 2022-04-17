@@ -17,8 +17,8 @@ const About = () => {
                 integration and computer engineering services that specializes
                 in state-of-the-art software solutions, design of websites and
                 applications, development of information systems, development of
-                solutions for the of things (IOT) and artificial intelligence
-                (AI) big data and administration solutions.
+                solutions for the internet of things (IOT) and artificial
+                intelligence (AI) big data and administration solutions.
               </p>
             </div>
             <div className="flex h-auto items-center justify-center md:w-1/2 lg:items-center xl:mx-auto xl:flex-col ">

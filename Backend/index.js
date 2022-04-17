@@ -11,6 +11,7 @@ import apiSdl from "./Routes/slideRouter.js";
 import apiTask from "./Routes/tasksRouter.js";
 import apiProject from "./Routes/projectRouter.js";
 import apiSrv from "./Routes/servicesRouter.js";
+import { fileURLToPath } from "url";
 
 import errorHandler from "./Middleware/errorMiddleware.js";
 import morgan from "morgan";
@@ -18,7 +19,6 @@ import morgan from "morgan";
 //import requesProjectRouter from "./Routes/requestProjectRouter.js";
 import connectDB from "./Config/database.js";
 const port = process.env.PORT || 5000;
-
 
 connectDB();
 
@@ -42,15 +42,14 @@ app.use("/api/mails", apiMails);
 app.use("/api/project", apiProject);
 app.use("/api/Tasks", apiTask);
 
-app.use("*", (req, res) => {
-  res.status(404).json({ error: "Page not found" });
-});
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
+
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../dustcoding/build")));
   app.get("*", (req, res) =>
-    res.sendFile(
-      path.resolve(__dirname, "../", "dustcoding", "build", "index.html")
-    )
+    res.sendFile(path.join(__dirname, "dustcoding", "build", "index.html"))
   );
 } else {
   app.get("/", (req, res) => res.send("change to production mode please"));
