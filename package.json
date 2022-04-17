@@ -9,7 +9,7 @@
     "backend": "nodemon Backend/index.js",
     "frontend": "npm start --prefix dustcoding",
     "project": "concurrently \"npm run backend\" \"npm run frontend\"",
-    "heroku-postbuild": "cd dustcoding && npm install --only=dev && npm install && npm run dustcoding"
+    "heroku-postbuild": "cd dustcoding && npm install --only=dev && npm install && npm run build && cd .. npm install && npm start"
   },
   "author": "DustCoding",
   "license": "ISC",
