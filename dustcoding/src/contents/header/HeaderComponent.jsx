@@ -18,7 +18,7 @@ const tabs = [
     name: "Contact",
     icon: <RiCustomerService2Fill />,
   },
-  { id: 6, path: "/LogIn", name: "Login", icon: <FaUserAlt /> },
+   { id: 6, path: "/LogIn", name: "Login", icon: <FaUserAlt /> },
 ];
 
 const HeaderComponent = () => {

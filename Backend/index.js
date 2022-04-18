@@ -1,22 +1,22 @@
 import express from "express";
 import path from "path";
+import { fileURLToPath } from "url";
 import cors from "cors";
 import Color from "colors";
 import dovenv from "dotenv/config";
 
 import apiUser from "./Routes/userRoutes.js";
+import apiTeam from "./Routes/teamRouter.js";
 import apiArt from "./Routes/articlesRouter.js";
 import apiMails from "./Routes/mailRouter.js";
 import apiSdl from "./Routes/slideRouter.js";
 import apiTask from "./Routes/tasksRouter.js";
 import apiProject from "./Routes/projectRouter.js";
 import apiSrv from "./Routes/servicesRouter.js";
-import { fileURLToPath } from "url";
 
 import errorHandler from "./Middleware/errorMiddleware.js";
 import morgan from "morgan";
 
-//import requesProjectRouter from "./Routes/requestProjectRouter.js";
 import connectDB from "./Config/database.js";
 const port = process.env.PORT || 5000;
 
@@ -41,6 +41,7 @@ app.use("/api/mails", apiMails);
 // project management routes
 app.use("/api/project", apiProject);
 app.use("/api/Tasks", apiTask);
+app.use("/api/Tasks", apiTeam);
 
 const __filename = fileURLToPath(import.meta.url);
 

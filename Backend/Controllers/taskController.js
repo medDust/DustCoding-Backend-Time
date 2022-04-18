@@ -2,8 +2,18 @@ import tasks from "../models/tasksModel.js";
 
 import asyncHandler from "express-async-handler";
 
+// get all tasks
+const getTasks = asyncHandler(async (req, res) => {
+  const task = await tasks.find({ projectId: req.params.projectId });
+  if (!task) {
+    res.status(400);
+    throw new Error("is not tasks");
+  }
+  res.status(200).json(task);
+});
+// get tasks by pro
 const getTask = asyncHandler(async (req, res) => {
-  const task = await tasks.find();
+  const task = await tasks.find({ _id: req.params.id });
   if (!task) {
     res.status(400);
     throw new Error("is not tasks");
@@ -12,22 +22,27 @@ const getTask = asyncHandler(async (req, res) => {
 });
 
 // create method
-const setTasks = asyncHandler(async (req, res) => {
-  if (!req.body.name) {
-    res.status(400);
-    throw new Error("please add everything ");
-  }
+const setTask = asyncHandler(async (req, res) => {
+  const id = req.params.projectId;
+  const name = req.body.name;
+  try {
+    if (!req.body.name && !req.params.projectId) {
+      res.status(400);
+      throw new Error("please add everything ");
+    }
 
-  const newTask = await tasks.create({
-    name: req.body.name,
-    projectId: req.params.id,
-   // team: req.body._id,
-  });
-  res.status(200).json(newTask);
+    const newTask = await tasks.create({
+      name: name,
+      projectId: id,
+    });
+    return res.status(200).json(newTask);
+  } catch (error) {
+    return res.status(400).send({ msg: error.message });
+  }
 });
 
 //update method
-const updateTasks = asyncHandler(async (req, res) => {
+const updateTask = asyncHandler(async (req, res) => {
   const task = await tasks.findById({ _id: req.params.id });
   //check task
   if (!task) {
@@ -42,7 +57,7 @@ const updateTasks = asyncHandler(async (req, res) => {
 });
 
 // delate method
-const delateTasks = asyncHandler(async (req, res) => {
+const delateTask = asyncHandler(async (req, res) => {
   const task = await tasks.findById({ _id: req.params.id });
   if (!task) {
     res.status(400);
@@ -52,4 +67,4 @@ const delateTasks = asyncHandler(async (req, res) => {
   res.status(200).json({ id: req.params.id });
 });
 
-export { getTask, setTasks, updateTasks, delateTasks };
+export { getTasks, setTask, updateTask, delateTask, getTask };

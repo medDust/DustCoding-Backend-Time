@@ -7,7 +7,7 @@ const tabs = [
   { id: 3, path: "/Service", name: "Service" },
   { id: 4, path: "/Article", name: "Article" },
   { id: 5, path: "/Contact", name: "Contact" },
-  { id: 5, path: "/LogIn", name: "SignIn" },
+   { id: 5, path: "/LogIn", name: "SignIn" },
 ];
 const NavBarMobile = ({ active, showMenu }) => {
   return (

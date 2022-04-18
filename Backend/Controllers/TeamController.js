@@ -1,15 +1,7 @@
-import Team from "equipeModel.js";
-
+import Team from "../models/equipeModel.js";
 import asyncHandler from "express-async-handler";
-//get
-const createTeam = asyncHandler(async (req, res) => {
-  const newTeam = await Team.create({
-    project: req.params.id,
-    user: req.user.id,
-  });
-  res.status(200).json(newTeam);
-});
 
+// get one team
 const getTeam = asyncHandler(async (req, res) => {
   const Equip = await Team.findById({ _id: req.params.id });
   if (!Equip) {
@@ -18,6 +10,14 @@ const getTeam = asyncHandler(async (req, res) => {
   }
 
   res.status(200).send(Equip);
+});
+// create new team
+const createTeam = asyncHandler(async (req, res) => {
+  const newTeam = await Team.create({
+    project: req.params.id,
+    user: req.user.id,
+  });
+  res.status(200).json(newTeam);
 });
 
 const getAllTeam = asyncHandler(async (req, res) => {
@@ -30,7 +30,7 @@ const getAllTeam = asyncHandler(async (req, res) => {
   }
 });
 
-const UpdateTeam = asyncHandler(async (req, res) => {
+const updateTeam = asyncHandler(async (req, res) => {
   res.json({ msg: "Update Team is work" });
 });
 
@@ -39,9 +39,9 @@ const deleteTeam = asyncHandler(async (req, res) => {
 });
 
 export default {
-  getAllTeam,
   getTeam,
-  UpdateTeam,
-  deleteTeam,
   createTeam,
+  updateTeam,
+  getAllTeam,
+  deleteTeam,
 };

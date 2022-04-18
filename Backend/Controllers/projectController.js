@@ -13,13 +13,14 @@ const getProject = asyncHandler(async (req, res) => {
   }
   res.status(200).json(projects);
 });
+
 const getAllProject = asyncHandler(async (req, res) => {
   const projects = await project.find();
   if (!projects) {
     res.status(400);
     throw new Error("is not projects");
   }
-  res.status(200).json(projects);
+  res.status(200).send(projects);
 });
 
 // create method
@@ -32,7 +33,7 @@ const setProjects = asyncHandler(async (req, res) => {
   const newProject = project.create({
     title: req.body.title,
   });
-  res.status(200).json({ Project: newProject._id });
+  res.status(200).send({ Project: newProject._id });
 });
 
 //update method
@@ -51,7 +52,7 @@ const updateProjects = asyncHandler(async (req, res) => {
   const body = req.body;
   project.updateOne({ _id: req.params.id }, body, (err, data) => {
     if (err) return res.status(500).send(err);
-    return res.send("updated");
+    return res.status(200).send("updated");
   });
 
   res.status(200).json({ project });
