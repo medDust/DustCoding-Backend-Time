@@ -180,6 +180,7 @@ const getUsers = asyncHandler(async (req, res) => {
     return res.status(500).json({ msg: err.message });
   }
 });
+
 const getUser = asyncHandler(async (req, res) => {
   try {
     const user = await Users.findById(req.user.id).select("-password");

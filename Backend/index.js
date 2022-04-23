@@ -41,7 +41,7 @@ app.use("/api/mails", apiMails);
 // project management routes
 app.use("/api/project", apiProject);
 app.use("/api/Tasks", apiTask);
-app.use("/api/Tasks", apiTeam);
+app.use("/api/Team", apiTeam);
 
 const __filename = fileURLToPath(import.meta.url);
 

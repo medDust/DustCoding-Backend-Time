@@ -20,6 +20,7 @@ router.post("/signIn", login);
 router.get("/logout", logout);
 router.get("/info", protect, getUser);
 router.get("/infos", getUsers);
+
 router.get("/refresh_token", refreshTokens);
 router.put("/update-user/:_id", UpdateUser);
 router.delete("/delete-user/:_id", deleteUser);

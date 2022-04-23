@@ -38,24 +38,20 @@ const setProjects = asyncHandler(async (req, res) => {
 
 //update method
 const updateProjects = asyncHandler(async (req, res) => {
-  const project = await Projects.findById(req.project.id);
-
-  //ckeck client
-  if (!user) {
-    res.status(401);
-    throw new Error("user not found");
-  }
-  if (projects.user.toString() !== user.id) {
+  const projects = await project.findById(req.params.id);
+  const title = req.body.title;
+  const state = req.body.state;
+  if (!projects) {
     res.status(401);
     throw new Error();
+  } else {
+    projects.title = title || projects.title;
+    projects.state = state || projects.state;
+    const updated = await projects.save();
+    return res.status(200).send(updated);
   }
-  const body = req.body;
-  project.updateOne({ _id: req.params.id }, body, (err, data) => {
-    if (err) return res.status(500).send(err);
-    return res.status(200).send("updated");
-  });
 
-  res.status(200).json({ project });
+  // return res.status(200).json({ project });
 });
 
 // delate method

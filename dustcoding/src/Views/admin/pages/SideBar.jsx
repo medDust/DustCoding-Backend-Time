@@ -62,8 +62,8 @@ const SideBar = () => {
               </div>
             </div>
           </li>
-          {routes.map((route) => (
-            <li>
+          {routes.map((route, index) => (
+            <li key={index}>
               <Link
                 to={route.path}
                 className="relative flex h-11 flex-row items-center border-l-4 border-transparent pr-6 text-white hover:translate-x-7 hover:border-dustLight hover:bg-dustM hover:text-white hover:duration-300 hover:ease-linear focus:outline-none "

@@ -28,7 +28,9 @@ const setTask = asyncHandler(async (req, res) => {
   try {
     if (!req.body.name && !req.params.projectId) {
       res.status(400);
-      throw new Error("please add everything ");
+      throw new Error(
+        "please add everything or you must be inside project page "
+      );
     }
 
     const newTask = await tasks.create({

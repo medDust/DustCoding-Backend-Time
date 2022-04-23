@@ -23,14 +23,21 @@ import {
   ServicesPage,
 } from "./Views/admin";
 import { Meeting, Messaging, NavBar, Profile } from "./Views/cLient";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+
+} from "react-router-dom";
 import {
   ProtectedRouter,
   ProtectedRouterUser,
 } from "./helpers/ProtectedRouter";
 import { isAuthenticated } from "./helpers/auth";
+import ProjectPage from "./Views/admin/pages/DetailsProject/ProjectPage";
 
 const App = () => {
+ 
   return (
     <div>
       <Router>
@@ -91,8 +98,8 @@ const App = () => {
             }
           />
 
-           <Route path="/LogIn" element={<Login />} />
-          <Route path="/SignUp" element={<SignUp />} /> 
+          <Route path="/LogIn" element={<Login />} />
+          <Route path="/SignUp" element={<SignUp />} />
 
           <Route path="*" element={<NotFoundPage />} />
           {/* client route */}
@@ -208,6 +215,15 @@ const App = () => {
                 <div className="flex justify-between">
                   <SideBar />
                   <ProjectsPages />
+                </div>
+              }
+            />
+            <Route
+              path="/Admin/Projects/:id"
+              element={
+                <div className="flex justify-between">
+                  <SideBar />
+                  <ProjectPage />
                 </div>
               }
             />
