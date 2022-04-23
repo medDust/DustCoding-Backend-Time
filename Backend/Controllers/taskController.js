@@ -1,4 +1,4 @@
-import tasks from "../models/tasksModel.js";
+import tasks from "../models/TasksModel.js";
 
 import asyncHandler from "express-async-handler";
 
