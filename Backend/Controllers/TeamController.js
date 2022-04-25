@@ -79,9 +79,11 @@ const deleteTeamMember = asyncHandler(async (req, res) => {
   if (team) {
     const user = await team.UserId.includes(userId);
     if (user) {
-      const x = await team.UserId.find({ userId });
-      console.log(x);
-      team.save();
+      const MemberDelate = await team.UserId.filter((id) => {
+        return id !== userId;
+      });
+      console.log(MemberDelate);
+      team.MemberDelate.save();
       return res.status(200).send(team);
     } else {
       return res.status(400).send("employer not exist");
