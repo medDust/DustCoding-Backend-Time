@@ -3,28 +3,52 @@ import asyncHandler from "express-async-handler";
 
 // create new team
 const createTeam = asyncHandler(async (req, res) => {
-  const newTeam = await Team.create({
-    project: req.params.id,
-    user: req.user.id,
-  });
-  res.status(200).json(newTeam);
+  try {
+    const projectId = req.params.projectId;
+    const userId = req.body.userId;
+    if (!req.body.userId && !req.params.projectId) {
+      res.status(400);
+      throw new Error(
+        "please add everything or you must be inside project page "
+      );
+    }
+
+    const team = await Team.findOne({ projectId });
+    if (team) {
+      const user = await team.UserId.includes(userId);
+      if (user) {
+        return res.status(400).send("employer exist");
+      } else {
+        team.UserId.push(userId);
+        team.save();
+        return res.status(200).send(team);
+      }
+    } else {
+      const newTeam = await Team.create({
+        UserId: userId,
+        projectId: projectId,
+      });
+      return res.status(200).json(newTeam);
+    }
+  } catch (error) {
+    return res.status(400).send({ msg: error.message });
+  }
 });
 
 // get one team
 const getTeam = asyncHandler(async (req, res) => {
-  const Equip = await Team.findById({ _id: req.params.id });
-  if (!Equip) {
+  const team = await Team.find({ projectId: req.params.projectId });
+  if (!team) {
     res.status(400);
     throw new Error({ msg: "is not define " });
   }
 
-  res.status(200).send(Equip);
+  res.status(200).send(team);
 });
 
 const getAllTeam = asyncHandler(async (req, res) => {
   try {
     const equips = await Team.find().all();
-
     return res.status(200).send(equips);
   } catch (err) {
     return res.status(401).send({ msg: err.message });
@@ -32,23 +56,46 @@ const getAllTeam = asyncHandler(async (req, res) => {
 });
 
 const updateTeam = asyncHandler(async (req, res) => {
-  const UpdateMember = Team.findById({ UserId: req.user.id });
-  if (!UpdateMember) {
-    res.status(401);
-    throw new Error("user not found");
+  const userId = req.body.userId;
+  const user = await team.UserId.includes(userId);
+  if (user) {
+    return res.status(400).send("employer exist");
   } else {
-    UpdateMember.UserId = req.body.UserId || UpdateMember.UserId;
-    const update = await UpdateMember.save();
-
-    res.status(200).send(update.data);
+    team.UserId.push(userId);
+    team.save();
+    return res.status(200).send(team);
   }
-  res.json({ msg: "Update Team is work" });
 });
 
 const deleteTeam = asyncHandler(async (req, res) => {
-  const deleteMember = Team.findById({ UserId: req.user.id });
+  const deleteMember = Team.findById({ projectId: req.params.projectId });
   deleteMember.deleteOne();
   res.status(200).json({ msg: "delete Team is work" });
 });
 
-export { getTeam, createTeam, updateTeam, getAllTeam, deleteTeam };
+const deleteTeamMember = asyncHandler(async (req, res) => {
+  const team = await Team.findOne({ projectId: req.params.projectId });
+  const userId = req.body.userId;
+  if (team) {
+    const user = await team.UserId.includes(userId);
+    if (user) {
+      const x = await team.UserId.find({ userId });
+      console.log(x);
+      team.save();
+      return res.status(200).send(team);
+    } else {
+      return res.status(400).send("employer not exist");
+    }
+  } else {
+    return res.status(400).send("employer not exist");
+  }
+});
+
+export {
+  getTeam,
+  createTeam,
+  updateTeam,
+  getAllTeam,
+  deleteTeam,
+  deleteTeamMember,
+};

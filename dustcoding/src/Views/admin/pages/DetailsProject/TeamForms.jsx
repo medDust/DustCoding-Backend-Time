@@ -4,6 +4,7 @@ import { GetAllUsers } from "../../../../api/UserFunction";
 
 const TeamForms = () => {
   const [User, setUser] = useState([]);
+
   useEffect(() => {
     GetAllUsers()
       .then((response) => {

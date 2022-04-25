@@ -23,12 +23,7 @@ import {
   ServicesPage,
 } from "./Views/admin";
 import { Meeting, Messaging, NavBar, Profile } from "./Views/cLient";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import {
   ProtectedRouter,
   ProtectedRouterUser,
@@ -37,7 +32,6 @@ import { isAuthenticated } from "./helpers/auth";
 import ProjectPage from "./Views/admin/pages/DetailsProject/ProjectPage";
 
 const App = () => {
- 
   return (
     <div>
       <Router>
@@ -145,7 +139,7 @@ const App = () => {
           {/* Admin Route */}
           <Route element={<ProtectedRouter isLogged={isAuthenticated()} />}>
             <Route
-              index
+              exact
               path="/Admin"
               element={
                 <div className="flex justify-between">
