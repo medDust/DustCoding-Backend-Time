@@ -89,6 +89,7 @@ const ProjectPage = () => {
       <div className="ml-14 mt-14 mb-10 grid h-full md:ml-64 ">
         <div className="h-9">
           <h1 className="mx-4 gap-4 text-xl font-bold uppercase"> {Title}</h1>
+          <h1 className="mx-4 gap-4 text-xl font-bold uppercase"> {Title}</h1>
           <TaskForm name="Task" />
           <TeamForms />
         </div>

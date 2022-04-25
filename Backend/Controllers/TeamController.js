@@ -56,14 +56,24 @@ const getAllTeam = asyncHandler(async (req, res) => {
 });
 
 const updateTeam = asyncHandler(async (req, res) => {
-  const userId = req.body.userId;
-  const user = await team.UserId.includes(userId);
-  if (user) {
-    return res.status(400).send("employer exist");
-  } else {
-    team.UserId.push(userId);
-    team.save();
-    return res.status(200).send(team);
+  try {
+    const TeamId = req.params.TeamId;
+    const ProjectId = req.params.projectId;
+    const userId = req.body.userId;
+
+    if (TeamId && ProjectId) {
+      const team = await Team.findOne({ TeamId });
+      const user = await team.UserId.includes(userId);
+      if (user) {
+        return res.status(400).send("employer exist");
+      } else {
+        team.UserId.push(userId);
+        team.save();
+        return res.status(200).send(team);
+      }
+    }
+  } catch (error) {
+    res.status(404).send({ error: error.message });
   }
 });
 
@@ -79,11 +89,10 @@ const deleteTeamMember = asyncHandler(async (req, res) => {
   if (team) {
     const user = await team.UserId.includes(userId);
     if (user) {
-      const MemberDelate = await team.UserId.filter((id) => {
-        return id !== userId;
-      });
-      console.log(MemberDelate);
-      team.MemberDelate.save();
+      const userIndex = await team.UserId.indexOf(userId);
+      await team.UserId.splice(userIndex, 1);
+
+      team.save();
       return res.status(200).send(team);
     } else {
       return res.status(400).send("employer not exist");

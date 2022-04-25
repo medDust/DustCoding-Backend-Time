@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import {
   Home,
@@ -32,6 +32,13 @@ import { isAuthenticated } from "./helpers/auth";
 import ProjectPage from "./Views/admin/pages/DetailsProject/ProjectPage";
 
 const App = () => {
+  useEffect(() => {
+    fetch("https://git.heroku.com/dustcoding-backend-server.git", {
+      method: "GET",
+    })
+      .then((data) => data.json())
+      .then((json) => alert(JSON.stringify(json)));
+  }, []);
   return (
     <div>
       <Router>
@@ -227,11 +234,5 @@ const App = () => {
     </div>
   );
 };
-
-function callApi() {
-  fetch("https://simple-node-server-niru.herokuapp.com/", { method: "GET" })
-    .then((data) => data.json())
-    .then((json) => alert(JSON.stringify(json)));
-}
 
 export default App;
