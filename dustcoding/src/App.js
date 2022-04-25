@@ -228,7 +228,6 @@ const App = () => {
   );
 };
 
-
 function callApi() {
   fetch("https://simple-node-server-niru.herokuapp.com/", { method: "GET" })
     .then((data) => data.json())
