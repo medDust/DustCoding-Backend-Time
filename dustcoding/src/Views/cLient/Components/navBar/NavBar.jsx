@@ -1,13 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../../../assets/images/dust.png";
 import { BiMenu } from "react-icons/bi";
+import { logout } from "../../../../helpers/auth";
 const links = [
   { url: "/Client/profile", name: "Profile" },
   { url: "/Client/messaging", name: "Message" },
   { url: "/Client/meeting", name: "Meeting" },
 ];
 const NavBar = () => {
+  const navigate = useNavigate();
+  const handleLogout = (e) => {
+    logout(() => {
+      navigate("/home");
+    });
+  };
+
   return (
     <nav className=" rounded border-dustCool bg-white px-2 py-2.5 dark:bg-dustDark sm:px-4">
       <div className="container  mx-auto flex flex-wrap items-center justify-between">
@@ -64,12 +72,12 @@ const NavBar = () => {
                 </Link>
               </li>
               <li>
-                <Link
-                  to="#"
+                <button
+                  onClick={handleLogout}
                   className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                 >
                   Sign out
-                </Link>
+                </button>
               </li>
             </ul>
           </div>

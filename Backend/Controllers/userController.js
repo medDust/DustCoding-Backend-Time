@@ -48,6 +48,52 @@ const register = AsyncHandler(async (req, res) => {
     res.status(400).json({ msg: err.message });
   }
 });
+const registerEmp = AsyncHandler(async (req, res) => {
+  try {
+    const { fullName, username, email, password, department } = req.body;
+
+    if (!username || !email || !password || !fullName || !department) {
+      res.status(401);
+      throw new Error("please entre all filed");
+    }
+    if (!validator.isEmail(email)) {
+      res.status(401).json("Invalid mail");
+    }
+    const userExists = await Users.findOne({ email });
+    if (userExists) {
+      res.status(400);
+      throw new Error("User already exists");
+    }
+    const passwordHash = await bcrypt.hash(password, 15);
+    const role = 1;
+    const user = await Users.create({
+      username,
+      fullName,
+      email,
+      department,
+      role,
+      password: passwordHash,
+    });
+
+    const token = createAccessToken(user._id);
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+    });
+
+    if (user) {
+      res.status(201).json({
+        SuccessMsg: "Account created Success",
+      });
+    } else {
+      res.status(400).json("failed request");
+      throw new Error("Failed to create the user");
+    }
+  } catch (err) {
+    res.status(400).json({ msg: err.message });
+  }
+});
 
 const login = AsyncHandler(async (req, res) => {
   try {
@@ -100,6 +146,7 @@ const login = AsyncHandler(async (req, res) => {
 const logout = AsyncHandler(async (req, res) => {
   try {
     res.clearCookie("refreshToken", { path: "/user/refresh_token" });
+    res.clear;
     return res.json({ msg: "Logged Out" });
   } catch (err) {
     return res.status(500).json({ msg: err.message });
@@ -125,6 +172,14 @@ const refreshTokens = AsyncHandler(async (req, res) => {
   }
 });
 
+const getUsers = AsyncHandler(async (req, res) => {
+  try {
+    const users = await Users.find().select("-password");
+    res.status(200).json(users);
+  } catch (err) {
+    return res.status(500).json({ msg: err.message });
+  }
+});
 const getUser = AsyncHandler(async (req, res) => {
   try {
     const user = await Users.findById(req.user.id).select("-password");
@@ -140,21 +195,12 @@ const createAccessToken = ({ id }) => {
   return jwt.sign({ id }, process.env.JWT_ACCESS, { expiresIn: "11m" });
 };
 
-{
-  /* const allUsers = AsyncHandler(async (req, res) => {
-  const keyword = req.query.search
-    ? {
-        $or: [
-          { name: { $regex: req.query.search, $options: "i" } },
-          { email: { $regex: req.query.search, $options: "i" } },
-        ],
-      }
-    : {};
-  const users = await users.find(keyword).find({
-    _id: { $ne: req.user_id },
-  });
-  res.send(users);
-});*/
-}
-
-export { register, login, logout, refreshTokens, getUser };
+export {
+  register,
+  login,
+  logout,
+  refreshTokens,
+  getUser,
+  getUsers,
+  registerEmp,
+};

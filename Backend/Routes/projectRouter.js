@@ -1,14 +1,14 @@
 import express from "express";
 import {
-  getClients,
-  setClients,
-  updateClient,
-  delateClient,
-} from "../Controllers/clientsController.js";
+  getProject,
+  setProjects,
+  updateProjects,
+  delateProjects,
+} from "../Controllers/projectController.js";
 
 const router = express.Router();
 
-router.route("/").get(getClients).post(setClients);
-router.route("/:id").put(updateClient).delete(delateClient);
+router.route("/:id").get(getProject).post(setProjects);
+router.route("/:id").put(updateProjects).delete(delateProjects);
 
 export default router;

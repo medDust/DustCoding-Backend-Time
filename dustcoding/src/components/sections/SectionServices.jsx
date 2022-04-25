@@ -18,7 +18,7 @@ const SectionServices = () => {
   return (
     <div className="h-full w-full p-5 text-center">
       <h1 className="text-center text-3xl font-bold text-white">services</h1>
-      <div className="mx-auto flex h-full w-full flex-wrap place-items-center items-center justify-center p-5 text-center space-y-5 children:w-7/12 md:grid md:grid-cols-2 md:children:h-4/6">
+      <div className="mx-auto flex h-full w-3/4 flex-wrap place-items-center items-center justify-center space-y-5 p-5 text-center children:w-7/12 md:grid md:grid-cols-2 md:children:h-4/6">
         {services.map((service) => (
           <div key={service.id}>
             <CardsComponent Icons={service.url} Title={service.title} />
