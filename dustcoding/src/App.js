@@ -30,6 +30,16 @@ import {
 } from "./helpers/ProtectedRouter";
 import { isAuthenticated } from "./helpers/auth";
 import ProjectPage from "./Views/admin/pages/DetailsProject/ProjectPage";
+import SettingsPage from "./Views/cLient/Components/profile/SettingsPage";
+import UserForms from "./Views/admin/pages/Modals/UserForms";
+import TasksDetails from "./Views/admin/pages/DetailsProject/TasksDetails";
+//import ActiveComponent from "./Views/admin/pages/DashBoardComponents/ActiveComponent";
+import EditTasks from "./Views/admin/pages/DetailsProject/EditTasks";
+import { ArticleSection } from "./components";
+import ModalsEmployer from "./Views/admin/pages/Modals/ModalsEmployer";
+import ArticleList from "./Views/admin/pages/ArticleList";
+import EditArticle from "./Views/admin/pages/EditeArticle";
+import ArticleDetails from "./Views/admin/pages/DetailsProject/ArticleDetails";
 
 const App = () => {
   useEffect(() => {
@@ -89,6 +99,16 @@ const App = () => {
             }
           />
           <Route
+            path="/Article/:id"
+            element={
+              <>
+                <HeaderComponent />
+                <ArticleSection />
+                <FooterComponent />
+              </>
+            }
+          />
+          <Route
             path="/Contact"
             element={
               <>
@@ -134,6 +154,24 @@ const App = () => {
             />
 
             <Route
+              path="/Client/setting"
+              element={
+                <>
+                  <NavBar />
+                  <SettingsPage />
+                </>
+              }
+            />
+            <Route
+              path="/Client/Projects/:id/Task/:_id"
+              element={
+                <div className="flex justify-between">
+                  <SideBar />
+                  <TasksDetails />
+                </div>
+              }
+            />
+            <Route
               path="/Client/messaging"
               element={
                 <>
@@ -166,11 +204,38 @@ const App = () => {
             />
 
             <Route
-              path="/Admin/Articles"
+              path="/Admin/Articles/create-new-article"
               element={
                 <div className="flex justify-between">
                   <SideBar />
                   <ArticlesPage />
+                </div>
+              }
+            />
+            <Route
+              path="/Admin/Articles"
+              element={
+                <div className="flex justify-between">
+                  <SideBar />
+                  <ArticleList />
+                </div>
+              }
+            />
+            <Route
+              path="/Admin/Articles/update-article/:id"
+              element={
+                <div className="flex justify-between">
+                  <SideBar />
+                  <EditArticle />
+                </div>
+              }
+            />
+            <Route
+              path="/Admin/Articles/view-article/:id"
+              element={
+                <div className="flex justify-between">
+                  <SideBar />
+                  <ArticleDetails />
                 </div>
               }
             />
@@ -189,6 +254,15 @@ const App = () => {
                 <div className="flex justify-between">
                   <SideBar />
                   <EmployersPages />
+                </div>
+              }
+            />
+            <Route
+              path="/Admin/Employers/create-new-employer"
+              element={
+                <div className="flex justify-between">
+                  <SideBar />
+                  <ModalsEmployer />
                 </div>
               }
             />
@@ -225,6 +299,33 @@ const App = () => {
                 <div className="flex justify-between">
                   <SideBar />
                   <ProjectPage />
+                </div>
+              }
+            />
+            <Route
+              path="/Admin/Projects/:id/Task/:_id"
+              element={
+                <div className="flex justify-between">
+                  <SideBar />
+                  <TasksDetails />
+                </div>
+              }
+            />
+            <Route
+              path="/Admin/Projects/:id/Task/:_id/Edit"
+              element={
+                <div className="flex justify-between">
+                  <SideBar />
+                  <EditTasks />
+                </div>
+              }
+            />
+            <Route
+              path="/Admin/Employers/update-user/:id"
+              element={
+                <div className="flex justify-between">
+                  <SideBar />
+                  <UserForms />
                 </div>
               }
             />

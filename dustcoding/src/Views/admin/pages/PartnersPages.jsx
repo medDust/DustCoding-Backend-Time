@@ -14,7 +14,7 @@ const PartnersPages = () => {
           </div>
           <div className="mx-5 my-8 flex h-14 flex-row items-center justify-center gap-2">
             <div>
-              <label for="name" className="text-lx font-serif">
+              <label htmlFor="name" className="text-lx font-serif">
                 Image:
               </label>
               <input
@@ -25,7 +25,7 @@ const PartnersPages = () => {
             </div>
             <div className="flex space-x-4 ">
               <div>
-                <label for="title" className="text-lx font-serif">
+                <label htmlFor="title" className="text-lx font-serif">
                   Partner Name :
                 </label>
                 <input
@@ -46,7 +46,7 @@ const PartnersPages = () => {
             <h1 className="text-2xl font-bold text-gray-500">Valuers</h1>
             <div className=" mx-4 flex w-1/2  space-x-6">
               <div>
-                <label for="title" className="text-lx font-serif">
+                <label htmlFor="title" className="text-lx font-serif">
                   Add Title:
                 </label>
                 <input
@@ -56,7 +56,7 @@ const PartnersPages = () => {
                   className="text-md ml-2 grid rounded-md border-2 py-1 px-2 outline-dustLight"
                 />
                 <label
-                  for="description"
+                  htmlFor="description"
                   className="mb-2 block font-serif text-lg"
                 >
                   Description:

@@ -5,13 +5,14 @@ import {
   createTeam,
   updateTeam,
   getAllTeam,
+  getTeamById,
   deleteTeam,
   deleteTeamMember,
 } from "../Controllers/TeamController.js";
 
 const router = express.Router();
 
-router.route("/:projectId/:TeamId").put(updateTeam);
+router.route("/:TeamId").get(getTeamById).put(updateTeam).delete(deleteTeam);
 router
   .route("/:projectId/")
   .get(getTeam)

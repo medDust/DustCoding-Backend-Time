@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import validator from "validator";
 import asyncHandler from "express-async-handler";
 import Users from "../models/userModel.js";
+//import uploads from "../Config/storeImage.js";
 
 const register = asyncHandler(async (req, res) => {
   try {
@@ -183,10 +184,12 @@ const getUsers = asyncHandler(async (req, res) => {
 
 const getUser = asyncHandler(async (req, res) => {
   try {
-    const user = await Users.findById(req.user.id).select("-password");
+    const user = await Users.findById({ _id: req.params.id }).select(
+      "-password"
+    );
     if (!user) return res.status(400).json({ msg: "User does not exist." });
 
-    res.json(user);
+    res.status(200).send(user);
   } catch (err) {
     return res.status(500).json({ msg: err.message });
   }
@@ -203,6 +206,7 @@ const UpdateUser = asyncHandler(async (req, res) => {
       user.username = req.body.username || user.username;
       user.email = req.body.email || user.email;
       user.fullName = req.body.fullName || user.fullName;
+      user.image = req.body.image || user.image;
       user.department = req.body.department || user.department;
       if (req.body.password) {
         const passwordHash = await bcrypt.hash(req.body.password, 15);

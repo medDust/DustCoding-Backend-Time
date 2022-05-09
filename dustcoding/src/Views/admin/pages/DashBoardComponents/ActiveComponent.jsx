@@ -1,206 +1,174 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import { GetUsers } from "../../../../api/AuthFunction";
 
 const ActiveComponent = () => {
+  const [employers, setEmployers] = useState([]);
+  useEffect(() => {
+    GetUsers()
+      .then((response) => {
+        const user = response.data;
+        setEmployers(user);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
-    <div className="relative flex w-full min-w-0 flex-col break-words rounded bg-gray-50 shadow-lg dark:bg-gray-800">
-      <div className="mb-0 rounded-t border-0 px-0">
-        <div className="flex flex-wrap items-center px-4 py-2">
-          <div className="relative w-full max-w-full flex-1 flex-grow">
-            <h3 className="text-base font-semibold text-gray-900 dark:text-gray-50">
-              Recent Activities
-            </h3>
-          </div>
-          <div className="relative w-full max-w-full flex-1 flex-grow text-right">
-            <button
-              className="mr-1 mb-1 rounded bg-blue-500 px-3 py-1 text-xs font-bold uppercase text-white outline-none transition-all duration-150 ease-linear focus:outline-none active:bg-blue-600 dark:bg-gray-100 dark:text-gray-800 dark:active:text-gray-700"
-              type="button"
+    <div className="relative top-20 mx-auto flex w-3/4 min-w-0 flex-col items-center justify-center break-words rounded bg-gray-50 p-5 shadow-lg ">
+      <form>
+        <div className="mx-auto grid  xl:grid-cols-2 xl:gap-6 ">
+          <div className="group relative z-0 mb-6  w-full ">
+            <input
+              type="text"
+              name="floating_first_name"
+              id="floating_first_name"
+              className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 "
+              placeholder=" "
+              required
+            />
+            <label
+              for="floating_first_name"
+              className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 "
             >
-              See all
-            </button>
+              Task name
+            </label>
+          </div>
+          <div className="group relative z-0 mb-6 w-full">
+            <select
+              id="countries"
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+            >
+              {employers
+                .filter((user) => user.role !== 0)
+                .map((user) => (
+                  <option key={user.id}>{user.username}</option>
+                ))}
+            </select>
           </div>
         </div>
-        <div className="block w-full">
-          <div className="whitespace-nowrap border border-l-0 border-r-0 border-solid border-gray-200 bg-gray-100 px-4 py-3 text-left align-middle text-xs font-semibold uppercase text-gray-500 dark:border-gray-500 dark:bg-gray-600 dark:text-gray-100">
-            Today
+        <div className="grid xl:grid-cols-2 xl:gap-6">
+          <div className="group relative z-0 mb-6 w-full">
+            <input
+              type="tel"
+              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+              name="floating_phone"
+              id="floating_phone"
+              className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-blue-500"
+              placeholder=" "
+              required
+            />
+            <label
+              for="floating_phone"
+              className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500"
+            >
+              Phone number (+216-456-7890)
+            </label>
           </div>
-          <ul className="my-1">
-            <li className="flex px-4">
-              <div className="my-2 mr-3 h-9 w-9 flex-shrink-0 rounded-full bg-indigo-500">
-                <svg
-                  className="fill-current h-9 w-9 text-indigo-50"
-                  viewBox="0 0 36 36"
+          <div className="group relative z-0 mb-6 flex w-full items-center justify-evenly">
+            <div className="flex flex-wrap">
+              <div className="mr-4 flex items-center">
+                <input
+                  id="red-radio"
+                  type="radio"
+                  value=""
+                  name="colored-radio"
+                  className="h-4 w-4 border-gray-300 bg-gray-100 text-red-600 focus:ring-2 focus:ring-red-500"
+                />
+                <label
+                  for="red-radio"
+                  className="ml-2 text-sm font-medium uppercase text-gray-900"
                 >
-                  <path d="M18 10c-4.4 0-8 3.1-8 7s3.6 7 8 7h.6l5.4 2v-4.4c1.2-1.2 2-2.8 2-4.6 0-3.9-3.6-7-8-7zm4 10.8v2.3L18.9 22H18c-3.3 0-6-2.2-6-5s2.7-5 6-5 6 2.2 6 5c0 2.2-2 3.8-2 3.8z"></path>
-                </svg>
+                  backlog
+                </label>
               </div>
-              <div className="flex flex-grow items-center border-b border-gray-100 py-2 text-sm text-gray-600 dark:border-gray-400 dark:text-gray-100">
-                <div className="flex flex-grow items-center justify-between">
-                  <div className="self-center">
-                    <a
-                      className="font-medium text-gray-800 hover:text-gray-900 dark:text-gray-50 dark:hover:text-gray-100"
-                      href="#0"
-                      style={{ outline: " none" }}
-                    >
-                      Nick Mark
-                    </a>
-                    mentioned
-                    <a
-                      className="font-medium text-gray-800 dark:text-gray-50 dark:hover:text-gray-100"
-                      href="#0"
-                      style={{ outline: " none" }}
-                    >
-                      Sara Smith
-                    </a>
-                    in a new post
-                  </div>
-                  <div className="ml-2 flex-shrink-0">
-                    <a
-                      className="flex items-center font-medium text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500"
-                      href="#0"
-                      style={{ outline: " none" }}
-                    >
-                      View
-                      <span>
-                        <svg
-                          width="20"
-                          height="20"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                          className="transform transition-transform duration-500 ease-in-out"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                            clipRule="evenodd"
-                          ></path>
-                        </svg>
-                      </span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li className="flex px-4">
-              <div className="my-2 mr-3 h-9 w-9 flex-shrink-0 rounded-full bg-red-500">
-                <svg
-                  className="fill-current h-9 w-9 text-red-50"
-                  viewBox="0 0 36 36"
+
+              <div className="mr-4 flex items-center">
+                <input
+                  id="purple-radio"
+                  type="radio"
+                  value=""
+                  name="colored-radio"
+                  className="h-4 w-4 border-gray-300 bg-gray-100 text-purple-600 focus:ring-2 focus:ring-purple-500 "
+                />
+                <label
+                  for="purple-radio"
+                  className="ml-2 text-sm font-medium uppercase text-gray-900 "
                 >
-                  <path d="M25 24H11a1 1 0 01-1-1v-5h2v4h12v-4h2v5a1 1 0 01-1 1zM14 13h8v2h-8z"></path>
-                </svg>
+                  To do
+                </label>
               </div>
-              <div className="flex flex-grow items-center border-gray-100 py-2 text-sm text-gray-600 dark:text-gray-50">
-                <div className="flex flex-grow items-center justify-between">
-                  <div className="self-center">
-                    The post
-                    <a
-                      className="font-medium text-gray-800 dark:text-gray-50 dark:hover:text-gray-100"
-                      href="#0"
-                      style={{ outline: " none" }}
-                    >
-                      Post Name
-                    </a>
-                    was removed by
-                    <a
-                      className="font-medium text-gray-800 hover:text-gray-900 dark:text-gray-50 dark:hover:text-gray-100"
-                      href="#0"
-                      style={{ outline: " none" }}
-                    >
-                      Nick Mark
-                    </a>
-                  </div>
-                  <div className="ml-2 flex-shrink-0">
-                    <a
-                      className="flex items-center font-medium text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500"
-                      href="#0"
-                      style={{ outline: " none" }}
-                    >
-                      View
-                      <span>
-                        <svg
-                          width="20"
-                          height="20"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                          className="transform transition-transform duration-500 ease-in-out"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                            clipRule="evenodd"
-                          ></path>
-                        </svg>
-                      </span>
-                    </a>
-                  </div>
-                </div>
+              <div className="mr-4 flex items-center">
+                <input
+                  id="teal-radio"
+                  type="radio"
+                  value=""
+                  name="colored-radio"
+                  className="h-4 w-4 border-gray-300 bg-gray-100 text-teal-600 focus:ring-2 focus:ring-teal-500 "
+                />
+                <label
+                  for="teal-radio"
+                  className="ml-2 text-sm font-medium uppercase text-gray-900 "
+                >
+                  In progress
+                </label>
               </div>
-            </li>
-          </ul>
-          <div className="whitespace-nowrap border border-l-0 border-r-0 border-solid border-gray-200 bg-gray-100 px-4 py-3 text-left align-middle text-xs font-semibold uppercase text-gray-500 dark:border-gray-500 dark:bg-gray-600 dark:text-gray-100">
-            Yesterday
+              <div className="mr-4 flex items-center">
+                <input
+                  id="yellow-radio"
+                  type="radio"
+                  value=""
+                  name="colored-radio"
+                  className="h-4 w-4 border-gray-300 bg-gray-100 text-yellow-400 focus:ring-2 focus:ring-yellow-500"
+                />
+                <label
+                  for="yellow-radio"
+                  className="ml-2 text-sm font-medium uppercase text-gray-900 "
+                >
+                  testing
+                </label>
+              </div>
+
+              <div className="mr-4 flex items-center">
+                <input
+                  id="orange-radio"
+                  type="radio"
+                  value=""
+                  name="colored-radio"
+                  className="h-4 w-4 border-gray-300 bg-gray-100 text-orange-500 focus:ring-2 focus:ring-orange-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-orange-600"
+                />
+                <label
+                  for="orange-radio"
+                  className="ml-2 text-sm font-medium text-gray-900 "
+                >
+                  Orange
+                </label>
+              </div>
+              <div className="mr-4 flex items-center">
+                <input
+                  id="green-radio"
+                  type="radio"
+                  value=""
+                  name="colored-radio"
+                  className="h-4 w-4 border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 "
+                />
+                <label
+                  for="green-radio"
+                  className="ml-2 text-sm font-medium uppercase text-gray-900 "
+                >
+                  done
+                </label>
+              </div>
+            </div>
           </div>
-          <ul className="my-1">
-            <li className="flex px-4">
-              <div className="my-2 mr-3 h-9 w-9 flex-shrink-0 rounded-full bg-green-500">
-                <svg
-                  className="fill-current text-light-blue-50 h-9 w-9"
-                  viewBox="0 0 36 36"
-                >
-                  <path d="M23 11v2.085c-2.841.401-4.41 2.462-5.8 4.315-1.449 1.932-2.7 3.6-5.2 3.6h-1v2h1c3.5 0 5.253-2.338 6.8-4.4 1.449-1.932 2.7-3.6 5.2-3.6h3l-4-4zM15.406 16.455c.066-.087.125-.162.194-.254.314-.419.656-.872 1.033-1.33C15.475 13.802 14.038 13 12 13h-1v2h1c1.471 0 2.505.586 3.406 1.455zM24 21c-1.471 0-2.505-.586-3.406-1.455-.066.087-.125.162-.194.254-.316.422-.656.873-1.028 1.328.959.878 2.108 1.573 3.628 1.788V25l4-4h-3z"></path>
-                </svg>
-              </div>
-              <div className="flex flex-grow items-center border-gray-100 py-2 text-sm text-gray-600 dark:text-gray-50">
-                <div className="flex flex-grow items-center justify-between">
-                  <div className="self-center">
-                    <a
-                      className="font-medium text-gray-800 hover:text-gray-900 dark:text-gray-50 dark:hover:text-gray-100"
-                      href="#0"
-                      style={{ outline: " none" }}
-                    >
-                      240+
-                    </a>
-                    users have subscribed to
-                    <a
-                      className="font-medium text-gray-800 dark:text-gray-50 dark:hover:text-gray-100"
-                      href="#0"
-                      style={{ outline: " none" }}
-                    >
-                      Newsletter #1
-                    </a>
-                  </div>
-                  <div className="ml-2 flex-shrink-0">
-                    <a
-                      className="flex items-center font-medium text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-500"
-                      href="#0"
-                      style={{ outline: " none" }}
-                    >
-                      View
-                      <span>
-                        <svg
-                          width="20"
-                          height="20"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                          className="transform transition-transform duration-500 ease-in-out"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                            clipRule="evenodd"
-                          ></path>
-                        </svg>
-                      </span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </li>
-          </ul>
         </div>
-      </div>
+        <button
+          type="submit"
+          className="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto"
+        >
+          Submit
+        </button>
+      </form>
     </div>
   );
-}
+};
 
-export default ActiveComponent
+export default ActiveComponent;

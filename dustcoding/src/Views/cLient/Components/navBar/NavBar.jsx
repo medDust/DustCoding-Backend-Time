@@ -7,6 +7,7 @@ const links = [
   { url: "/Client/profile", name: "Profile" },
   { url: "/Client/messaging", name: "Message" },
   { url: "/Client/meeting", name: "Meeting" },
+  { url: "/Client/project", name: "Project" },
 ];
 const NavBar = () => {
   const navigate = useNavigate();
@@ -57,7 +58,7 @@ const NavBar = () => {
               </li>
               <li>
                 <Link
-                  to="#"
+                  to="/Client/setting"
                   className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                 >
                   Settings

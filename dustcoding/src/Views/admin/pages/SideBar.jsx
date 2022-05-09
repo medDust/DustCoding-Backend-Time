@@ -52,7 +52,7 @@ let routes = [
 
 const SideBar = () => {
   return (
-    <div className="sidebar fixed top-14 left-0 z-10 flex h-full w-64 flex-col border-none bg-dustDark text-white transition-all duration-300 active:w-full sm:w-64">
+    <div className="sidebar fixed top-14 left-0 z-10 flex h-full w-64 flex-col border-none bg-dustDark text-white sm:w-64">
       <div className="flex flex-grow flex-col justify-between overflow-y-auto overflow-x-hidden">
         <ul className="flex flex-col space-y-1 py-4">
           <li className=" px-5 md:block">

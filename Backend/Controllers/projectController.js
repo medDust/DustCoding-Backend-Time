@@ -50,8 +50,6 @@ const updateProjects = asyncHandler(async (req, res) => {
     const updated = await projects.save();
     return res.status(200).send(updated);
   }
-
-  // return res.status(200).json({ project });
 });
 
 // delate method

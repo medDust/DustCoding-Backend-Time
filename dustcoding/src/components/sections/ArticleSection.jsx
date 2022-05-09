@@ -1,54 +1,46 @@
-import React from "react";
-import dust from "../../assets/images/pic4.jpg";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getArticleById } from "../../api/AdminControllerFunction.jsx";
 
-const articles = [
-  {
-    id: 1,
-    img: dust,
-    title: "Comming Soon",
-    description: "we well post our content soon",
-  },
-  {
-    id: 2,
-    img: dust,
-    title: "Comming Soon",
-    description: "we well post our content soon",
-  },
-  {
-    id: 3,
-    img: dust,
-    title: "Comming Soon",
-    description: "we well post our content soon",
-  },
-  {
-    id: 4,
-    img: dust,
-    title: "Comming Soon",
-    description: "we well post our content soon",
-  },
-];
 const ArticleSection = () => {
+  const { id } = useParams();
+  const [article, setArticle] = useState({
+    title: "",
+    description: "",
+    image: "",
+  });
+  useEffect(() => {
+    getArticleById(id)
+      .then((res) => {
+        const Article = res.data;
+     
+        setArticle({
+          title: Article.title,
+          description: Article.description,
+          image: Article.image,
+        });
+     
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [id]);
+
   return (
-    <div className=" p-4">
-      <h1 className="font-bold text-3xl text-white text-center">Articles</h1>
-      <section className="grid grid-cols-1 md:flex md:flex-wrap md:px-24 gap-4 px-5 py-20 sm:grid-cols-2 sm:gap-4 md:children:w-5/12 items-center justify-center">
-        {articles.map((article) => (
-          <div
-            key={article.id}
-            className=" text-center shadow-md rounded-lg bg-white"
-          >
-            <img
-              className="rounded-t-lg hover:border-opacity-80 transform hover:scale-105 transition duration-300"
-              src={article.img}
-              alt="article"
-            />
-            <div className="px-4 pb-5 ">
-              <h3 className="font-bold text-xl my-2">{article.title}</h3>
-              <p className="text-base font-medium">{article.description}</p>
-            </div>
+    <div className="bg-dustDark py-16">
+      <div className="container m-auto px-6 text-gray-600 md:px-12 xl:px-6">
+        <div className="space-y-6 md:flex md:gap-6 md:space-y-0 lg:items-center lg:gap-12">
+          <div className="md:5/12 lg:w-5/12">
+            <img src={article.image} alt="img" />
           </div>
-        ))}
-      </section>
+          <div className="md:7/12 lg:w-6/12">
+            <h2 className="text-2xl font-bold text-white md:text-4xl">
+              {article.title}
+            </h2>
+            <p className="mt-6 text-white">{article.description}</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

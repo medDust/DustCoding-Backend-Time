@@ -47,6 +47,13 @@ const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename);
 
+// image path
+app.use(
+  "./image",
+  express.static(path.join(__dirname, "../dustcoding/public/uploads"))
+);
+
+// production path
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../dustcoding/build")));
   app.get("*", (req, res) =>

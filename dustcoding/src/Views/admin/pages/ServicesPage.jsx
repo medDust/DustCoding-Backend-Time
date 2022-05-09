@@ -14,7 +14,7 @@ const ServicesPage = () => {
               </h1>
               <div className="space-y-4">
                 <div>
-                  <label for="title" className="text-lx font-serif">
+                  <label htmlFor="title" className="text-lx font-serif">
                     Title:
                   </label>
                   <input
@@ -25,7 +25,7 @@ const ServicesPage = () => {
                   />
                 </div>
                 <div>
-                  <label for="name" className="text-lx font-serif">
+                  <label htmlFor="name" className="text-lx font-serif">
                     Image:
                   </label>
                   <input
@@ -38,7 +38,7 @@ const ServicesPage = () => {
 
                 <div>
                   <label
-                    for="description"
+                    htmlFor="description"
                     className="mb-2 block font-serif text-xl"
                   >
                     Description:

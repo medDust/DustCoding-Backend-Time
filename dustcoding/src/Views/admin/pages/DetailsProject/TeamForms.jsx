@@ -13,15 +13,13 @@ const TeamForms = () => {
       })
       .catch((err) => console.log(err));
   }, []);
-const handleSubmit = () => {
-  
-}
+  const handleSubmit = () => {};
   return (
     <div className="m-5 flex">
       <div className="m-2 grid items-center justify-center">
         <form action="">
           <label
-            for="countries"
+            htmlFor="countries"
             className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-400"
           >
             Select the team work

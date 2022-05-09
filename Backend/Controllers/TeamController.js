@@ -45,6 +45,15 @@ const getTeam = asyncHandler(async (req, res) => {
 
   res.status(200).send(team);
 });
+const getTeamById = asyncHandler(async (req, res) => {
+  const team = await Team.find({ _id: req.params.TeamId });
+  if (!team) {
+    res.status(400);
+    throw new Error({ msg: "is not define " });
+  }
+
+  res.status(200).send(team);
+});
 
 const getAllTeam = asyncHandler(async (req, res) => {
   try {
@@ -58,10 +67,10 @@ const getAllTeam = asyncHandler(async (req, res) => {
 const updateTeam = asyncHandler(async (req, res) => {
   try {
     const TeamId = req.params.TeamId;
-    const ProjectId = req.params.projectId;
+
     const userId = req.body.userId;
 
-    if (TeamId && ProjectId) {
+    if (TeamId) {
       const team = await Team.findOne({ TeamId });
       const user = await team.UserId.includes(userId);
       if (user) {
@@ -78,9 +87,14 @@ const updateTeam = asyncHandler(async (req, res) => {
 });
 
 const deleteTeam = asyncHandler(async (req, res) => {
-  const deleteMember = Team.findById({ projectId: req.params.projectId });
-  deleteMember.deleteOne();
-  res.status(200).json({ msg: "delete Team is work" });
+  const id = req.params.TeamId;
+  try {
+    const deleteMember = await Team.findById({ _id: id });
+    deleteMember.deleteOne();
+    res.status(200).json({ msg: "delete Team is work" });
+  } catch (error) {
+    return res.status(400).send("failed request delate");
+  }
 });
 
 const deleteTeamMember = asyncHandler(async (req, res) => {
@@ -91,7 +105,6 @@ const deleteTeamMember = asyncHandler(async (req, res) => {
     if (user) {
       const userIndex = await team.UserId.indexOf(userId);
       await team.UserId.splice(userIndex, 1);
-
       team.save();
       return res.status(200).send(team);
     } else {
@@ -109,4 +122,5 @@ export {
   getAllTeam,
   deleteTeam,
   deleteTeamMember,
+  getTeamById,
 };

@@ -1,4 +1,5 @@
 import express from "express";
+import uploads from "../Config/storeImage.js";
 import {
   register,
   login,
@@ -18,7 +19,7 @@ router.post("/signUp", register);
 router.post("/signUpEmp", registerEmp);
 router.post("/signIn", login);
 router.get("/logout", logout);
-router.get("/info", protect, getUser);
+router.get("/info/:id", getUser);
 router.get("/infos", getUsers);
 
 router.get("/refresh_token", refreshTokens);

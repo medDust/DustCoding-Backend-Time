@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const Profile = () => {
+  useEffect(() => {});
+
   return (
     <div className="relative  mt-0 w-full overflow-hidden rounded shadow-2xl">
-      <div className="top bg-blue-600 relative h-64 w-full overflow-hidden">
+      <div className="top relative h-64 w-full overflow-hidden bg-blue-600">
         <img
           src="https://images.unsplash.com/photo-1503264116251-35a269479413?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
           alt=""
@@ -30,7 +32,7 @@ const Profile = () => {
                   type="text"
                   value="Antonia P. Howell"
                   className="focus:shadow-outline text-md mr-2 w-full appearance-none rounded py-2 px-3 text-black shadow focus:border-dustLight focus:outline-none"
-                  disabled
+         
                 />
               </div>
 
@@ -41,7 +43,7 @@ const Profile = () => {
                     type="text"
                     value="antonia"
                     className="focus:shadow-outline s mr-2 w-full appearance-none rounded py-2 px-3 text-black focus:outline-none "
-                    disabled
+          
                   />
                 </div>
 
@@ -51,7 +53,7 @@ const Profile = () => {
                     type="text"
                     value="antoniaph@gmail.com"
                     className="focus:shadow-outline mr-2 w-full appearance-none rounded py-1 px-2 text-black focus:outline-none "
-                    disabled
+                
                   />
                 </div>
               </div>
@@ -60,13 +62,12 @@ const Profile = () => {
                 <h3 className="text-2xl font-semibold">Curnte project</h3>
               </div>
 
-              {/* <div className="form-item">
+              <div className="form-item">
                 <label className="text-xl ">Instagram</label>
                 <input
                   type="text"
                   value="https://instagram.com/"
                   className="focus:shadow-outline mr-2 w-full appearance-none rounded py-1 px-2 text-black text-opacity-50 text-opacity-25 shadow focus:border-blue-200 focus:outline-none "
-                  disabled
                 />
               </div>
               <div className="form-item">
@@ -75,7 +76,6 @@ const Profile = () => {
                   type="text"
                   value="https://facebook.com/"
                   className="focus:shadow-outline mr-2 w-full appearance-none rounded py-1 px-2 text-black text-opacity-50 text-opacity-25 shadow focus:border-blue-200 focus:outline-none "
-                  disabled
                 />
               </div>
               <div className="form-item">
@@ -84,10 +84,8 @@ const Profile = () => {
                   type="text"
                   value="https://twitter.com/"
                   className="focus:shadow-outline mr-2 w-full appearance-none rounded py-1 px-2 text-black  text-opacity-50 shadow focus:border-blue-200 focus:outline-none  "
-                  disabled
                 />
               </div>
-              */}
             </form>
           </div>
         </div>

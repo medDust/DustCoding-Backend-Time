@@ -16,7 +16,7 @@ export const GetAllTaskByProject = async ({ projectId }) => {
   return res;
 };
 
-// get Task by project ID and task ID
+// get Tasks by project
 export const GetTaskById = async ({ projectId, TaskId }) => {
   const config = {
     headers: {
@@ -61,8 +61,23 @@ export const CreateTask = async (projectId, data) => {
   );
   return res;
 };
+// get tasks by ID
+export const GetTasksbyId = async ({ TaskId }) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
+    },
+  };
+  const res = await axios.get(
+    `http://localhost:5000/api/Task/${TaskId}/`,
 
+    config
+  );
+  return res;
+};
 //project API
+//  create new project
 export const CreateProject = async (data) => {
   const config = {
     headers: {
@@ -77,6 +92,9 @@ export const CreateProject = async (data) => {
   );
   return res;
 };
+
+//  get project Details
+
 export const GetProjectbyId = async ({ projectId }) => {
   const config = {
     headers: {

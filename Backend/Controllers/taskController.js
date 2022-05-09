@@ -1,10 +1,10 @@
-import tasks from "../models/TasksModel.js";
+import Tasks from "../models/TasksModel.js";
 
 import asyncHandler from "express-async-handler";
 
 // get all tasks
 const getTasks = asyncHandler(async (req, res) => {
-  const task = await tasks.find({ projectId: req.params.projectId });
+  const task = await Tasks.find({ projectId: req.params.projectId });
   if (!task) {
     res.status(400);
     throw new Error("is not tasks");
@@ -13,12 +13,21 @@ const getTasks = asyncHandler(async (req, res) => {
 });
 // get tasks by pro
 const getTask = asyncHandler(async (req, res) => {
-  const task = await tasks.find({ _id: req.params.id });
-  if (!task) {
-    res.status(400);
-    throw new Error("is not tasks");
+  const projectId = req.params.projectId;
+  const taskId = req.params.id;
+
+  try {
+    if (projectId && taskId) {
+      const task = await Tasks.findById(taskId);
+      if (!task) {
+        res.status(400);
+        throw new Error("is not a task");
+      }
+      return res.send(task);
+    }
+  } catch (error) {
+    return res.status(404).json({ error: error.message });
   }
-  res.status(200).json(task);
 });
 
 // create method
@@ -32,8 +41,7 @@ const setTask = asyncHandler(async (req, res) => {
         "please add everything or you must be inside project page "
       );
     }
-
-    const newTask = await tasks.create({
+    const newTask = await Tasks.create({
       name: name,
       projectId: id,
     });
@@ -45,14 +53,14 @@ const setTask = asyncHandler(async (req, res) => {
 
 //update method
 const updateTask = asyncHandler(async (req, res) => {
-  const task = await tasks.findById({ _id: req.params.id });
+  const task = await Tasks.findById({ _id: req.params.id });
   //check task
   if (!task) {
     res.status(401);
     throw new Error("user not found");
   } else {
     task.name = req.body.name || task.name;
-    const update = await task.save();
+    const update = await Task.save();
 
     res.status(200).send(update.data);
   }
@@ -60,7 +68,7 @@ const updateTask = asyncHandler(async (req, res) => {
 
 // delate method
 const delateTask = asyncHandler(async (req, res) => {
-  const task = await tasks.findById({ _id: req.params.id });
+  const task = await Tasks.findById({ _id: req.params.id });
   if (!task) {
     res.status(400);
     throw new Error("is not tasks");

@@ -4,7 +4,7 @@ import CardComponent from "./DashBoardComponents/CardComponent";
 import CardsComponent from "./DashBoardComponents/CardsComponent";
 import HeaderComponent from "./DashBoardComponents/HeaderComponent";
 import TableauEmployerComponent from "./DashBoardComponents/TableauEmployerComponent";
-import TasksComponents from "./DashBoardComponents/TasksComponents";
+// import TasksComponents from "./DashBoardComponents/TasksComponents";
 
 const DashboardPage = () => {
   return (
@@ -16,7 +16,7 @@ const DashboardPage = () => {
           <CardComponent />
           <ActiveComponent />
         </div>
-        <TasksComponents />
+        {/* <TasksComponents /> */}
         <TableauEmployerComponent />
       </div>
     </div>

@@ -1,72 +1,62 @@
 import axios from "axios";
 
-export const register = async (data) => {
+//create post
+export const CreateArticle = async (data) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
     },
   };
-  const res = await axios.post(
-    "http://localhost:5000/api/auth/signUp",
+  const res = axios.post(`http://localhost:5000/api/articles/`, data, config);
+  return res;
+};
+
+//get article
+export const getArticle = async () => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
+    },
+  };
+  const res = axios.get(`http://localhost:5000/api/articles/`, config);
+  return res;
+};
+
+// get article by id
+export const getArticleById = async (_id) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
+    },
+  };
+  const res = axios.get(`http://localhost:5000/api/articles/${_id}`, config);
+  return res;
+};
+// delete article
+export const DelateArticle = async (_id) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
+    },
+  };
+  const res = axios.delete(`http://localhost:5000/api/articles/${_id}`, config);
+  return res;
+};
+// update article
+export const UpdateArticle = async (_id, data) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
+    },
+  };
+  const res = axios.put(
+    `http://localhost:5000/api/articles/${_id}`,
     data,
-    config
-  );
-  return res;
-};
-
-export const registerEmp = async (data) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
-    },
-  };
-  const res = await axios.post(
-    "http://localhost:5000/api/auth/signUpEmp",
-    data,
-    config
-  );
-  return res;
-};
-
-export const LogIn = async (data) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
-    },
-  };
-  const res = await axios.post(
-    "http://localhost:5000/api/auth/signIn",
-    data,
-    config
-  );
-  return res;
-};
-
-export const GetUsers = async () => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
-    },
-  };
-
-  const res = await axios.get("http://localhost:5000/api/auth/infos", config);
-  return res;
-};
-
-export const DeleteUser = async (id) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
-    },
-  };
-
-  const res = await axios.delete(
-    `http://localhost:5000/api/auth/delete-user/${id}`,
     config
   );
   return res;
