@@ -1,5 +1,5 @@
 import express from "express";
-import uploads from "../Config/storeImage.js";
+import uploads from "../Middleware/storeImage.js";
 import {
   register,
   login,
@@ -23,7 +23,7 @@ router.get("/info/:id", getUser);
 router.get("/infos", getUsers);
 
 router.get("/refresh_token", refreshTokens);
-router.put("/update-user/:_id", UpdateUser);
+router.put("/update-user/:_id",  UpdateUser);
 router.delete("/delete-user/:_id", deleteUser);
 
 export default router;

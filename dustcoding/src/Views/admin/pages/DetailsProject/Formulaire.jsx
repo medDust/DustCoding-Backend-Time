@@ -3,20 +3,37 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { CreateProject } from "../../../../api/ProjectsFunction";
+import { useState } from "react";
+import { useEffect } from "react";
+import { GetAllUsers } from "../../../../api/UserFunction";
 
 const Formulaire = (props) => {
+  const [Users, setUsers] = useState([]);
+  useEffect(() => {
+    GetAllUsers()
+      .then((response) => {
+        const User = response.data;
+        setUsers(User);
+      })
+      .catch((err) => console.log(err));
+  }, []);
   const formik = useFormik({
     initialValues: {
       title: "",
+      userId: "",
+      dateBeguin: "",
+      dateEnd: "",
     },
     validationSchema: Yup.object({
       title: Yup.string().required("Required"),
+      userId: Yup.string(""),
+      dateBeguin: Yup.date(),
+      dateEnd: Yup.date(),
     }),
 
     onSubmit: (values) => {
       const data = JSON.stringify(values, null, 2);
-
-   
+      alert(data);
       CreateProject(data)
         .then((response) => {
           window.location.reload(false);
@@ -27,9 +44,13 @@ const Formulaire = (props) => {
         });
     },
   });
+
   return (
-    <form className="col-span-3 m-5 flex" onSubmit={formik.handleSubmit}>
-      <div className="group relative z-0 w-5/6">
+    <form
+      className="col-span-3 m-5 flex justify-evenly"
+      onSubmit={formik.handleSubmit}
+    >
+      <div className="group relative z-0 w-3/6">
         <input
           type="text"
           name="title"
@@ -41,7 +62,7 @@ const Formulaire = (props) => {
           required
         />
         <label
-          htmlhtmlFor="title"
+          htmlFor="title"
           className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 "
         >
           Project Name
@@ -50,6 +71,76 @@ const Formulaire = (props) => {
       {formik.touched.title && formik.errors.title ? (
         <div className="text-red text-base">{formik.errors.title}</div>
       ) : null}
+      <div className="group relative z-0 w-3/6">
+        <select
+          id="countries"
+          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+          name="userId"
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          value={formik.values.name}
+        >
+          {Users.filter((user) => user.role === 0).map((user) => (
+            <option key={user.id} value={user._id}>
+              {user.username}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      <div date-rangepicker class="flex items-center">
+        <div class="relative">
+          <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+            <svg
+              class="h-5 w-5 text-gray-500 "
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </div>
+          <input
+            name="dateBeguin"
+            type="date"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.name}
+            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-gray-900 focus:border-blue-500 focus:ring-blue-500 sm:text-sm  "
+            placeholder="Select date start"
+          />
+        </div>
+        <span class="mx-4 text-gray-500">to</span>
+        <div class="relative">
+          <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+            <svg
+              class="h-5 w-5 text-gray-500 "
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </div>
+          <input
+            name="dateEnd"
+            type="date"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.name}
+            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-gray-900 focus:border-blue-500 focus:ring-blue-500 sm:text-sm "
+            placeholder="Select date end"
+          />
+        </div>
+      </div>
       <div className="mx-2 ">
         <button
           type="submit"

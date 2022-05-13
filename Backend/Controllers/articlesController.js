@@ -1,5 +1,5 @@
 import asyncHandler from "express-async-handler";
-import uploads from "../Config/storeImage.js";
+import uploads from "../Middleware/storeImage.js";
 import article from "../models/articlesModel.js";
 
 // read method

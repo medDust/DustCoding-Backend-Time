@@ -4,15 +4,16 @@ import {
   setServices,
   updateServices,
   delateServices,
+  getServiceById,
 } from "../Controllers/servicesController.js";
-import protect from "../Middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.route("/").get(protect, getService).post(protect, setServices);
+router.route("/").get(getService).post(setServices);
 router
   .route("/:id")
-  .put(protect, updateServices)
-  .delete(protect, delateServices);
+  .put(updateServices)
+  .delete(delateServices)
+  .get(getServiceById);
 
 export default router;

@@ -12,7 +12,9 @@ import TeamForms from "./TeamForms";
 const ProjectPage = () => {
   const [Tasks, setTasks] = useState([]);
   const [Title, setTitle] = useState("");
+
   const [IdProject, setIdProject] = useState("");
+  const [ClientName, setClientName] = useState("");
   const [TaskName, setTaskName] = useState();
   let { id } = useParams();
 
@@ -30,8 +32,10 @@ const ProjectPage = () => {
       .then((res) => {
         const Title = res.data.title;
         const IdProject = res.data._id;
+        const ClientName = res.data.fullName;
         setIdProject(IdProject);
         setTitle(Title);
+        setClientName(ClientName);
       })
       .catch((err) => {
         return console.log({ msg: err.message });
@@ -59,9 +63,19 @@ const ProjectPage = () => {
       >
         {tasks.name}
       </th>
-      <td className="px-6 py-4">Sliver</td>
-      <td className="px-6 py-4">Laptop</td>
-      <td className="px-6 py-4">$2999</td>
+      <td className="px-6 py-4">
+        {
+          (tasks.position = 0 ? (
+            <span className="rounded-full bg-green-400 px-2 py-1 font-semibold leading-tight text-white ">
+              TODO
+            </span>
+          ) : (
+            <span className="rounded-full bg-blue-400 px-2 py-1 font-semibold leading-tight text-white ">
+              BACKLOG
+            </span>
+          ))
+        }
+      </td>
       <td className="flex  justify-evenly px-6 py-4 ">
         <Link
           to={`/Admin/Projects/${IdProject}/Task/${tasks._id}`}
@@ -92,6 +106,9 @@ const ProjectPage = () => {
         <div className="h-9">
           <h1 className="mx-4 gap-4 text-xl font-bold uppercase"> {Title}</h1>
           <h1 className="mx-4 gap-4 text-xl font-bold uppercase">{TaskName}</h1>
+          <h1 className="mx-4 my-2 gap-4 text-xl font-bold uppercase opacity-50">
+            {ClientName}
+          </h1>
           <TaskForm name="Task" />
           <TeamForms />
         </div>
@@ -103,14 +120,9 @@ const ProjectPage = () => {
                 <th scope="col" className="px-6 py-3">
                   Product name
                 </th>
+
                 <th scope="col" className="px-6 py-3">
-                  Color
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Category
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  Price
+                  state
                 </th>
                 <th scope="col" className="px-6 py-3">
                   <span className="sr-only">Edit</span>

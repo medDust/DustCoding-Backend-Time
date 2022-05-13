@@ -10,11 +10,13 @@ const TasksSchema = mongoose.Schema(
     },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
       ref: "User",
     },
-
     position: {
+      type: String,
+      default: 0,
+    },
+    url: {
       type: String,
       default: 0,
     },

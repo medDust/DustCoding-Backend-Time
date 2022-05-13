@@ -40,7 +40,7 @@ import ModalsEmployer from "./Views/admin/pages/Modals/ModalsEmployer";
 import ArticleList from "./Views/admin/pages/ArticleList";
 import EditArticle from "./Views/admin/pages/EditeArticle";
 import ArticleDetails from "./Views/admin/pages/DetailsProject/ArticleDetails";
-
+import ServicesList from "./Views/admin/pages/ServiceList";
 const App = () => {
   useEffect(() => {
     fetch("https://git.heroku.com/dustcoding-backend-server.git", {
@@ -240,11 +240,20 @@ const App = () => {
               }
             />
             <Route
-              path="/Admin/Service"
+              path="/Admin/Service/create"
               element={
                 <div className="flex justify-between">
                   <SideBar />
                   <ServicesPage />
+                </div>
+              }
+            />
+            <Route
+              path="/Admin/Service"
+              element={
+                <div className="flex justify-between">
+                  <SideBar />
+                  <ServicesList />
                 </div>
               }
             />

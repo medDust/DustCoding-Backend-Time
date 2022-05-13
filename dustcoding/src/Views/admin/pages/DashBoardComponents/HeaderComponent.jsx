@@ -16,9 +16,8 @@ const HeaderComponent = () => {
       <div className="flex h-14 w-full items-center justify-start border-none bg-dustDark pl-3  md:w-64 md:justify-center">
         <img
           className="mr-2 h-7 w-7 overflow-hidden rounded-md md:h-10 md:w-10"
-          src={profil}
+          src={`${profil}`}
           alt="logo"
-          p
         />
         <div>
           <p className="hidden sm:hidden md:block">mohamed Dida</p>

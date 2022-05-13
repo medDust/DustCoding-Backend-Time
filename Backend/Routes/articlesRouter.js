@@ -1,5 +1,7 @@
 import express from "express";
-import uploads from "../Config/storeImage.js";
+
+import uploads from "../Middleware/storeImage.js";
+
 import {
   getArticle,
   setArticles,

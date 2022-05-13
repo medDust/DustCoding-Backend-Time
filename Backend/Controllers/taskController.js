@@ -1,5 +1,5 @@
 import Tasks from "../models/TasksModel.js";
-
+import project from "../models/projectModels.js";
 import asyncHandler from "express-async-handler";
 
 // get all tasks
@@ -57,11 +57,13 @@ const updateTask = asyncHandler(async (req, res) => {
   //check task
   if (!task) {
     res.status(401);
-    throw new Error("user not found");
+    throw new Error("Task not found");
   } else {
     task.name = req.body.name || task.name;
-    const update = await Task.save();
-
+    task.userId = req.body._id || task._id;
+    task.url = req.body.url || task.url;
+    task.position = req.body.position || task.position;
+    const update = await task.save();
     res.status(200).send(update.data);
   }
 });

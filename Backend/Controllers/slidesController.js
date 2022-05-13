@@ -13,7 +13,7 @@ const getSlide = asyncHandler(async (req, res) => {
 
 // create method
 const setSlides = asyncHandler(async (req, res) => {
-  if (!req.body.title || !req.body.description || !req.body.image) {
+  if (!req.body.title || !req.body.description ) {
     res.status(400);
     throw new Error("please add everything ");
   }
@@ -21,7 +21,7 @@ const setSlides = asyncHandler(async (req, res) => {
   const newSlide = await slide.create({
     title: req.body.title,
     description: req.body.description,
-    image: req.body.image,
+  
   });
   res.status(200).json(newSlide);
 });

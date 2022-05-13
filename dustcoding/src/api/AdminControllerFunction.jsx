@@ -61,3 +61,69 @@ export const UpdateArticle = async (_id, data) => {
   );
   return res;
 };
+
+//** get service* */
+
+// service create post
+export const createService = async (data) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
+    },
+  };
+  const res = axios.post(`http://localhost:5000/api/services/`, data, config);
+  return res;
+};
+
+//get service
+export const getService = async () => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
+    },
+  };
+  const res = axios.get(`http://localhost:5000/api/services/`, config);
+  return res;
+};
+
+//get by id service
+export const getServiceById = async (_id) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
+    },
+  };
+  const res = axios.get(`http://localhost:5000/api/services/${_id}`, config);
+  return res;
+};
+
+//update service
+export const UpdateService = async (_id, data) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
+    },
+  };
+  const res = axios.put(
+    `http://localhost:5000/api/serivces/${_id}`,
+    data,
+    config
+  );
+  return res;
+};
+
+//delete service
+export const DelateService = async (_id) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
+    },
+  };
+  const res = axios.delete(`http://localhost:5000/api/services/${_id}`, config);
+  return res;
+};

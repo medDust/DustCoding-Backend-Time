@@ -12,11 +12,13 @@ import Formulaire from "./DetailsProject/Formulaire";
 
 const ProjectsPages = () => {
   const [Projects, setProjects] = useState([]);
+
   useEffect(() => {
     GetProjects()
       .then((response) => {
         const Projects = response.data;
         setProjects(Projects);
+        console.log(Projects);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -44,6 +46,28 @@ const ProjectsPages = () => {
           </div>
         </div>
       </td>
+      <td className="px-4 py-3">
+        <div className="flex items-center text-sm">
+          <div>
+            <p className="font-semibold">{project.fullName}</p>
+          </div>
+        </div>
+      </td>
+      <td className="px-4 py-3">
+        <div className="flex items-center text-sm">
+          <div>
+            <p className="font-semibold">{project.dateBeguin}</p>
+          </div>
+        </div>
+      </td>
+      <td className="px-4 py-3">
+        <div className="flex items-center text-sm">
+          <div>
+            <p className="font-semibold">{project.dateEnd}</p>
+          </div>
+        </div>
+      </td>
+
       <td className="px-4 py-3">
         <div className="flex items-center text-sm">
           <div>
@@ -76,19 +100,21 @@ const ProjectsPages = () => {
   return (
     <div className="flex min-h-screen flex-auto flex-shrink-0 flex-col bg-white text-black antialiased">
       <HeaderComponent />
-      <div className="ml-14 mt-14 mb-10 grid h-full md:ml-64 ">
+      <div className="ml-14 mt-14 mb-10 h-full tracking-wide md:ml-64 ">
         <div>
           <Formulaire name="Project" />
         </div>
-        <table className="whitespace-no-wrap w-1/2">
+        <table className="whitespace-no-wrap w-full">
           <thead>
-            <tr className="border-b bg-gray-50 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 ">
+            <tr className="border-b-2 bg-gray-50 text-left text-xs font-semibold uppercase  text-gray-500 ">
               <th className="px-4 py-3">id</th>
 
               <th className="px-4 py-3">Title</th>
-
+              <th className="px-4 py-3">Client</th>
+              <th className="px-4 py-3">Date Begin</th>
+              <th className="px-4 py-3">Date End</th>
               <th className="px-4 py-3">state</th>
-              <th className="px-4 py-3">option</th>
+              <th className="px-4 py-3">control</th>
             </tr>
           </thead>
           <tbody className="divide-y bg-white ">{ProjectList}</tbody>

@@ -1,3 +1,4 @@
+
 import asyncHandler from "express-async-handler";
 import service from "../models/servicesModel.js";
 // read method
@@ -12,17 +13,22 @@ const getService = asyncHandler(async (req, res) => {
 
 // create method
 const setServices = asyncHandler(async (req, res) => {
-  if (!req.body.title || !req.body.description || !req.body.image) {
-    res.status(400);
-    throw new Error("please add everything ");
-  }
+  try {
+    if (!req.body.title || !req.body.description) {
+      res.status(400);
+      throw new Error("please add everything ");
+    }
 
-  const newService = await service.create({
-    title: req.body.title,
-    description: req.body.description,
-    image: req.body.image,
-  });
-  res.status(200).json(newService);
+    const newService = await service.create({
+      title: req.body.title,
+      description: req.body.description,
+    });
+    res.status(200).json(newService);
+  } catch (err) {
+    res.status(400).send({
+      msg: err.message,
+    });
+  }
 });
 
 //update method
@@ -36,6 +42,16 @@ const updateServices = asyncHandler((req, res) => {
   res.status(200);
 });
 
+//get by id
+const getServiceById = asyncHandler(async (req, res) => {
+  const services = await service.findOne({ _id: req.params.id });
+  if (!service) {
+    res.status(400);
+    throw new Error("is not services");
+  }
+  res.status(200).json(services);
+});
+
 // delate method
 const delateServices = asyncHandler(async (req, res) => {
   const services = await service.findById(req.params.id);
@@ -47,4 +63,10 @@ const delateServices = asyncHandler(async (req, res) => {
   res.status(200).json({ id: req.params.id });
 });
 
-export { getService, setServices, updateServices, delateServices };
+export {
+  getService,
+  setServices,
+  updateServices,
+  delateServices,
+  getServiceById,
+};

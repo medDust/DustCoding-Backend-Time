@@ -1,6 +1,6 @@
 import project from "../models/projectModels.js";
-import user from "../models/userModel.js";
-
+import User from "../models/userModel.js";
+import { getUser } from "./userController.js";
 import asyncHandler from "express-async-handler";
 
 const getProject = asyncHandler(async (req, res) => {
@@ -29,11 +29,22 @@ const setProjects = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("please add everything ");
   }
-
-  const newProject = project.create({
-    title: req.body.title,
-  });
-  res.status(200).send({ Project: newProject._id });
+  const title = req.body.title;
+  const userId = req.body.userId;
+  const dateDeb = req.body.dateBeguin;
+  const dateEnd = req.body.dateEnd;
+  if (userId) {
+    const name = await User.findOne({ _id: userId });
+    const fullName = name.fullName;
+    const newProject = await project.create({
+      title: title,
+      userId: userId,
+      fullName: fullName,
+      dateBeguin: dateDeb,
+      dateEnd: dateEnd,
+    });
+    res.status(200).send({ Project: newProject });
+  }
 });
 
 //update method

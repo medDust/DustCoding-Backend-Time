@@ -10,10 +10,20 @@ const projectSchema = mongoose.Schema(
       type: Number,
       default: 0,
     },
-    user:{
-      type : mongoose.Schema.Types.ObjectId ,
-      ref : "User",
-    }
+
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+    fullName: {
+      type: String,
+    },
+    dateBeguin: {
+      type: String,
+    },
+    dateEnd: {
+      type: String,
+    },
   },
   {
     timestamps: true,

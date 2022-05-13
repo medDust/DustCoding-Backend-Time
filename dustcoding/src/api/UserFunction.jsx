@@ -12,6 +12,19 @@ export const GetUser = async ({ UserId }) => {
   const res = axios.get(`http://localhost:5000/api/project/${UserId}/`, config);
   return res;
 };
+export const GetUserName = async ({ UserId }) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
+    },
+  };
+  const res = axios.get(
+    `http://localhost:5000/api/auth/info/${UserId}/`,
+    config
+  );
+  return res;
+};
 
 // GET ALL USER
 export const GetAllUsers = async () => {

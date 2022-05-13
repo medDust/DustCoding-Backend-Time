@@ -28,7 +28,6 @@ const EmployersPage = () => {
         <td className="px-4 py-3">{index}</td>
         <td className="px-4 py-3">
           <div className="flex items-center text-sm">
-            {/* <!-- Avatar with inset shadow --> */}
             <div className="relative mr-3 h-8 w-8 rounded-full sm:hidden md:block">
               <img
                 className="h-full w-full rounded-full object-cover"
