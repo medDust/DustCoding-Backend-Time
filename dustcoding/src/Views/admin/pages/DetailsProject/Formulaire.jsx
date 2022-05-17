@@ -47,10 +47,10 @@ const Formulaire = (props) => {
 
   return (
     <form
-      className="col-span-3 m-5 flex justify-evenly"
+      className="col-span-3 m-5 flex justify-evenly gap-2"
       onSubmit={formik.handleSubmit}
     >
-      <div className="group relative z-0 w-3/6">
+      <div className="group relative z-0 w-2/6">
         <input
           type="text"
           name="title"
@@ -71,7 +71,7 @@ const Formulaire = (props) => {
       {formik.touched.title && formik.errors.title ? (
         <div className="text-red text-base">{formik.errors.title}</div>
       ) : null}
-      <div className="group relative z-0 w-3/6">
+      <div className="group relative z-0 w-2/6">
         <select
           id="countries"
           className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
@@ -88,7 +88,7 @@ const Formulaire = (props) => {
         </select>
       </div>
 
-      <div date-rangepicker class="flex items-center">
+      <div date-rangepicker class="flex w-2/6 items-center">
         <div class="relative">
           <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
             <svg

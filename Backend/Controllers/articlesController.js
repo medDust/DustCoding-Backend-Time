@@ -1,5 +1,4 @@
 import asyncHandler from "express-async-handler";
-import uploads from "../Middleware/storeImage.js";
 import article from "../models/articlesModel.js";
 
 // read method
@@ -23,26 +22,23 @@ const getArticleById = asyncHandler(async (req, res) => {
 
 // create method
 const setArticles = asyncHandler(async (req, res) => {
-  uploads(req, res, (err) => {
-    if (err) {
-      console.log("can't upload image :", err);
-    } else {
-      if (!req.body.title || !req.body.description) {
-        res.status(400);
-        throw new Error("please add everything ");
-      }
-      const url = req.protocol + "://" + req.get("host");
-      const newArticle = new article({
-        title: req.body.title,
-        description: req.body.description,
-        image: url + "/images/" + req.file.filename,
-      });
-      newArticle
-        .save()
-        .then(() => res.status(200).json(newArticle))
-        .catch((err) => res.send(400).json({ err: err.message }));
+  try {
+    if (!req.body.title || !req.body.description) {
+      res.status(400);
+      throw new Error("please add everything");
     }
-  });
+
+    const newArticle = await article.create({
+      title: req.body.title,
+      description: req.body.description,
+      image: req.file.image,
+    });
+    return res.status(200).send({ Article: newArticle });
+  } catch (err) {
+    return res.status(400).send({
+      msg: err.message,
+    });
+  }
 });
 
 //update method

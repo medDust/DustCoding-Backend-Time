@@ -83,7 +83,6 @@ const App = () => {
               <>
                 <HeaderComponent />
                 <Service />
-
                 <FooterComponent />
               </>
             }

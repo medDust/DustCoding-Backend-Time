@@ -100,7 +100,7 @@ const ProjectsPages = () => {
   return (
     <div className="flex min-h-screen flex-auto flex-shrink-0 flex-col bg-white text-black antialiased">
       <HeaderComponent />
-      <div className="ml-14 mt-14 mb-10 h-full tracking-wide md:ml-64 ">
+      <div className="ml-14 mt-14 mb-10 h-full gap-6 tracking-wide md:ml-64 ">
         <div>
           <Formulaire name="Project" />
         </div>

@@ -1,10 +1,11 @@
 import express from "express";
 import path from "path";
+import bodyParser from "body-parser";
 import { fileURLToPath } from "url";
+
 import cors from "cors";
 import Color from "colors";
 import dovenv from "dotenv/config";
-
 import apiUser from "./Routes/userRoutes.js";
 import apiTeam from "./Routes/teamRouter.js";
 import apiArt from "./Routes/articlesRouter.js";
@@ -13,7 +14,6 @@ import apiSdl from "./Routes/slideRouter.js";
 import apiTask from "./Routes/tasksRouter.js";
 import apiProject from "./Routes/projectRouter.js";
 import apiSrv from "./Routes/servicesRouter.js";
-
 import errorHandler from "./Middleware/errorMiddleware.js";
 import morgan from "morgan";
 
@@ -27,7 +27,19 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(morgan("dev"));
+
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
+
+// image path
+app.use(
+  "./image",
+  express.static(path.join(__dirname, "../dustcoding/public/uploads"))
+);
 
 // authentication routes
 app.use("/api/auth", apiUser);
@@ -42,16 +54,6 @@ app.use("/api/mails", apiMails);
 app.use("/api/project", apiProject);
 app.use("/api/Tasks", apiTask);
 app.use("/api/Team", apiTeam);
-
-const __filename = fileURLToPath(import.meta.url);
-
-const __dirname = path.dirname(__filename);
-
-// image path
-app.use(
-  "./image",
-  express.static(path.join(__dirname, "../dustcoding/public/uploads"))
-);
 
 // production path
 if (process.env.NODE_ENV === "production") {
