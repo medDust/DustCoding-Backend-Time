@@ -9,7 +9,7 @@ export const CreateArticle = async (data) => {
     },
   };
   const res = axios.post(`http://localhost:5000/api/articles/`, data, config);
-  return res;
+  return res.data;
 };
 
 //get article
@@ -62,7 +62,6 @@ export const UpdateArticle = async (_id, data) => {
   return res;
 };
 
-//** get service* */
 
 // service create post
 export const createService = async (data) => {
@@ -89,14 +88,14 @@ export const getService = async () => {
 };
 
 //get by id service
-export const getServiceById = async (_id) => {
+export const getServiceById = async (id) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
     },
   };
-  const res = axios.get(`http://localhost:5000/api/services/${_id}`, config);
+  const res = axios.get(`http://localhost:5000/api/services/${id}`, config);
   return res;
 };
 
@@ -109,7 +108,7 @@ export const UpdateService = async (_id, data) => {
     },
   };
   const res = axios.put(
-    `http://localhost:5000/api/serivces/${_id}`,
+    `http://localhost:5000/api/services/${_id}`,
     data,
     config
   );

@@ -1,8 +1,8 @@
-import asyncHandler from "express-async-handler";
+import AsyncHandler from "express-async-handler";
 import article from "../models/articlesModel.js";
-
+import fs from "fs/promises";
 // read method
-const getArticle = asyncHandler(async (req, res) => {
+const getArticle = AsyncHandler(async (req, res) => {
   const articles = await article.find().all();
   if (!article) {
     res.status(400);
@@ -11,29 +11,34 @@ const getArticle = asyncHandler(async (req, res) => {
   res.status(200).json(articles);
 });
 // read method
-const getArticleById = asyncHandler(async (req, res) => {
+const getArticleById = AsyncHandler(async (req, res) => {
   const articles = await article.findById({ _id: req.params.id });
   if (!article) {
     res.status(400);
     throw new Error("is not article");
   }
-  res.status(200).json(articles);
+  // const Image = articles.image;
+  // const images = fs.readFile("/images", Image);
+  // res.send(images);
+   return res.status(200).send(articles);
 });
 
 // create method
-const setArticles = asyncHandler(async (req, res) => {
+const setArticles = AsyncHandler(async (req, res) => {
   try {
-    if (!req.body.title || !req.body.description) {
+    if (!req.body.title || !req.body.description || !req.file) {
       res.status(400);
-      throw new Error("please add everything");
+      throw new Error("something is wrong");
     }
+    console.log(req.file.filename);
+    var file = req.file.filename;
 
     const newArticle = await article.create({
       title: req.body.title,
       description: req.body.description,
-      image: req.file.image,
+      image: file,
     });
-    return res.status(200).send({ Article: newArticle });
+    return res.status(200).send(newArticle);
   } catch (err) {
     return res.status(400).send({
       msg: err.message,
@@ -42,45 +47,26 @@ const setArticles = asyncHandler(async (req, res) => {
 });
 
 //update method
-const updateArticles = asyncHandler(async (req, res) => {
-  try {
-    let update = new article({ _id: req.params._id });
-    if (req.file) {
-      const url = req.protocol + "://" + req.get("host");
-      req.body.update = JSON.parse(req.body.update);
-      Update = {
-        _id: req.params.id,
-        title: req.body.Update.title,
-        description: req.body.Update.description,
-        image: url + "/images/" + req.file.filename,
-      };
-    } else {
-      update = {
-        _id: req.params.id,
-        title: req.body.title,
-        description: req.body.description,
-        image: req.body.image,
-      };
-    }
-    article
-      .findByIdAndUpdate({ _id: req.params.id }, update)
-      .then(() => {
-        res.status(201).json({
-          update,
-        });
-      })
-      .catch((error) => {
-        res.status(400).json({
-          error: error,
-        });
-      });
-  } catch (error) {
-    return res.status(400).send({ msg: error.message });
+const updateArticles = AsyncHandler(async (req, res) => {
+  const Title = req.body.title;
+  const Description = req.body.description;
+  const ArticleImages = req.file.ArticleImage;
+  console.log({ Title, Description });
+  if (!Title || !Description || !ArticleImages) {
+    res.status(400);
+    throw new Error("please add everything");
   }
+  const newArticle = await article.create({
+    title: req.body.title,
+    description: req.body.description,
+    ArticleImage: req.file.ArticleImage,
+  });
+
+  return res.status(200).send({ Article: newArticle });
 });
 
 // delate method
-const delateArticle = asyncHandler(async (req, res) => {
+const delateArticle = AsyncHandler(async (req, res) => {
   const articles = await article.findById(req.params.id);
   if (!articles) {
     res.status(400);

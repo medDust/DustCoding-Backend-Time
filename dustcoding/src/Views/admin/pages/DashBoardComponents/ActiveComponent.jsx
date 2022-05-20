@@ -26,7 +26,7 @@ const ActiveComponent = () => {
               required
             />
             <label
-              for="floating_first_name"
+              htmlFor="floating_first_name"
               className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 "
             >
               Task name
@@ -56,7 +56,7 @@ const ActiveComponent = () => {
               required
             />
             <label
-              for="floating_phone"
+              htmlFor="floating_phone"
               className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500"
             >
               URL
@@ -73,7 +73,7 @@ const ActiveComponent = () => {
                   className="h-4 w-4 border-gray-300 bg-gray-100 text-red-600 focus:ring-2 focus:ring-red-500"
                 />
                 <label
-                  for="red-radio"
+                  htmlFor="red-radio"
                   className="ml-2 text-sm font-medium uppercase text-gray-900"
                 >
                   backlog
@@ -89,7 +89,7 @@ const ActiveComponent = () => {
                   className="h-4 w-4 border-gray-300 bg-gray-100 text-purple-600 focus:ring-2 focus:ring-purple-500 "
                 />
                 <label
-                  for="purple-radio"
+                  htmlFor="purple-radio"
                   className="ml-2 text-sm font-medium uppercase text-gray-900 "
                 >
                   To do
@@ -104,7 +104,7 @@ const ActiveComponent = () => {
                   className="h-4 w-4 border-gray-300 bg-gray-100 text-teal-600 focus:ring-2 focus:ring-teal-500 "
                 />
                 <label
-                  for="teal-radio"
+                  htmlFor="teal-radio"
                   className="ml-2 text-sm font-medium uppercase text-gray-900 "
                 >
                   In progress
@@ -119,7 +119,7 @@ const ActiveComponent = () => {
                   className="h-4 w-4 border-gray-300 bg-gray-100 text-yellow-400 focus:ring-2 focus:ring-yellow-500"
                 />
                 <label
-                  for="yellow-radio"
+                  htmlFor="yellow-radio"
                   className="ml-2 text-sm font-medium uppercase text-gray-900 "
                 >
                   testing
@@ -135,7 +135,7 @@ const ActiveComponent = () => {
                   className="h-4 w-4 border-gray-300 bg-gray-100 text-orange-500 focus:ring-2 focus:ring-orange-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-orange-600"
                 />
                 <label
-                  for="orange-radio"
+                  htmlFor="orange-radio"
                   className="ml-2 text-sm font-medium text-gray-900 "
                 >
                   Orange
@@ -150,7 +150,7 @@ const ActiveComponent = () => {
                   className="h-4 w-4 border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 "
                 />
                 <label
-                  for="green-radio"
+                  htmlFor="green-radio"
                   className="ml-2 text-sm font-medium uppercase text-gray-900 "
                 >
                   done

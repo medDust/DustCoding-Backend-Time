@@ -16,30 +16,29 @@ import apiProject from "./Routes/projectRouter.js";
 import apiSrv from "./Routes/servicesRouter.js";
 import errorHandler from "./Middleware/errorMiddleware.js";
 import morgan from "morgan";
-
+import fs from "fs/promises";
 import connectDB from "./Config/database.js";
+import uploads from "./Middleware/storeImage.js";
 const port = process.env.PORT || 5000;
 
 connectDB();
 
 const app = express();
-
+const route = express.Router();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(morgan("dev"));
+app.use(uploads.single("image"));
 
 const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename);
 
 // image path
-app.use(
-  "./image",
-  express.static(path.join(__dirname, "../dustcoding/public/uploads"))
-);
+app.use("image", express.static(path.join(__dirname, "/images")));
 
 // authentication routes
 app.use("/api/auth", apiUser);

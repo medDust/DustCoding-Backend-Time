@@ -6,7 +6,7 @@ export const getLocalStorage = (key) => {
     const data = localStorage.getItem(key);
     return JSON.parse(data);
   } catch (error) {
-    return console.log ("failed get local storage method", error);
+    return console.log("failed get local storage method", error);
   }
 };
 export const deleteLocalStorage = (key) => {

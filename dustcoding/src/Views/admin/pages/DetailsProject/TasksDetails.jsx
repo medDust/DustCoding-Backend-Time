@@ -1,16 +1,12 @@
 import React, { useEffect } from "react";
-import HeaderComponent from "../DashBoardComponents/HeaderComponent.jsx";
 import { useParams } from "react-router-dom";
 const TasksDetails = () => {
   const { id } = useParams();
-  useEffect(() => {
-   
-  }, [id])
-  
+  useEffect(() => {}, [id]);
+
   return (
     <div className="flex min-h-screen flex-auto flex-shrink-0 flex-col bg-white text-black antialiased">
-      <HeaderComponent />
-      <div className="ml-14 mt-14 mb-10 grid h-full md:ml-64 ">
+      <div className=" ml-14 mt-5   mb-10 grid h-full md:ml-64 ">
         <div className="h-9">task details</div>
       </div>
     </div>

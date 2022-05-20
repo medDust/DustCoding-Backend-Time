@@ -2,8 +2,9 @@ import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { IoMdAddCircleOutline } from "react-icons/io";
-import { CreateTask } from "../../../../api/ProjectsFunction";
-import { useParams } from "react-router";
+
+import { useParams } from "react-router-dom";
+import { CreateTask } from "../../../../api/ProjectsFunction.jsx";
 
 const TaskForm = () => {
   const { id } = useParams();
@@ -41,7 +42,7 @@ const TaskForm = () => {
           required
         />
         <label
-          htmlhtmlFor="name"
+          htmlFor="name"
           className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 "
         >
           Task Name

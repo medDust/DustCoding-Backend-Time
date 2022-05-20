@@ -4,8 +4,6 @@ import * as Yup from "yup";
 import { useNavigate, useParams } from "react-router-dom";
 import { UpdateUser } from "../../../../api/UserFunction";
 
-import HeaderComponent from "../DashBoardComponents/HeaderComponent";
-
 const UserForms = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -43,7 +41,6 @@ const UserForms = () => {
 
   return (
     <div className="flex min-h-screen flex-auto flex-shrink-0 flex-col bg-white text-black antialiased">
-      <HeaderComponent />
       <div className="mx-auto max-w-2xl bg-white p-16">
         <form onSubmit={formik.handleSubmit}>
           <div className="mb-6 grid gap-6 lg:grid-cols-2">

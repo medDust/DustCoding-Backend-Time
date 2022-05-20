@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-
+import React from "react";
+//
 import {
   Home,
   About,
@@ -12,6 +12,7 @@ import {
   Login,
   SignUp,
 } from "./contents";
+//
 import {
   SideBar,
   ArticlesPage,
@@ -20,35 +21,43 @@ import {
   MailingPage,
   PartnersPages,
   ProjectsPages,
-  ServicesPage,
 } from "./Views/admin";
-import { Meeting, Messaging, NavBar, Profile } from "./Views/cLient";
+import { Profile } from "./Views/admin/pages/user";
+//
+import { Meeting, Messaging, NavBar } from "./Views/cLient";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import {
   ProtectedRouter,
   ProtectedRouterUser,
 } from "./helpers/ProtectedRouter";
 import { isAuthenticated } from "./helpers/auth";
-import ProjectPage from "./Views/admin/pages/DetailsProject/ProjectPage";
-import SettingsPage from "./Views/cLient/Components/profile/SettingsPage";
-import UserForms from "./Views/admin/pages/Modals/UserForms";
-import TasksDetails from "./Views/admin/pages/DetailsProject/TasksDetails";
-//import ActiveComponent from "./Views/admin/pages/DashBoardComponents/ActiveComponent";
-import EditTasks from "./Views/admin/pages/DetailsProject/EditTasks";
 import { ArticleSection } from "./components";
-import ModalsEmployer from "./Views/admin/pages/Modals/ModalsEmployer";
-import ArticleList from "./Views/admin/pages/ArticleList";
-import EditArticle from "./Views/admin/pages/EditeArticle";
-import ArticleDetails from "./Views/admin/pages/DetailsProject/ArticleDetails";
-import ServicesList from "./Views/admin/pages/ServiceList";
+import { EditeTasks, TasksDetails } from "./Views/admin/pages/DetailsProject";
+import { ProjectPage } from "./Views/admin/pages/Project";
+import { ModalsEmployer, UserForms } from "./Views/admin/pages/Modals";
+
+import {
+  EditeService,
+  ServicesList,
+  ServicesDetails,
+  ServicesPage,
+} from "./Views/admin/pages/service";
+
+import {
+  ArticleDetails,
+  ArticleList,
+  EditeArticle,
+} from "./Views/admin/pages/articles";
+import SettingsPage from "./Views/cLient/Components/profile/SettingsPage";
+
 const App = () => {
-  useEffect(() => {
-    fetch("https://git.heroku.com/dustcoding-backend-server.git", {
-      method: "GET",
-    })
-      .then((data) => data.json())
-      .then((json) => alert(JSON.stringify(json)));
-  }, []);
+  // useEffect(() => {
+  //   fetch("https://git.heroku.com/dustcoding-backend-server.git", {
+  //     method: "GET",
+  //   })
+  //     .then((data) => data.json())
+  //     .then((json) => alert(JSON.stringify(json)));
+  // }, []);
   return (
     <div>
       <Router>
@@ -183,12 +192,20 @@ const App = () => {
           {/* Admin Route */}
           <Route element={<ProtectedRouter isLogged={isAuthenticated()} />}>
             <Route
-              exact
               path="/Admin"
               element={
                 <div className="flex justify-between">
                   <SideBar />
                   <DashboardPage />
+                </div>
+              }
+            />
+            <Route
+              path="/Admin/Profile/"
+              element={
+                <div className="flex justify-between">
+                  <SideBar />
+                  <Profile />
                 </div>
               }
             />
@@ -225,7 +242,7 @@ const App = () => {
               element={
                 <div className="flex justify-between">
                   <SideBar />
-                  <EditArticle />
+                  <EditeArticle />
                 </div>
               }
             />
@@ -253,6 +270,24 @@ const App = () => {
                 <div className="flex justify-between">
                   <SideBar />
                   <ServicesList />
+                </div>
+              }
+            />
+            <Route
+              path="/Admin/Service/update-service/:id"
+              element={
+                <div className="flex justify-between">
+                  <SideBar />
+                  <EditeService />
+                </div>
+              }
+            />
+            <Route
+              path="/Admin/Service/view-service/:id"
+              element={
+                <div className="flex justify-between">
+                  <SideBar />
+                  <ServicesDetails />
                 </div>
               }
             />
@@ -324,7 +359,7 @@ const App = () => {
               element={
                 <div className="flex justify-between">
                   <SideBar />
-                  <EditTasks />
+                  <EditeTasks />
                 </div>
               }
             />

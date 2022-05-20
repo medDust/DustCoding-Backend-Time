@@ -68,7 +68,7 @@ const Login = () => {
           setAuthentication(Token, user);
           if (isAuthenticated()) {
             if (isAuthenticated().data.role === 2) {
-              navigate("/Admin");
+              navigate("/Admin/Dashboard");
             } else if (isAuthenticated().data.role === 1) {
               navigate("/Employer");
             } else if (isAuthenticated().data.role === 0) {

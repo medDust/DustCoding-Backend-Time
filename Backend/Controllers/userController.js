@@ -176,7 +176,7 @@ const refreshTokens = asyncHandler(async (req, res) => {
 const getUsers = asyncHandler(async (req, res) => {
   try {
     const users = await Users.find().select("-password");
-    res.status(200).json(users);
+    res.status(200).send(users);
   } catch (err) {
     return res.status(500).json({ msg: err.message });
   }

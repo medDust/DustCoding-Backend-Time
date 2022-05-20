@@ -1,5 +1,6 @@
 import AsyncHandler from "express-async-handler";
 import service from "../models/servicesModel.js";
+
 // read method
 const getService = AsyncHandler(async (req, res) => {
   const services = await service.find();

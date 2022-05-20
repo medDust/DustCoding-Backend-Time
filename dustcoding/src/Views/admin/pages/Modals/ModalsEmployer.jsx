@@ -4,7 +4,7 @@ import { isEmpty, isEmail, equals } from "validator";
 import { registerEmp } from "../../../../api/AuthFunction";
 import { Loading } from "../../../../helpers/LodingFunction";
 import { ShowErrMsg } from "../../../../helpers/MessageFunctions";
-import HeaderComponent from "../DashBoardComponents/HeaderComponent";
+
 const ModalsEmployer = () => {
   const navigate = useNavigate();
   const [FormData, setFromData] = useState({
@@ -87,8 +87,7 @@ const ModalsEmployer = () => {
   };
   return (
     <div className="flex min-h-screen flex-auto flex-shrink-0 flex-col bg-white text-black antialiased">
-      <HeaderComponent />
-      <div className="ml-14 mt-14 mb-10 grid h-full md:ml-64 ">
+      <div className=" ml-14 mt-5   mb-10 grid h-full md:ml-64 ">
         <div className="my-5  items-center justify-between p-2 ">
           <div className=" h-full w-full max-w-7xl p-4 md:h-auto">
             <div className=" items-center justify-between rounded-t border-b p-5 ">
@@ -133,7 +132,7 @@ const ModalsEmployer = () => {
                         className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-blue-500"
                       />
                       <label
-                        htmlhtmlFor="email"
+                        htmlFor="email"
                         className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500"
                       >
                         E-mail

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { GetMails } from "../../../api/ContentsFunctions";
-import HeaderComponent from "./DashBoardComponents/HeaderComponent";
 
 const MailingPage = () => {
   const [Mails, setMails] = useState([]);
@@ -37,8 +36,7 @@ const MailingPage = () => {
   ));
   return (
     <div className="flex min-h-screen flex-auto flex-shrink-0 flex-col bg-white text-black antialiased">
-      <HeaderComponent />
-      <div className="ml-14 mt-14 mb-10 grid h-full md:ml-64 ">
+      <div className=" ml-14 mt-5   mb-10 grid h-full md:ml-64 ">
         <div className="my-5 flex items-center justify-end p-2 ">
           <span className="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
             List Mailing

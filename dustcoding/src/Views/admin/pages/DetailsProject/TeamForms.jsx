@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { IoMdAddCircleOutline } from "react-icons/io";
-import { GetAllUsers } from "../../../../api/UserFunction";
+import { GetAllUsers } from "../../../../api/UserFunction.jsx";
+
+
 
 const TeamForms = () => {
   const [User, setUser] = useState([]);
