@@ -70,12 +70,13 @@ const updateTask = asyncHandler(async (req, res) => {
 
 // delate method
 const delateTask = asyncHandler(async (req, res) => {
-  try {
-    Tasks.findByIdAndDelete({ _id: req.params.id });
-    return res.status(200).send(req.params.id);
-  } catch (err) {
-    return res.status(404).send({ err: err.message });
-  }
+  await Tasks.findByIdAndDelete({ _id: req.params.id }, (err, data) => {
+    if (err) {
+      return res.status(400).json({ err: err.message });
+    } else {
+      return res.status(200).send(req.params.id);
+    }
+  });
 });
 
 export { getTasks, setTask, updateTask, delateTask, getTask };

@@ -21,7 +21,6 @@ const TaskForm = () => {
       CreateTask(id, data)
         .then((response) => {
           window.location.reload(false);
-          response.send(console.log("success"));
         })
         .catch((err) => {
           console.log("err :", err);
@@ -29,7 +28,7 @@ const TaskForm = () => {
     },
   });
   return (
-    <form className=" m-5 flex w-full space-x-2" onSubmit={formik.handleSubmit}>
+    <form className="m-5 flex " onSubmit={formik.handleSubmit}>
       <div className="group relative z-0 w-4/6">
         <input
           type="text"

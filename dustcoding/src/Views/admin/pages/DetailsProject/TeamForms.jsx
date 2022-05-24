@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { GetAllUsers } from "../../../../api/UserFunction.jsx";
 
-
-
 const TeamForms = () => {
   const [User, setUser] = useState([]);
 
@@ -17,8 +15,8 @@ const TeamForms = () => {
   }, []);
   const handleSubmit = () => {};
   return (
-    <div className="m-5 flex">
-      <div className="m-2 grid items-center justify-center">
+    <div className="m-5 flex w-1/2">
+      <div className="m-2 ">
         <form action="">
           <label
             htmlFor="countries"

@@ -9,7 +9,7 @@ const Pagination = ({ projectPerPage, totalProjects, paginate }) => {
   return (
     <nav aria-label="Table navigation">
       <ul className="inline-flex items-center">
-        <li>
+        {/* <li>
           <button
             className="focus:shadow-outline-purple rounded-md rounded-l-lg px-3 py-1 focus:outline-none"
             aria-label="Previous"
@@ -26,7 +26,7 @@ const Pagination = ({ projectPerPage, totalProjects, paginate }) => {
               ></path>
             </svg>
           </button>
-        </li>
+        </li> */}
         {pageNumber.map((number) => (
           <li key={number}>
             <button
@@ -38,7 +38,7 @@ const Pagination = ({ projectPerPage, totalProjects, paginate }) => {
           </li>
         ))}
 
-        <li>
+        {/* <li>
           <button
             className="focus:shadow-outline-purple rounded-md rounded-r-lg px-3 py-1 focus:outline-none"
             aria-label="Next"
@@ -54,8 +54,10 @@ const Pagination = ({ projectPerPage, totalProjects, paginate }) => {
                 fillRule="evenodd"
               ></path>
             </svg>
-          </button>
+            </button>
         </li>
+          
+          */}
       </ul>
     </nav>
   );

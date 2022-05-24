@@ -4,9 +4,11 @@ import * as Yup from "yup";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { GetAllUsers } from "../../../../api/UserFunction";
 import { CreateProject } from "../../../../api/ProjectsFunction";
+import { useNavigate } from "react-router";
 
 const Formulaire = (props) => {
   const [Users, setUsers] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     GetAllUsers()
       .then((response) => {
@@ -28,14 +30,12 @@ const Formulaire = (props) => {
       dateBeguin: Yup.date(),
       dateEnd: Yup.date(),
     }),
-  
+
     onSubmit: (values) => {
       const data = JSON.stringify(values, null, 2);
       CreateProject(data)
         .then((response) => {
-        
-         // window.location.reload(false);
-          response.send(console.log("success"));
+          navigate("/Admin/Projects");
         })
         .catch((err) => {
           console.log("err :", err);

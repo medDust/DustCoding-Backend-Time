@@ -1,13 +1,14 @@
 import React from "react";
 import { FiCheckSquare } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { deleteProjectsById } from "../../../../api/ContentsFunctions";
+
 const InformationProjects = ({ Projects }) => {
+  const navigate = useNavigate();
   const deleteHandler = (idProject) => {
     deleteProjectsById(idProject).then((res) => {
-      window.location.reload(false);
-      res.send({ msg: "delete success" });
+      navigate("/Admin/Projects/");
     });
   };
   return Projects.map((project) => (

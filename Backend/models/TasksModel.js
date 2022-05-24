@@ -14,6 +14,7 @@ const TasksSchema = mongoose.Schema(
     },
     position: {
       type: String,
+      default: "To Do",
     },
     url: {
       type: String,
