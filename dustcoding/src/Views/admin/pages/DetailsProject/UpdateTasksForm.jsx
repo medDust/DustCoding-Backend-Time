@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { GetUsers } from "../../../../api/AuthFunction";
+import { UpdateTasks } from "../../../../api/ProjectsFunction";
+import { useFormik } from "formik";
 
-const ActiveComponent = () => {
+import * as Yup from "yup";
+import { useParams, useNavigate } from "react-router-dom";
+const UpdateTasksForm = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [employers, setEmployers] = useState([]);
   useEffect(() => {
     GetUsers()
@@ -11,19 +17,39 @@ const ActiveComponent = () => {
       })
       .catch((err) => console.log(err));
   }, []);
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      url: "",
+      position: "",
+    },
+    validationSchema: Yup.object({
+      name: Yup.string(),
+      url: Yup.string(),
+      position: Yup.date(),
+    }),
 
+    onSubmit: (values) => {
+      const data = JSON.stringify(values, null, 2);
+      console.log(data);
+      alert(data);
+      UpdateTasks({ TaskId: id }, data).then((res) => {
+        //  navigate(-1);
+        res.send("updated");
+      });
+    },
+  });
   return (
     <div className="relative top-20 mx-auto flex w-3/4 min-w-0 flex-col items-center justify-center break-words rounded bg-gray-50 p-5 shadow-lg ">
-      <form>
+      <form onSubmit={formik.handleSubmit}>
         <div className="mx-auto grid  xl:grid-cols-2 xl:gap-6 ">
           <div className="group relative z-0 mb-6  w-full ">
             <input
               type="text"
-              name="floating_first_name"
-              id="floating_first_name"
+              name="name"
+              id="name"
               className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 "
               placeholder=" "
-              required
             />
             <label
               htmlFor="floating_first_name"
@@ -33,10 +59,7 @@ const ActiveComponent = () => {
             </label>
           </div>
           <div className="group relative z-0 mb-6 w-full">
-            <select
-              id="countries"
-              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-            >
+            <select className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500">
               {employers
                 .filter((user) => user.role !== 0)
                 .map((user) => (
@@ -50,15 +73,13 @@ const ActiveComponent = () => {
             <input
               type="text"
               name="url"
-              id="floating_phone"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.name}
               className="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-blue-500"
               placeholder=" "
-              required
             />
-            <label
-              htmlFor="floating_phone"
-              className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500"
-            >
+            <label className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500">
               URL
             </label>
           </div>
@@ -66,26 +87,12 @@ const ActiveComponent = () => {
             <div className="flex flex-wrap">
               <div className="mr-4 flex items-center">
                 <input
-                  id="red-radio"
                   type="radio"
-                  value=""
-                  name="colored-radio"
-                  className="h-4 w-4 border-gray-300 bg-gray-100 text-red-600 focus:ring-2 focus:ring-red-500"
-                />
-                <label
-                  htmlFor="red-radio"
-                  className="ml-2 text-sm font-medium uppercase text-gray-900"
-                >
-                  backlog
-                </label>
-              </div>
-
-              <div className="mr-4 flex items-center">
-                <input
-                  id="purple-radio"
-                  type="radio"
-                  value=""
-                  name="colored-radio"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  checked={formik.position === "To do"}
+                  value="To do"
+                  name="position"
                   className="h-4 w-4 border-gray-300 bg-gray-100 text-purple-600 focus:ring-2 focus:ring-purple-500 "
                 />
                 <label
@@ -97,10 +104,12 @@ const ActiveComponent = () => {
               </div>
               <div className="mr-4 flex items-center">
                 <input
-                  id="teal-radio"
                   type="radio"
-                  value=""
-                  name="colored-radio"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  checked={formik.position === "In progress"}
+                  value="In progress"
+                  name="position"
                   className="h-4 w-4 border-gray-300 bg-gray-100 text-teal-600 focus:ring-2 focus:ring-teal-500 "
                 />
                 <label
@@ -112,48 +121,37 @@ const ActiveComponent = () => {
               </div>
               <div className="mr-4 flex items-center">
                 <input
-                  id="yellow-radio"
                   type="radio"
-                  value=""
-                  name="colored-radio"
+                  name="position"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  checked={formik.position === "Testing"}
+                  value="Testing"
                   className="h-4 w-4 border-gray-300 bg-gray-100 text-yellow-400 focus:ring-2 focus:ring-yellow-500"
                 />
                 <label
                   htmlFor="yellow-radio"
                   className="ml-2 text-sm font-medium uppercase text-gray-900 "
                 >
-                  testing
+                  Testing
                 </label>
               </div>
 
               <div className="mr-4 flex items-center">
                 <input
-                  id="orange-radio"
                   type="radio"
-                  value=""
-                  name="colored-radio"
-                  className="h-4 w-4 border-gray-300 bg-gray-100 text-orange-500 focus:ring-2 focus:ring-orange-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-orange-600"
-                />
-                <label
-                  htmlFor="orange-radio"
-                  className="ml-2 text-sm font-medium text-gray-900 "
-                >
-                  Orange
-                </label>
-              </div>
-              <div className="mr-4 flex items-center">
-                <input
-                  id="green-radio"
-                  type="radio"
-                  value=""
-                  name="colored-radio"
+                  name="position"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  checked={formik.position === "Done"}
+                  value="Done"
                   className="h-4 w-4 border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 "
                 />
                 <label
                   htmlFor="green-radio"
                   className="ml-2 text-sm font-medium uppercase text-gray-900 "
                 >
-                  done
+                  Done
                 </label>
               </div>
             </div>
@@ -170,4 +168,4 @@ const ActiveComponent = () => {
   );
 };
 
-export default ActiveComponent;
+export default UpdateTasksForm;

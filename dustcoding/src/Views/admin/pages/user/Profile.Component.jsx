@@ -9,15 +9,15 @@ const Profile = () => {
     console.log(getLocalStorage("user").data);
   }, []);
   return (
-    <div className="flex min-h-screen flex-auto flex-shrink-0 flex-col bg-white text-black antialiased dark:bg-gray-700 dark:text-white">
-      <div className="top relative h-64 w-full overflow-hidden bg-blue-600">
+    <div className="ml-14 flex min-h-screen flex-auto flex-shrink-0 flex-col bg-white text-black antialiased ">
+      <div className=" relative h-64 w-full overflow-hidden bg-blue-600">
         <img
           src="{user.image}"
           alt=""
           className="bg absolute z-0 h-full w-full object-cover object-center"
         />
 
-        <div className="relative flex h-full flex-col items-center justify-center bg-black bg-opacity-50 text-white">
+        <div className="relative grid h-full flex-col items-center justify-center bg-black bg-opacity-50 text-white">
           <h1 className="text-4xl font-semibold">{user.username}</h1>
           <h4 className="text-3xl font-semibold">{user.fullName}</h4>
         </div>

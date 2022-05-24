@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   GetAllTaskByProject,
   GetProjectbyId,
-  DeleteTaskById,
 } from "../../../../api/ProjectsFunction.jsx";
 import { TaskForm, TeamForms } from "../DetailsProject";
-
+import Pagination from "./Pagination.jsx";
+import TasksInformations from "./TasksInformations.jsx";
 const ProjectPage = () => {
   const [Tasks, setTasks] = useState([]);
   const [Title, setTitle] = useState("");
@@ -15,6 +15,15 @@ const ProjectPage = () => {
   const [ClientName, setClientName] = useState("");
   const [TaskName, setTaskName] = useState();
   let { id } = useParams();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [TasksPerPage, setTaskPerPage] = useState(1);
+
+  const indexOfLastTask = currentPage * TasksPerPage;
+  const indexOfFirstTask = indexOfLastTask - TasksPerPage;
+  const currentTask = Tasks.slice(indexOfFirstTask, indexOfLastTask);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   useEffect(() => {
     GetAllTaskByProject({ projectId: id })
@@ -39,64 +48,9 @@ const ProjectPage = () => {
         return console.log({ msg: err.message });
       });
   }, [id]);
-  const deleteHandler = (id) => {
-    DeleteTaskById(id)
-      .then((res) => {
-        window.location.reload(false);
-        res.send({ msg: "delete success" });
-      })
-      .catch((err) => {
-        return err.message;
-      });
-  };
-  // const UpdateTask = () => {};
-  const TasksList = Tasks.map((tasks) => (
-    <tr
-      key={tasks._id}
-      className="border-b bg-white hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600"
-    >
-      <th
-        scope="row"
-        className="whitespace-nowrap px-6 py-4 font-medium text-gray-900"
-      >
-        {tasks.name}
-      </th>
-      <td className="px-6 py-4">
-        {
-          (tasks.position = 0 ? (
-            <span className="rounded-full bg-green-400 px-2 py-1 font-semibold leading-tight text-white ">
-              TODO
-            </span>
-          ) : (
-            <span className="rounded-full bg-blue-400 px-2 py-1 font-semibold leading-tight text-white ">
-              BACKLOG
-            </span>
-          ))
-        }
-      </td>
-      <td className="flex  justify-evenly px-6 py-4 ">
-        <Link
-          to={`/Admin/Projects/${IdProject}/Task/${tasks._id}`}
-          className="font-medium text-blue-600 hover:underline dark:text-blue-500"
-        >
-          show
-        </Link>
-        <Link
-          to={`/Admin/Projects/${IdProject}/Task/${tasks._id}/Edit`}
-          className="font-medium text-blue-600 hover:underline dark:text-blue-500"
-        >
-          Edit
-        </Link>
-        <button
-          type="submit"
-          onClick={() => deleteHandler(tasks._id)}
-          className="font-medium text-blue-600 hover:underline dark:text-blue-500"
-        >
-          delete
-        </button>
-      </td>
-    </tr>
-  ));
+
+
+
   return (
     <div className="flex min-h-screen flex-auto flex-shrink-0 flex-col bg-white text-black antialiased">
       <div className=" ml-14 mt-5   mb-10 grid h-full md:ml-64 ">
@@ -126,8 +80,15 @@ const ProjectPage = () => {
                 </th>
               </tr>
             </thead>
-            <tbody>{TasksList}</tbody>
+            <tbody>
+              <TasksInformations IdProject={IdProject} Tasks={currentTask} />
+            </tbody>
           </table>
+          <Pagination
+            projectPerPage={TasksPerPage}
+            totalProjects={Tasks.length}
+            paginate={paginate}
+          />
         </div>
       </div>
     </div>

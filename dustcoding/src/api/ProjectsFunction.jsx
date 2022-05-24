@@ -46,6 +46,7 @@ export const DeleteTaskById = async (TaskId) => {
   );
   return res;
 };
+
 // create tasks
 export const CreateTask = async (projectId, data) => {
   const config = {
@@ -72,6 +73,21 @@ export const GetTasksbyId = async ({ TaskId }) => {
   const res = await axios.get(
     `http://localhost:5000/api/Task/${TaskId}/`,
 
+    config
+  );
+  return res;
+};
+// tasks Update
+export const UpdateTasks = async ({ TaskId }, data) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
+    },
+  };
+  const res = await axios.put(
+    `http://localhost:5000/api/Tasks/${TaskId}`,
+    data,
     config
   );
   return res;

@@ -7,93 +7,31 @@ import {
   GetProjects,
 } from "../../../../api/ContentsFunctions";
 import Formulaire from "./Formulaire";
+import Pagination from "./Pagination";
+import InformationProjects from "./InformationProjects";
 
 const ProjectsPages = () => {
   const [Projects, setProjects] = useState([]);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [projectsPerPage, setProjectPerPage] = useState(5);
   useEffect(() => {
     GetProjects()
       .then((response) => {
         const Projects = response.data;
         setProjects(Projects);
-        console.log(Projects);
+   
       })
       .catch((err) => console.log(err));
   }, []);
 
-  const deleteHandler = (idProject) => {
-    deleteProjectsById(idProject).then((res) => {
-      window.location.reload(false);
-      res.send({ msg: "delete success" });
-    });
-  };
+  const indexOfLastProject = currentPage * projectsPerPage;
+  const indexOfFirstProject = indexOfLastProject - projectsPerPage;
+  const currentProject = Projects.slice(
+    indexOfFirstProject,
+    indexOfLastProject
+  );
 
-  const ProjectList = Projects.map((project, index) => (
-    <tr className="text-gray-700 " key={project._id}>
-      <td className="px-4 py-3">
-        <div className="flex items-center text-sm">
-          <div>
-            <p className="font-semibold">{index + 1}</p>
-          </div>
-        </div>
-      </td>
-      <td className="px-4 py-3">
-        <div className="flex items-center text-sm">
-          <div>
-            <p className="font-semibold">{project.title}</p>
-          </div>
-        </div>
-      </td>
-      <td className="px-4 py-3">
-        <div className="flex items-center text-sm">
-          <div>
-            <p className="font-semibold">{project.fullName}</p>
-          </div>
-        </div>
-      </td>
-      <td className="px-4 py-3">
-        <div className="flex items-center text-sm">
-          <div>
-            <p className="font-semibold">{project.dateBeguin}</p>
-          </div>
-        </div>
-      </td>
-      <td className="px-4 py-3">
-        <div className="flex items-center text-sm">
-          <div>
-            <p className="font-semibold">{project.dateEnd}</p>
-          </div>
-        </div>
-      </td>
-
-      <td className="px-4 py-3">
-        <div className="flex items-center text-sm">
-          <div>
-            <p className="font-semibold">{project.state}</p>
-          </div>
-        </div>
-      </td>
-      <td className="px-4 py-3">
-        <div className="flex items-center space-x-3 text-xl">
-          <div className="flex h-5 w-5 items-center justify-center rounded-full bg-green-500 p-5 text-center text-white shadow-sm hover:bg-green-800">
-            <Link to={`/Admin/Projects/${project._id}`}>
-              <FiCheckSquare />
-            </Link>
-          </div>
-          <div className="flex h-5 w-5 items-center justify-center rounded-full bg-red-500 p-5 text-center text-white shadow-sm hover:bg-red-800">
-            <button
-              type="submit"
-              onClick={() => {
-                deleteHandler(project._id);
-              }}
-            >
-              <RiDeleteBin6Line />
-            </button>
-          </div>
-        </div>
-      </td>
-    </tr>
-  ));
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div className="flex min-h-screen flex-auto flex-shrink-0 flex-col bg-white text-black antialiased">
@@ -114,8 +52,15 @@ const ProjectsPages = () => {
               <th className="px-4 py-3">control</th>
             </tr>
           </thead>
-          <tbody className="divide-y bg-white ">{ProjectList}</tbody>
+          <tbody className="divide-y bg-white ">
+            <InformationProjects Projects={currentProject} />
+          </tbody>
         </table>
+        <Pagination
+          projectPerPage={projectsPerPage}
+          totalProjects={Projects.length}
+          paginate={paginate}
+        />
       </div>
     </div>
   );

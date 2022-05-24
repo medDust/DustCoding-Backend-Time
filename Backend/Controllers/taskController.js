@@ -63,20 +63,19 @@ const updateTask = asyncHandler(async (req, res) => {
     task.userId = req.body._id || task._id;
     task.url = req.body.url || task.url;
     task.position = req.body.position || task.position;
-    const update = await task.save();
-    res.status(200).send(update.data);
+    const updated = await task.save();
+    res.status(200).send({ updated });
   }
 });
 
 // delate method
 const delateTask = asyncHandler(async (req, res) => {
-  const task = await Tasks.findById({ _id: req.params.id });
-  if (!task) {
-    res.status(400);
-    throw new Error("is not tasks");
+  try {
+    Tasks.findByIdAndDelete({ _id: req.params.id });
+    return res.status(200).send(req.params.id);
+  } catch (err) {
+    return res.status(404).send({ err: err.message });
   }
-  await task.deleteOne();
-  res.status(200).json({ id: req.params.id });
 });
 
 export { getTasks, setTask, updateTask, delateTask, getTask };

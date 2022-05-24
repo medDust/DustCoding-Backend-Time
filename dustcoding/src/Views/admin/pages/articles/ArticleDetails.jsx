@@ -34,8 +34,8 @@ const ArticleDetails = () => {
             <div className="  space-y-6 md:flex md:gap-6 md:space-y-0 lg:items-center lg:gap-12">
               <div className="md:5/12 lg:w-5/12">
                 <img
-                  // src={`../../../../../images/${article.image}`}.
-                  src={logo}
+                   src={`../../../../../images/${article.image}`}
+                 
                   alt=""
                 />
               </div>

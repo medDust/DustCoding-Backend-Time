@@ -1,12 +1,9 @@
-import React,{useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { GetAllUsers } from "../../../../api/UserFunction";
 import { CreateProject } from "../../../../api/ProjectsFunction";
-
-
-
 
 const Formulaire = (props) => {
   const [Users, setUsers] = useState([]);
@@ -31,13 +28,13 @@ const Formulaire = (props) => {
       dateBeguin: Yup.date(),
       dateEnd: Yup.date(),
     }),
-
+  
     onSubmit: (values) => {
       const data = JSON.stringify(values, null, 2);
-      alert(data);
       CreateProject(data)
         .then((response) => {
-          window.location.reload(false);
+        
+         // window.location.reload(false);
           response.send(console.log("success"));
         })
         .catch((err) => {
@@ -51,7 +48,7 @@ const Formulaire = (props) => {
       className="col-span-3 m-5 flex justify-evenly gap-2"
       onSubmit={formik.handleSubmit}
     >
-      <div className="group relative z-0 w-2/6">
+      <div className="group relative z-0 ">
         <input
           type="text"
           name="title"
@@ -72,7 +69,7 @@ const Formulaire = (props) => {
       {formik.touched.title && formik.errors.title ? (
         <div className="text-red text-base">{formik.errors.title}</div>
       ) : null}
-      <div className="group relative z-0 w-2/6">
+      <div className="group relative z-0 w-1/6 ">
         <select
           id="countries"
           className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
@@ -89,7 +86,7 @@ const Formulaire = (props) => {
         </select>
       </div>
 
-      <div date-rangepicker class="flex w-2/6 items-center">
+      <div date-rangepicker class="flex  items-center">
         <div class="relative">
           <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
             <svg

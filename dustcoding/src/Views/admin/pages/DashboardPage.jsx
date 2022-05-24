@@ -1,10 +1,8 @@
 import React from "react";
-import ActiveComponent from "./DashBoardComponents/ActiveComponent";
 import CardComponent from "./DashBoardComponents/CardComponent";
 import CardsComponent from "./DashBoardComponents/CardsComponent";
 
 import TableauEmployerComponent from "./DashBoardComponents/TableauEmployerComponent";
-// import TasksComponents from "./DashBoardComponents/TasksComponents";
 
 const DashboardPage = () => {
   return (
@@ -13,9 +11,7 @@ const DashboardPage = () => {
         <CardsComponent />
         <div className="grid grid-cols-1 gap-4 p-4 lg:grid-cols-2">
           <CardComponent />
-          <ActiveComponent />
         </div>
-        {/* <TasksComponents /> */}
         <TableauEmployerComponent />
       </div>
     </div>
