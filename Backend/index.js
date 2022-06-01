@@ -10,7 +10,6 @@ import apiUser from "./Routes/userRoutes.js";
 import apiTeam from "./Routes/teamRouter.js";
 import apiArt from "./Routes/articlesRouter.js";
 import apiMails from "./Routes/mailRouter.js";
-import apiSdl from "./Routes/slideRouter.js";
 import apiTask from "./Routes/tasksRouter.js";
 import apiProject from "./Routes/projectRouter.js";
 import apiSrv from "./Routes/servicesRouter.js";
@@ -46,7 +45,6 @@ app.use("/api/auth", apiUser);
 // content routes
 app.use("/api/articles", apiArt);
 app.use("/api/services", apiSrv);
-app.use("/api/slides", apiSdl);
 app.use("/api/mails", apiMails);
 
 // project management routes

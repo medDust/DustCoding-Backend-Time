@@ -4,11 +4,10 @@ import * as Yup from "yup";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { GetAllUsers } from "../../../../api/UserFunction";
 import { CreateProject } from "../../../../api/ProjectsFunction";
-import { useNavigate } from "react-router";
 
 const Formulaire = (props) => {
   const [Users, setUsers] = useState([]);
-  const navigate = useNavigate();
+
   useEffect(() => {
     GetAllUsers()
       .then((response) => {
@@ -35,7 +34,8 @@ const Formulaire = (props) => {
       const data = JSON.stringify(values, null, 2);
       CreateProject(data)
         .then((response) => {
-          navigate("/Admin/Projects");
+          window.location.reload(false);
+          response.send(console.log("success"));
         })
         .catch((err) => {
           console.log("err :", err);
@@ -72,33 +72,34 @@ const Formulaire = (props) => {
       <div className="group relative z-0 w-1/6 ">
         <select
           id="countries"
-          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 "
           name="userId"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.name}
         >
+          <option>select your CLient</option>
           {Users.filter((user) => user.role === 0).map((user) => (
-            <option key={user.id} value={user._id}>
-              {user.username}
+            <option key={user._id} value={user._id}>
+              {user.fullName}
             </option>
           ))}
         </select>
       </div>
 
-      <div date-rangepicker class="flex  items-center">
-        <div class="relative">
-          <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+      <div date-rangepicker className="flex  items-center">
+        <div className="relative">
+          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
             <svg
-              class="h-5 w-5 text-gray-500 "
+              className="h-5 w-5 text-gray-500 "
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                clip-rule="evenodd"
+                clipRule="evenodd"
               ></path>
             </svg>
           </div>
@@ -108,23 +109,23 @@ const Formulaire = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.name}
-            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-gray-900 focus:border-blue-500 focus:ring-blue-500 sm:text-sm  "
+            className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-gray-900 focus:border-blue-500 focus:ring-blue-500 sm:text-sm  "
             placeholder="Select date start"
           />
         </div>
-        <span class="mx-4 text-gray-500">to</span>
-        <div class="relative">
-          <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+        <span className="mx-4 text-gray-500">to</span>
+        <div className="relative">
+          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
             <svg
-              class="h-5 w-5 text-gray-500 "
+              className="h-5 w-5 text-gray-500 "
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                clip-rule="evenodd"
+                clipRule="evenodd"
               ></path>
             </svg>
           </div>
@@ -134,7 +135,7 @@ const Formulaire = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.name}
-            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-gray-900 focus:border-blue-500 focus:ring-blue-500 sm:text-sm "
+            className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-gray-900 focus:border-blue-500 focus:ring-blue-500 sm:text-sm "
             placeholder="Select date end"
           />
         </div>

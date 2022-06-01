@@ -25,7 +25,7 @@ export const GetTaskById = async ({ projectId, TaskId }) => {
     },
   };
   const res = await axios.get(
-    `http://localhost:5000/api/Tasks/${projectId}/Tasks/${TaskId}`,
+    `http://localhost:5000/api/Tasks/${projectId}/Task/${TaskId}`,
 
     config
   );

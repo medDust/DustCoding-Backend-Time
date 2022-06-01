@@ -13,8 +13,8 @@ const getTasks = asyncHandler(async (req, res) => {
 });
 // get tasks by pro
 const getTask = asyncHandler(async (req, res) => {
-  const projectId = req.params.projectId;
   const taskId = req.params.id;
+  const projectId = req.params.projectId;
 
   try {
     if (projectId && taskId) {
@@ -34,6 +34,10 @@ const getTask = asyncHandler(async (req, res) => {
 const setTask = asyncHandler(async (req, res) => {
   const id = req.params.projectId;
   const name = req.body.name;
+  const projects = await project
+    .findOne({ id: id })
+    .then((res) => res.title)
+    .catch((err) => console.log(err.message));
   try {
     if (!req.body.name && !req.params.projectId) {
       res.status(400);
@@ -44,6 +48,7 @@ const setTask = asyncHandler(async (req, res) => {
     const newTask = await Tasks.create({
       name: name,
       projectId: id,
+      projectName: projects,
     });
     return res.status(200).json(newTask);
   } catch (error) {

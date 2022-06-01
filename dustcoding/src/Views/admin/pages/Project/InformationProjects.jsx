@@ -1,14 +1,14 @@
 import React from "react";
 import { FiCheckSquare } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { deleteProjectsById } from "../../../../api/ContentsFunctions";
 
 const InformationProjects = ({ Projects }) => {
-  const navigate = useNavigate();
+ 
   const deleteHandler = (idProject) => {
     deleteProjectsById(idProject).then((res) => {
-      navigate("/Admin/Projects/");
+      window.location.reload(false);
     });
   };
   return Projects.map((project) => (
@@ -31,6 +31,7 @@ const InformationProjects = ({ Projects }) => {
           </div>
         </Link>
       </td>
+
       <td className="px-4 py-3">
         <Link className="w-full" to={`/Admin/Projects/${project._id}`}>
           <div className="flex items-center text-sm">
@@ -49,12 +50,11 @@ const InformationProjects = ({ Projects }) => {
           </div>
         </Link>
       </td>
-
       <td className="px-4 py-3">
         <Link className="w-full" to={`/Admin/Projects/${project._id}`}>
           <div className="flex items-center text-sm">
             <div>
-              <p className="font-semibold">{project._state}</p>
+              <p className="font-semibold">{project.state}</p>
             </div>
           </div>
         </Link>

@@ -8,6 +8,9 @@ const TasksSchema = mongoose.Schema(
       required: true,
       ref: "project",
     },
+    projectName: {
+      type: String,
+    },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

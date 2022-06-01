@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { FiCheckSquare } from "react-icons/fi";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import {
-  deleteProjectsById,
-  GetProjects,
-} from "../../../../api/ContentsFunctions";
+
+import { GetProjects } from "../../../../api/ContentsFunctions";
 import Formulaire from "./Formulaire";
 import Pagination from "./Pagination";
 import InformationProjects from "./InformationProjects";
@@ -19,7 +14,6 @@ const ProjectsPages = () => {
       .then((response) => {
         const Projects = response.data;
         setProjects(Projects);
-   
       })
       .catch((err) => console.log(err));
   }, []);
@@ -42,8 +36,6 @@ const ProjectsPages = () => {
         <table className="whitespace-no-wrap w-full">
           <thead>
             <tr className="border-b-2 bg-gray-50 text-left text-xs font-semibold uppercase  text-gray-500 ">
-              <th className="px-4 py-3">id</th>
-
               <th className="px-4 py-3">Title</th>
               <th className="px-4 py-3">Client</th>
               <th className="px-4 py-3">Date Begin</th>

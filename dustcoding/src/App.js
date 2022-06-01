@@ -28,6 +28,7 @@ import { Meeting, Messaging, NavBar } from "./Views/cLient";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import {
   ProtectedRouter,
+  ProtectedRouterEmployer,
   ProtectedRouterUser,
 } from "./helpers/ProtectedRouter";
 import { isAuthenticated } from "./helpers/auth";
@@ -49,6 +50,7 @@ import {
   EditeArticle,
 } from "./Views/admin/pages/articles";
 import SettingsPage from "./Views/cLient/Components/profile/SettingsPage";
+import EmpNavBar from "./Views/employer/EmpNavBar";
 
 const App = () => {
   // useEffect(() => {
@@ -186,6 +188,19 @@ const App = () => {
                   <NavBar />
                   <Messaging />
                 </>
+              }
+            />
+          </Route>
+          <Route
+            element={<ProtectedRouterEmployer isLogged={isAuthenticated()} />}
+          >
+            <Route
+              path="/Employer/Profile/"
+              element={
+                <div className="flex justify-between">
+                  <EmpNavBar />
+                  <Profile />
+                </div>
               }
             />
           </Route>
@@ -346,7 +361,7 @@ const App = () => {
               }
             />
             <Route
-              path="/Admin/Projects/:id/Task/:_id"
+              path="/Admin/Projects/:id/Task/:TaskId"
               element={
                 <div className="flex justify-between">
                   <SideBar />
@@ -355,7 +370,7 @@ const App = () => {
               }
             />
             <Route
-              path="/Admin/Projects/:id/Task/:_id/Edit"
+              path="/Admin/Projects/:id/Task/:TaskId/Edit"
               element={
                 <div className="flex justify-between">
                   <SideBar />

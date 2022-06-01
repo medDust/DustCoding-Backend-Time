@@ -67,7 +67,6 @@ const getAllTeam = asyncHandler(async (req, res) => {
 const updateTeam = asyncHandler(async (req, res) => {
   try {
     const TeamId = req.params.TeamId;
-
     const userId = req.body.userId;
 
     if (TeamId) {

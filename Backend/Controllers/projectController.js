@@ -1,8 +1,7 @@
 import project from "../models/projectModels.js";
 import User from "../models/userModel.js";
-import { getUser } from "./userController.js";
 import asyncHandler from "express-async-handler";
-
+import Tasks from "../models/TasksModel.js";
 const getProject = asyncHandler(async (req, res) => {
   const projects = await project.findById({
     _id: req.params.id,
@@ -66,12 +65,14 @@ const updateProjects = asyncHandler(async (req, res) => {
 // delate method
 const delateProjects = asyncHandler(async (req, res) => {
   const projects = await project.findById(req.params.id);
+  // const Task = await Tasks.countDocuments({ projectId: req.params.id });
   if (!projects) {
     res.status(400);
     throw new Error("is not projects");
   }
+  // await Tasks.deleteMany({projectId : projects._id});
   await projects.deleteOne();
-  res.status(200).json({ id: req.params.id });
+  res.status(200).json({ id: req.params.id }, { Task });
 });
 
 export {

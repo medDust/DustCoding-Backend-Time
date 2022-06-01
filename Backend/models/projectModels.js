@@ -7,10 +7,9 @@ const projectSchema = mongoose.Schema(
       required: [true, "choose name please"],
     },
     state: {
-      type: Number,
-      default: 0,
+      type: String,
+      default: "In Progress",
     },
-
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

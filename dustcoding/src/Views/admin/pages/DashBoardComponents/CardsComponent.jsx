@@ -1,9 +1,13 @@
 import React from "react";
 
-const CardsComponent = () => {
+import { Link } from "react-router-dom";
+const CardsComponent = ({ client, project, service }) => {
   return (
     <div className="grid grid-cols-1 gap-4 p-4 sm:grid-cols-2 lg:grid-cols-4">
-      <div className="group flex items-center justify-between rounded-md border-b-4 border-blue-600 bg-blue-500 p-3 font-medium text-white shadow-lg dark:border-gray-600 dark:bg-gray-800">
+      <Link
+        to="/Admin/Partners"
+        className="group flex items-center justify-between rounded-md border-b-4 border-blue-600 bg-blue-500 p-3 font-medium text-white shadow-lg dark:border-gray-600 dark:bg-gray-800"
+      >
         <div className="flex h-14 w-14 transform items-center justify-center rounded-full bg-white transition-all duration-300 group-hover:rotate-12">
           <svg
             width="30"
@@ -22,11 +26,14 @@ const CardsComponent = () => {
           </svg>
         </div>
         <div className="text-right">
-          <p className="text-2xl">1,257</p>
-          <p>Visitors</p>
+          <p className="text-2xl">{client.length}</p>
+          <p>Clients</p>
         </div>
-      </div>
-      <div className="group flex items-center justify-between rounded-md border-b-4 border-blue-600 bg-blue-500 p-3 font-medium text-white shadow-lg dark:border-gray-600 dark:bg-gray-800">
+      </Link>
+      <Link
+        to="/Admin/Projects"
+        className="group flex items-center justify-between rounded-md border-b-4 border-blue-600 bg-blue-500 p-3 font-medium text-white shadow-lg dark:border-gray-600 dark:bg-gray-800"
+      >
         <div className="flex h-14 w-14 transform items-center justify-center rounded-full bg-white transition-all duration-300 group-hover:rotate-12">
           <svg
             width="30"
@@ -45,10 +52,10 @@ const CardsComponent = () => {
           </svg>
         </div>
         <div className="text-right">
-          <p className="text-2xl">557</p>
-          <p>Orders</p>
+          <p className="text-2xl">{project.length}</p>
+          <p>Projects</p>
         </div>
-      </div>
+      </Link>
       <div className="group flex items-center justify-between rounded-md border-b-4 border-blue-600 bg-blue-500 p-3 font-medium text-white shadow-lg dark:border-gray-600 dark:bg-gray-800">
         <div className="flex h-14 w-14 transform items-center justify-center rounded-full bg-white transition-all duration-300 group-hover:rotate-12">
           <svg
@@ -68,11 +75,14 @@ const CardsComponent = () => {
           </svg>
         </div>
         <div className="text-right">
-          <p className="text-2xl">$11,257</p>
-          <p>Sales</p>
+          <p className="text-2xl"></p>
+          <p>Teams</p>
         </div>
       </div>
-      <div className="group flex items-center justify-between rounded-md border-b-4 border-blue-600 bg-blue-500 p-3 font-medium text-white shadow-lg dark:border-gray-600 dark:bg-gray-800">
+      <Link
+        to="/Admin/Service"
+        className="group flex items-center justify-between rounded-md border-b-4 border-blue-600 bg-blue-500 p-3 font-medium text-white shadow-lg dark:border-gray-600 dark:bg-gray-800"
+      >
         <div className="flex h-14 w-14 transform items-center justify-center rounded-full bg-white transition-all duration-300 group-hover:rotate-12">
           <svg
             width="30"
@@ -91,10 +101,10 @@ const CardsComponent = () => {
           </svg>
         </div>
         <div className="text-right">
-          <p className="text-2xl">$75,257</p>
-          <p>Balances</p>
+          <p className="text-2xl">{service.length}</p>
+          <p>Services</p>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };

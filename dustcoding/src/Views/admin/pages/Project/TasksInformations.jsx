@@ -25,7 +25,7 @@ const TasksInformations = ({ Tasks, IdProject }) => {
       >
         <Link
           to={`/Admin/Projects/${IdProject}/Task/${tasks._id}`}
-          className="font-medium text-blue-600 hover:underline dark:text-blue-500"
+          className="font-medium text-blue-600 hover:underline"
         >
           {tasks.name}
         </Link>
@@ -33,7 +33,7 @@ const TasksInformations = ({ Tasks, IdProject }) => {
       <td className="px-6 py-4">
         <Link
           to={`/Admin/Projects/${IdProject}/Task/${tasks._id}`}
-          className="font-medium text-blue-600 hover:underline dark:text-blue-500"
+          className="font-medium text-blue-600 hover:underline "
         >
           <span className="rounded-full bg-blue-400 px-2 py-1 font-semibold leading-tight text-white ">
             {tasks.position}

@@ -9,9 +9,11 @@ const ArticlePage = () => {
   const [Article, setArticle] = useState({
     title: "",
     description: "",
-    image: "",
+    image: null,
   });
-  const { title, description, image } = Article;
+
+  const [image, setImage] = useState("");
+  const { title, description } = Article;
 
   const onChange = (e) => {
     setArticle((prevState) => ({
@@ -19,25 +21,35 @@ const ArticlePage = () => {
       [e.target.name]: e.target.value,
     }));
   };
-
+  /* const onChangePicture = (e) => {
+    // console.log("picture: ", e.target.files);
+    setPicture([...picture, e.target.files[0]]);
+    console.log(picture);
+  };*/
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (isEmpty(title) || isEmpty(description) || isEmpty(image)) {
+    if (isEmpty(title) || isEmpty(description) || !image) {
       setArticle({
         ...Article,
         Err: "all field are required",
       });
     } else {
-      const { title, description, image } = Article;
+      //console.log(image);
+
+      //  const { title, description,  } = Article;
+      Article.image = image;
+      //console.log(Article);
       const data = { title, description, image };
+      //console.log(data);
       setArticle({ ...Article });
       CreateArticle(data)
         .then((res) => {
-          setArticle({ title: "", description: "", image: "" });
+         //console.log(Article);
+          // setArticle({ title: "", description: "", image: "" });
           //  navigate("/Admin/Articles/");
         })
         .catch((err) => {
-          console.log("error :", err);
+          // console.log("error :", err);
           setArticle({ ...Article });
         });
     }
@@ -46,7 +58,7 @@ const ArticlePage = () => {
   return (
     <div className="flex min-h-screen flex-auto flex-shrink-0 flex-col bg-white text-black antialiased dark:bg-gray-700 dark:text-white">
       <div className=" ml-14 mt-5   mb-10 h-full md:ml-64">
-        <form onSubmit={onSubmit}>
+        <form onSubmit={onSubmit} encType="multipart/form-data">
           <div className="min-h-screen bg-indigo-50 pt-6 md:px-20">
             <div className=" mx-auto max-w-2xl rounded-md bg-white px-6 py-10">
               <h1 className="mb-10 text-center text-2xl font-bold text-gray-500">
@@ -96,8 +108,8 @@ const ArticlePage = () => {
                     className="block w-full cursor-pointer rounded-lg border border-gray-300 bg-gray-50 text-sm text-gray-900 focus:border-transparent focus:outline-none "
                     type="file"
                     name="image"
-                    value={image}
-                    onChange={onChange}
+                    //value={image}
+                    onChange={(e) => setImage(e.target.files[0])}
                   />
                 </div>
                 <button

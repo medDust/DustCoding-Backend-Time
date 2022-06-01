@@ -20,19 +20,19 @@ const getArticleById = AsyncHandler(async (req, res) => {
   // const Image = articles.image;
   // const images = fs.readFile("/images", Image);
   // res.send(images);
-   return res.status(200).send(articles);
+  return res.status(200).send(articles);
 });
 
 // create method
 const setArticles = AsyncHandler(async (req, res) => {
   try {
-    if (!req.body.title || !req.body.description || !req.file) {
+    //console.log(req.body.image);
+    if (!req.body.title || !req.body.description || !req.body.image) {
       res.status(400);
       throw new Error("something is wrong");
     }
-    console.log(req.file.filename);
+    console.log(image);
     var file = req.file.filename;
-
     const newArticle = await article.create({
       title: req.body.title,
       description: req.body.description,
@@ -50,8 +50,7 @@ const setArticles = AsyncHandler(async (req, res) => {
 const updateArticles = AsyncHandler(async (req, res) => {
   const Title = req.body.title;
   const Description = req.body.description;
-  const ArticleImages = req.file.ArticleImage;
-  console.log({ Title, Description });
+  const ArticleImages = req.file.filename;
   if (!Title || !Description || !ArticleImages) {
     res.status(400);
     throw new Error("please add everything");
@@ -59,7 +58,7 @@ const updateArticles = AsyncHandler(async (req, res) => {
   const newArticle = await article.create({
     title: req.body.title,
     description: req.body.description,
-    ArticleImage: req.file.ArticleImage,
+    image: req.file.ArticleImage,
   });
 
   return res.status(200).send({ Article: newArticle });

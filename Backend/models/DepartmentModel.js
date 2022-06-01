@@ -8,6 +8,7 @@ const DepartmentSchema = mongoose.Schema(
     employers: {
       type: mongoose.Schema.Types.ObjectId ,
     },
+    
   },
   {
     timestamps: true,
