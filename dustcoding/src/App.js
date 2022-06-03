@@ -191,9 +191,19 @@ const App = () => {
               }
             />
           </Route>
+          {/* employer route */}
           <Route
             element={<ProtectedRouterEmployer isLogged={isAuthenticated()} />}
           >
+            <Route
+              path="/Employer"
+              element={
+                <div className="grid">
+                  <EmpNavBar />
+                  <Profile />
+                </div>
+              }
+            />
             <Route
               path="/Employer/Profile/"
               element={
