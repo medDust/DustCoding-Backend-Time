@@ -1,10 +1,12 @@
 import AsyncHandler from "express-async-handler";
 import article from "../models/articlesModel.js";
 import fs from "fs/promises";
+
 // read method
 const getArticle = AsyncHandler(async (req, res) => {
   const articles = await article.find().all();
   if (!article) {
+    console.log(req);
     res.status(400);
     throw new Error("is not article");
   }
@@ -14,25 +16,22 @@ const getArticle = AsyncHandler(async (req, res) => {
 const getArticleById = AsyncHandler(async (req, res) => {
   const articles = await article.findById({ _id: req.params.id });
   if (!article) {
+    console.log(res);
     res.status(400);
     throw new Error("is not article");
   }
-  // const Image = articles.image;
-  // const images = fs.readFile("/images", Image);
-  // res.send(images);
+  
   return res.status(200).send(articles);
 });
 
 // create method
 const setArticles = AsyncHandler(async (req, res) => {
   try {
-    //console.log(req.body.image);
-    if (!req.body.title || !req.body.description || !req.body.image) {
+    if (!req.body.title || !req.body.description || !req.body.images) {
       res.status(400);
       throw new Error("something is wrong");
     }
-    console.log(image);
-    var file = req.file.filename;
+    const file = req.body.images;
     const newArticle = await article.create({
       title: req.body.title,
       description: req.body.description,
@@ -58,7 +57,7 @@ const updateArticles = AsyncHandler(async (req, res) => {
   const newArticle = await article.create({
     title: req.body.title,
     description: req.body.description,
-    image: req.file.ArticleImage,
+    image: req.body.ArticleImages,
   });
 
   return res.status(200).send({ Article: newArticle });

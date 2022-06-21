@@ -16,7 +16,7 @@ const TableauEmployerComponent = ({
               <tr className="border-b bg-gray-50 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400">
                 <th className="px-4 py-3">Employer</th>
                 <th className="px-4 py-3">Amount</th>
-                <th className="px-4 py-3">Status</th>
+                <th className="px-4 py-3">Department</th>
                 <th className="px-4 py-3">Date</th>
               </tr>
             </thead>

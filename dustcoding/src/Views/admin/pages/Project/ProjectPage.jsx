@@ -4,7 +4,7 @@ import {
   GetAllTaskByProject,
   GetProjectbyId,
 } from "../../../../api/ProjectsFunction.jsx";
-import { TaskForm, TeamForms } from "../DetailsProject";
+import { TaskForm } from "../DetailsProject";
 import Pagination from "./Pagination.jsx";
 import TasksInformations from "./TasksInformations.jsx";
 const ProjectPage = () => {
@@ -13,6 +13,7 @@ const ProjectPage = () => {
 
   const [IdProject, setIdProject] = useState("");
   const [ClientName, setClientName] = useState("");
+
   const [TaskName, setTaskName] = useState();
   let { id } = useParams();
 
@@ -53,7 +54,7 @@ const ProjectPage = () => {
     <div className="flex min-h-screen flex-auto flex-shrink-0 flex-col bg-white text-black antialiased">
       <div className=" ml-14 mt-5 mb-10 grid h-full space-y-10 md:ml-64">
         <div className="w-11/12 shadow-md sm:rounded-lg">
-          <div className="">
+          <div className="grid w-full ">
             <h1 className="mx-4 gap-4 text-xl font-bold uppercase"> {Title}</h1>
             <h1 className="mx-4 gap-4 text-xl font-bold uppercase">
               {TaskName}
@@ -61,9 +62,8 @@ const ProjectPage = () => {
             <h1 className="mx-4 my-2 gap-4 text-xl font-bold uppercase opacity-50">
               {ClientName}
             </h1>
-            <div className="flex">
-              <TaskForm name="Task" />
-              <TeamForms />
+            <div className="grid w-full ">
+              <TaskForm />
             </div>
           </div>
           <table className="mx-auto w-full text-left text-sm text-gray-500 ">
@@ -71,6 +71,9 @@ const ProjectPage = () => {
               <tr>
                 <th scope="col" className="px-6 py-3">
                   Product name
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Employer name
                 </th>
 
                 <th scope="col" className="px-6 py-3">

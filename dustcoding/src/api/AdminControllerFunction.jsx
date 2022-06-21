@@ -2,13 +2,7 @@ import axios from "axios";
 
 //create post
 export const CreateArticle = async (data) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
-    },
-  };
-  const res = axios.post(`http://localhost:5000/api/articles/`, data, config);
+  const res = axios.post(`http://localhost:5000/api/articles/`, data);
   return res.data;
 };
 
@@ -61,7 +55,6 @@ export const UpdateArticle = async (_id, data) => {
   );
   return res;
 };
-
 
 // service create post
 export const createService = async (data) => {

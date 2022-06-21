@@ -34,3 +34,5 @@ export const ProtectedRouterEmployer = ({ isLogged }) => {
     return navigate("/home");
   }
 };
+
+

@@ -42,9 +42,10 @@ const getTeam = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error({ msg: "is not define " });
   }
-
+const teamMember = tea.map
   res.status(200).send(team);
 });
+
 const getTeamById = asyncHandler(async (req, res) => {
   const team = await Team.find({ _id: req.params.TeamId });
   if (!team) {
@@ -97,20 +98,25 @@ const deleteTeam = asyncHandler(async (req, res) => {
 });
 
 const deleteTeamMember = asyncHandler(async (req, res) => {
-  const team = await Team.findOne({ projectId: req.params.projectId });
-  const userId = req.body.userId;
-  if (team) {
-    const user = await team.UserId.includes(userId);
-    if (user) {
-      const userIndex = await team.UserId.indexOf(userId);
-      await team.UserId.splice(userIndex, 1);
-      team.save();
-      return res.status(200).send(team);
+  try {
+    const team = await Team.findOne({ projectId: req.params.projectId });
+    const userId = req.body.userId;
+    if (team) {
+      const user = await team.UserId.includes(userId);
+      if (user) {
+        const userIndex = await team.UserId.indexOf(userId);
+        await team.UserId.splice(userIndex, 1);
+        await team.save();
+        return res.status(200).send(team);
+      } else {
+        console.log(userId);
+        return res.status(400).send("employer not exist");
+      }
     } else {
       return res.status(400).send("employer not exist");
     }
-  } else {
-    return res.status(400).send("employer not exist");
+  } catch (error) {
+    res.status(404).send({ err: error.message });
   }
 });
 

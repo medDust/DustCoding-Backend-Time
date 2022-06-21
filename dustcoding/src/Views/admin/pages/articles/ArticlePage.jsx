@@ -1,82 +1,80 @@
 import React, { useState } from "react";
-import { isEmpty } from "validator";
-
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { CreateArticle } from "../../../../api/AdminControllerFunction";
-
 const ArticlePage = () => {
-  const navigate = useNavigate();
-  const [Article, setArticle] = useState({
-    title: "",
-    description: "",
-    image: null,
-  });
-
-  const [image, setImage] = useState("");
-  const { title, description } = Article;
-
-  const onChange = (e) => {
-    setArticle((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  };
-  /* const onChangePicture = (e) => {
-    // console.log("picture: ", e.target.files);
-    setPicture([...picture, e.target.files[0]]);
-    console.log(picture);
-  };*/
+  const [image, setImage] = useState(null);
+  const [images, setImages] = useState(null);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (isEmpty(title) || isEmpty(description) || !image) {
-      setArticle({
-        ...Article,
-        Err: "all field are required",
+    const formData = new FormData();
+    const imageFile = image;
+    formData.append("image", imageFile);
+
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+
+    await axios
+      .post("http://localhost:5000/api/image-upload", formData, config)
+      .then((res) => {
+   
+        setImages(res.data.response.imagename);
+
+        alert("File Upload success");
+      })
+      .catch((err) => alert("File Upload Error"));
+    const data = { title, description, images };
+    CreateArticle(data)
+      .then((res) => {
+        console.log(data);
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log({ err: err.message });
       });
-    } else {
-      //console.log(image);
-
-      //  const { title, description,  } = Article;
-      Article.image = image;
-      //console.log(Article);
-      const data = { title, description, image };
-      //console.log(data);
-      setArticle({ ...Article });
-      CreateArticle(data)
-        .then((res) => {
-         //console.log(Article);
-          // setArticle({ title: "", description: "", image: "" });
-          //  navigate("/Admin/Articles/");
-        })
-        .catch((err) => {
-          // console.log("error :", err);
-          setArticle({ ...Article });
-        });
-    }
   };
-
   return (
     <div className="flex min-h-screen flex-auto flex-shrink-0 flex-col bg-white text-black antialiased dark:bg-gray-700 dark:text-white">
-      <div className=" ml-14 mt-5   mb-10 h-full md:ml-64">
-        <form onSubmit={onSubmit} encType="multipart/form-data">
+      <div className=" ml-14 mt-5 mb-10 grid h-full md:ml-64">
+        {/* <h1>Upload and Display Image using React Hook's</h1>
+        {image && (
+          <div>
+            {title}
+            <img
+              alt="not fount"
+              width={"250px"}
+              src={URL.createObjectURL(image)}
+            />
+            <br />
+            <button onClick={() => setImage(null)}>Remove</button>
+          </div>
+        )}
+        <br />
+
+        <br /> */}
+        <form onSubmit={onSubmit} id="form-data">
           <div className="min-h-screen bg-indigo-50 pt-6 md:px-20">
             <div className=" mx-auto max-w-2xl rounded-md bg-white px-6 py-10">
               <h1 className="mb-10 text-center text-2xl font-bold text-gray-500">
-                ADD Article
+                {" "}
+                ADD Article Add Article
               </h1>
               <div className="space-y-4">
                 <div>
                   <label htmlFor="title" className="text-lx font-serif">
-                    Title:
+                    Title :
                   </label>
                   <input
                     type="text"
-                    placeholder="title"
-                    id="title"
                     className="text-md ml-2 rounded-md border-2 py-1 px-2 outline-none"
-                    name="title"
-                    value={title}
-                    onChange={onChange}
+                    name="Title"
+                    onChange={(event) => {
+                      setTitle(event.target.value);
+                    }}
                   />
                 </div>
                 <div>
@@ -87,14 +85,15 @@ const ArticlePage = () => {
                     Description:
                   </label>
                   <textarea
-                    id="description"
+                    type="text"
+                    name="description"
                     cols="30"
                     rows="10"
                     placeholder="whrite here.."
                     className="w-full rounded-md  bg-indigo-50 p-4 font-serif text-gray-600 outline-none"
-                    name="description"
-                    value={description}
-                    onChange={onChange}
+                    onChange={(event) => {
+                      setDescription(event.target.value);
+                    }}
                   ></textarea>
                 </div>
                 <div>
@@ -105,18 +104,19 @@ const ArticlePage = () => {
                     Upload file
                   </label>
                   <input
-                    className="block w-full cursor-pointer rounded-lg border border-gray-300 bg-gray-50 text-sm text-gray-900 focus:border-transparent focus:outline-none "
                     type="file"
                     name="image"
-                    //value={image}
-                    onChange={(e) => setImage(e.target.files[0])}
+                    onChange={(event) => {
+                      console.log(event.target.files[0]);
+                      setImage(event.target.files[0]);
+                    }}
                   />
                 </div>
                 <button
-                  onSubmit={onSubmit}
                   className=" mx-auto block rounded-md bg-indigo-600 px-6 py-2 text-lg font-semibold text-indigo-100  "
+                  type="submit"
                 >
-                  ADD Article
+                  Create Article
                 </button>
               </div>
             </div>

@@ -23,7 +23,7 @@ router.get("/info/:id", getUser);
 router.get("/infos", getUsers);
 
 router.get("/refresh_token", refreshTokens);
-router.put("/update-user/:_id",  UpdateUser);
+router.patch("/:_id", UpdateUser);
 router.delete("/delete-user/:_id", deleteUser);
 
 export default router;

@@ -47,10 +47,10 @@ const DashboardPage = () => {
   return (
     <div className="flex min-h-screen w-3/4 flex-auto flex-shrink-0 flex-col bg-white text-black antialiased ">
       <div className=" ml-14 mt-5 mb-10 h-full gap-6 tracking-wide md:ml-64 ">
-        <CardsComponent client={client} service={service} project={project} />
-        <div className="grid grid-cols-1 gap-4 p-4 lg:grid-cols-2">
+        <CardsComponent client={client} service={service} teams={project} project={project} />
+        {/* <div className="grid grid-cols-1 gap-4 p-4 lg:grid-cols-2">
           <CardComponent />
-        </div>
+        </div> */}
         <TableauEmployerComponent
           employer={employer}
           EmployerPerPage={projectPerPage}

@@ -75,7 +75,7 @@ const CardsComponent = ({ client, project, service }) => {
           </svg>
         </div>
         <div className="text-right">
-          <p className="text-2xl"></p>
+          <p className="text-2xl">{project.length}</p>
           <p>Teams</p>
         </div>
       </div>

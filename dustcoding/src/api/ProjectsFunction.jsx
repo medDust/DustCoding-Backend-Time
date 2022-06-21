@@ -92,6 +92,22 @@ export const UpdateTasks = async ({ TaskId }, data) => {
   );
   return res;
 };
+
+// get All Tasks By Employer ID
+export const TasksListTodo = async ({ userId }) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
+    },
+  };
+  const res = await axios.get(
+    `http://localhost:5000/api/Tasks/employer/${userId}/`,
+    config
+  );
+  return res;
+};
+
 //project API
 //  create new project
 export const CreateProject = async (data) => {
@@ -120,6 +136,20 @@ export const GetProjectbyId = async ({ projectId }) => {
   };
   const res = await axios.get(
     `http://localhost:5000/api/project/${projectId}/`,
+
+    config
+  );
+  return res;
+};
+export const GetProjectbyUserId = async ({ userId }) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
+    },
+  };
+  const res = await axios.get(
+    `http://localhost:5000/api/project/user/${userId}/`,
 
     config
   );

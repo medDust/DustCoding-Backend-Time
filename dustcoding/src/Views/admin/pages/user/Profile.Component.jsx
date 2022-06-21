@@ -6,15 +6,14 @@ const Profile = () => {
   const [user, setUser] = useState([]);
   useEffect(() => {
     setUser(getLocalStorage("user").data);
-    console.log(getLocalStorage("user").data);
   }, []);
   return (
-    <div className="ml-14 flex min-h-screen flex-auto flex-shrink-0 flex-col bg-white text-black antialiased ">
+    <div className="ml-14 flex flex-shrink-0 flex-col bg-white text-black antialiased ">
       <div className=" relative h-64 w-full overflow-hidden bg-blue-600">
         <img
-          src="{user.image}"
+          src={user.image}
           alt=""
-          className="bg absolute z-0 h-full w-full object-cover object-center"
+          className=" absolute z-0 h-full w-full object-cover object-center"
         />
 
         <div className="relative grid h-full flex-col items-center justify-center bg-black bg-opacity-50 text-white">
@@ -50,7 +49,7 @@ const Profile = () => {
                 <h3 className="text-2xl font-semibold">Curnte project</h3>
               </div>
 
-              <div className="form-item flex gap-4 font-semibold">
+              {/* <div className="form-item flex gap-4 font-semibold">
                 <a
                   href="https://facebook.com/"
                   className="flex items-center gap-3 text-2xl "
@@ -69,7 +68,7 @@ const Profile = () => {
                   </span>
                   <p>LinkedIn</p>
                 </a>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

@@ -87,7 +87,7 @@ const Formulaire = (props) => {
         </select>
       </div>
 
-      <div date-rangepicker className="flex  items-center">
+      <div date-rangepicker="true" className="flex  items-center">
         <div className="relative">
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
             <svg

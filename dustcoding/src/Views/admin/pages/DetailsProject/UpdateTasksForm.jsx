@@ -23,7 +23,6 @@ const UpdateTasksForm = () => {
     e.preventDefault();
 
     const data = { name, url, position, userId };
-    console.log(data);
     UpdateTasks({ tasksId: TaskId }, data).then((res) => {
       console.log("Updated");
       navigate(`/Admin/Projects/${id}/`);

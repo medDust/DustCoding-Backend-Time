@@ -1,7 +1,7 @@
 import Tasks from "../models/TasksModel.js";
 import project from "../models/projectModels.js";
 import asyncHandler from "express-async-handler";
-
+import User from "../models/userModel.js";
 // get all tasks
 const getTasks = asyncHandler(async (req, res) => {
   const task = await Tasks.find({ projectId: req.params.projectId });
@@ -33,10 +33,14 @@ const getTask = asyncHandler(async (req, res) => {
 // create method
 const setTask = asyncHandler(async (req, res) => {
   const id = req.params.projectId;
-  const name = req.body.name;
+  const name = req.body.title;
+  const usersId = req.body.usersId;
   const projects = await project
     .findOne({ id: id })
     .then((res) => res.title)
+    .catch((err) => console.log(err.message));
+  const EmployerName = await User.findOne({ _id: usersId })
+    .then((res) => res.fullName)
     .catch((err) => console.log(err.message));
   try {
     if (!req.body.name && !req.params.projectId) {
@@ -49,6 +53,8 @@ const setTask = asyncHandler(async (req, res) => {
       name: name,
       projectId: id,
       projectName: projects,
+      usersId: usersId,
+      EmployerName: EmployerName,
     });
     return res.status(200).json(newTask);
   } catch (error) {
@@ -73,6 +79,23 @@ const updateTask = asyncHandler(async (req, res) => {
   }
 });
 
+const getTaskByEmployer = asyncHandler(async (req, res) => {
+  const employer = req.params.userId;
+
+  if (employer) {
+    const TodoTasks = await Tasks.find({ usersId: employer })
+
+      .then((res) => {
+        return res;
+      })
+      .catch((err) => console.log({ err: err.message }));
+
+    return res.status(200).send(TodoTasks);
+  } else {
+    return res.status(400).send("Employer not exist");
+  }
+});
+
 // delate method
 const delateTask = asyncHandler(async (req, res) => {
   await Tasks.findByIdAndDelete({ _id: req.params.id }, (err, data) => {
@@ -84,4 +107,11 @@ const delateTask = asyncHandler(async (req, res) => {
   });
 });
 
-export { getTasks, setTask, updateTask, delateTask, getTask };
+export {
+  getTasks,
+  setTask,
+  updateTask,
+  delateTask,
+  getTask,
+  getTaskByEmployer,
+};

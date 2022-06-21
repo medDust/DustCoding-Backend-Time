@@ -13,6 +13,7 @@ const UserForms = () => {
       fullname: "",
       email: "",
       password: "",
+      role: "",
       ConfirmPassword: "",
       image: "",
     },
@@ -20,21 +21,21 @@ const UserForms = () => {
       username: Yup.string(),
       fullname: Yup.string(),
       email: Yup.string(),
+      role: Yup.string(),
       password: Yup.string(),
       image: Yup.string(),
     }),
 
     onSubmit: (values) => {
       const data = JSON.stringify(values, null, 2);
-      console.log(data);
       UpdateUser(id, data)
         .then((response) => {
           console.log(data);
-          navigate("/Admin/Employers/");
+          // navigate("/Admin/Employers/");
           response.send(console.log("success"));
         })
         .catch((err) => {
-          console.log("err :", err);
+          console.log({ err: err.message });
         });
     },
   });
@@ -43,6 +44,9 @@ const UserForms = () => {
     <div className="flex min-h-screen flex-auto flex-shrink-0 flex-col bg-white text-black antialiased">
       <div className="mx-auto max-w-2xl bg-white p-16">
         <form onSubmit={formik.handleSubmit}>
+          <h1 className="p-5 text-center font-extrabold uppercase text-black">
+            Update Employer Page
+          </h1>
           <div className="mb-6 grid gap-6 lg:grid-cols-2">
             <div>
               <label
@@ -99,6 +103,26 @@ const UserForms = () => {
                 type="file"
               />
             </div>
+            <div>
+              <label
+                for="countries"
+                className="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-400"
+              >
+                Select new Role
+              </label>
+              <select
+                id="role"
+                name="role"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.name}
+                className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              >
+                <option>Choose a Role</option>
+                <option value="1">Employer</option>
+                <option value="2">Admin</option>
+              </select>
+            </div>
           </div>
           <div className="mb-6">
             <label
@@ -150,7 +174,7 @@ const UserForms = () => {
               onBlur={formik.handleBlur}
               value={formik.values.name}
               className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-              placeholder="•••••••••"
+              placeholder=" "
             />
           </div>
 

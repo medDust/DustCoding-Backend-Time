@@ -11,9 +11,12 @@ const TasksSchema = mongoose.Schema(
     projectName: {
       type: String,
     },
-    userId: {
+    usersId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+    },
+    EmployerName: {
+      type: String,
     },
     position: {
       type: String,

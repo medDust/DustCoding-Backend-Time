@@ -1,5 +1,4 @@
 import React from "react";
-import { FaTheaterMasks } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { DeleteTaskById } from "../../../../api/ProjectsFunction";
 
@@ -30,6 +29,16 @@ const TasksInformations = ({ Tasks, IdProject }) => {
           {tasks.name}
         </Link>
       </th>
+      <td className="px-6 py-4">
+        <Link
+          to={`/Admin/Projects/${IdProject}/Task/${tasks._id}`}
+          className="font-medium text-blue-600 hover:underline "
+        >
+          <span className=" font-semibold leading-tight text-black ">
+            {tasks.EmployerName}
+          </span>
+        </Link>
+      </td>
       <td className="px-6 py-4">
         <Link
           to={`/Admin/Projects/${IdProject}/Task/${tasks._id}`}

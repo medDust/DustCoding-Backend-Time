@@ -15,7 +15,7 @@ const userSchema = mongoose.Schema(
     },
     fullName: {
       type: String,
-      required: [true, "please add a user name"],
+      required: [true, "please add a fullName"],
     },
     password: {
       type: String,
@@ -34,7 +34,6 @@ const userSchema = mongoose.Schema(
       default:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwmWC2KZhMnDyJ1u9aqLAieJBTblco4W0ouFI351w64SrB4junttBfvpXtnas4NE7tye4&usqp=CAU",
     },
-   
   },
   {
     timestamps: true,

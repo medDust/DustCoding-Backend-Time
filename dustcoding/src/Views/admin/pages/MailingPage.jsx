@@ -17,8 +17,6 @@ const MailingPage = () => {
     <tr className="text-gray-700 " key={mail.id}>
       <td className="px-4 py-3">
         <div className="flex items-center text-sm">
-          {/* <!-- Avatar with inset shadow --> */}
-
           <div>
             <p className="font-semibold">{mail.name}</p>
           </div>
@@ -39,7 +37,7 @@ const MailingPage = () => {
       <div className=" ml-14 mt-5   mb-10 grid h-full md:ml-64 ">
         <div className="my-5 flex items-center justify-end p-2 ">
           <span className="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
-            List Mailing
+            List Messages
           </span>
         </div>
 
@@ -47,10 +45,6 @@ const MailingPage = () => {
           <div className="w-full overflow-x-auto">
             <table className="whitespace-no-wrap w-full">
               <thead>
-                {/* <tr className="border-b bg-gray-50 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 ">
-                  <th className="px-4 py-3">name</th>
-                  <th className="px-4 py-3">E-mail</th>
-                </tr> */}
                 <tr className="border-b bg-gray-50 text-left text-xs font-semibold uppercase tracking-wide text-gray-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400">
                   <th className="px-4 py-3">Client</th>
 

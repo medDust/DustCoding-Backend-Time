@@ -35,7 +35,7 @@ const ProjectsPages = () => {
         </div>
         <table className="whitespace-no-wrap w-full">
           <thead>
-            <tr className="border-b-2 bg-gray-50 text-left text-xs font-semibold uppercase  text-gray-500 ">
+            <tr className="border-b-2 bg-gray-50 text-left text-xs font-semibold uppercase text-gray-500 ">
               <th className="px-4 py-3">Title</th>
               <th className="px-4 py-3">Client</th>
               <th className="px-4 py-3">Date Begin</th>

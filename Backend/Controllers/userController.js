@@ -200,32 +200,28 @@ const createAccessToken = ({ id }) => {
 };
 
 const UpdateUser = asyncHandler(async (req, res) => {
-  try {
-    const user = await Users.findById(req.params._id);
-    if (user) {
-      user.username = req.body.username || user.username;
-      user.email = req.body.email || user.email;
-      user.fullName = req.body.fullName || user.fullName;
-      user.image = req.body.image || user.image;
-      user.department = req.body.department || user.department;
-      if (req.body.password) {
-        const passwordHash = await bcrypt.hash(req.body.password, 15);
-        user.password = passwordHash || user.password;
-      }
-      const updateUser = await user.save();
-      return res.status(200).json({
-        id: updateUser.id,
-        username: updateUser.username,
-        fullName: updateUser.fullName,
-        email: updateUser.email,
-        password: updateUser.password,
-        department: updateUser.department,
-        image: updateUser.image,
-        token: createAccessToken(updateUser.id),
-      });
+  const userName = req.body.username;
+  const fullName = req.body.fullName;
+  const email = req.body.email;
+  const password = req.body.password;
+  const passwordConfirm = req.body.passwordConfirm;
+  if (password) {
+    if (password === passwordConfirm) {
+      const passwordHash = await bcrypt.hash(password, 15);
     }
-  } catch (error) {
-    return res.status(500).json({ msg: error.message });
+  }
+  const role = req.body.role;
+  const image = req.file.image;
+  const NewInfo = Users.findById(req.params._id);
+  if (NewInfo) {
+    newInfo.username = userName || newInfo.username;
+    newInfo.fullName = fullName || newInfo.fullName;
+    newInfo.email = email || newInfo.email;
+    newInfo.role = role || newInfo.role;
+    newInfo.image = userName || newInfo.image;
+    newInfo.password = passwordHash || newInfo.password;
+    const UserUpdated = await NewInfo.save();
+    return res.status(200).send({ UserUpdated });
   }
 });
 

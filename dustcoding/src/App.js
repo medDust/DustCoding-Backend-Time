@@ -1,4 +1,10 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  ProtectedRouter,
+  ProtectedRouterEmployer,
+  ProtectedRouterUser,
+} from "./helpers/ProtectedRouter";
 //
 import {
   Home,
@@ -12,6 +18,7 @@ import {
   Login,
   SignUp,
 } from "./contents";
+
 //
 import {
   SideBar,
@@ -22,15 +29,7 @@ import {
   PartnersPages,
   ProjectsPages,
 } from "./Views/admin";
-import { Profile } from "./Views/admin/pages/user";
-//
-import { Meeting, Messaging, NavBar } from "./Views/cLient";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import {
-  ProtectedRouter,
-  ProtectedRouterEmployer,
-  ProtectedRouterUser,
-} from "./helpers/ProtectedRouter";
+
 import { isAuthenticated } from "./helpers/auth";
 import { ArticleSection } from "./components";
 import { EditeTasks, TasksDetails } from "./Views/admin/pages/DetailsProject";
@@ -50,16 +49,20 @@ import {
   EditeArticle,
 } from "./Views/admin/pages/articles";
 import SettingsPage from "./Views/cLient/Components/profile/SettingsPage";
-import EmpNavBar from "./Views/employer/EmpNavBar";
+
+import {
+  EditeTaskEmpComponent,
+  EmployerProfile,
+  ProjectEmpComponent,
+  ProjectListEmp,
+  TaskDetailsComponent,
+  TaskEmpComponent,
+} from "./Views/employer";
+import { ClientProject, ClientTasksList, Profile } from "./Views/cLient";
+import EmployerSettingPage from "./Views/employer/Employer/EmployerSettingPage";
+import TableProjectEmployer from "./Views/employer/Employer/TableProjectEmployer";
 
 const App = () => {
-  // useEffect(() => {
-  //   fetch("https://git.heroku.com/dustcoding-backend-server.git", {
-  //     method: "GET",
-  //   })
-  //     .then((data) => data.json())
-  //     .then((json) => alert(JSON.stringify(json)));
-  // }, []);
   return (
     <div>
       <Router>
@@ -139,25 +142,17 @@ const App = () => {
               path="/Client"
               element={
                 <>
-                  <NavBar />
+                  <HeaderComponent />
                   <Profile />
                 </>
               }
             />
+
             <Route
-              path="/Client/meeting"
+              path="/Client/Profile"
               element={
                 <>
-                  <NavBar />
-                  <Meeting />
-                </>
-              }
-            />
-            <Route
-              path="/Client/profile"
-              element={
-                <>
-                  <NavBar />
+                  <HeaderComponent />
                   <Profile />
                 </>
               }
@@ -167,27 +162,36 @@ const App = () => {
               path="/Client/setting"
               element={
                 <>
-                  <NavBar />
+                  <HeaderComponent />
                   <SettingsPage />
                 </>
               }
             />
             <Route
-              path="/Client/Projects/:id/Task/:_id"
+              path="/Client/Projects/"
               element={
-                <div className="flex justify-between">
-                  <SideBar />
-                  <TasksDetails />
+                <div className="grid justify-between gap-16">
+                  <HeaderComponent />
+                  <ClientProject />
                 </div>
               }
             />
             <Route
-              path="/Client/messaging"
+              path="/Client/Projects/:id/"
               element={
-                <>
-                  <NavBar />
-                  <Messaging />
-                </>
+                <div className="grid justify-between">
+                  <HeaderComponent />
+                  <ClientTasksList />
+                </div>
+              }
+            />
+            <Route
+              path="/Client/Projects/:ProjectId/Task/:TaskId"
+              element={
+                <div className="flex justify-between">
+                  <HeaderComponent />
+                  <ClientTasksList />
+                </div>
               }
             />
           </Route>
@@ -199,17 +203,62 @@ const App = () => {
               path="/Employer"
               element={
                 <div className="grid">
-                  <EmpNavBar />
-                  <Profile />
+                  <HeaderComponent />
+                  <EmployerProfile />
+                </div>
+              }
+            />
+            <Route
+              path="/Employer/update"
+              element={
+                <div className="grid">
+                  <HeaderComponent />
+                  <EmployerSettingPage />
                 </div>
               }
             />
             <Route
               path="/Employer/Profile/"
               element={
-                <div className="flex justify-between">
-                  <EmpNavBar />
-                  <Profile />
+                <div className="grid">
+                  <HeaderComponent />
+                  <EmployerProfile />
+                </div>
+              }
+            />
+            <Route
+              path="/Employer/Projects"
+              element={
+                <div className="grid">
+                  <HeaderComponent />
+                  <TableProjectEmployer />
+                </div>
+              }
+            />
+            <Route
+              path="/Employer/Projects/:ProjectId"
+              element={
+                <div className="grid">
+                  <HeaderComponent />
+                  <TaskEmpComponent />
+                </div>
+              }
+            />
+            <Route
+              path="/Employer/Projects/:ProjectId/Tasks/:TaskId"
+              element={
+                <div className="grid">
+                  <HeaderComponent />
+                  <TaskDetailsComponent />
+                </div>
+              }
+            />
+            <Route
+              path="/Employer/Projects/:ProjectId/Tasks/:TaskId/update"
+              element={
+                <div className="grid">
+                  <HeaderComponent />
+                  <EditeTaskEmpComponent />
                 </div>
               }
             />

@@ -1,7 +1,9 @@
 import project from "../models/projectModels.js";
 import User from "../models/userModel.js";
-import asyncHandler from "express-async-handler";
 import Tasks from "../models/TasksModel.js";
+import asyncHandler from "express-async-handler";
+
+// create project
 const getProject = asyncHandler(async (req, res) => {
   const projects = await project.findById({
     _id: req.params.id,
@@ -13,6 +15,7 @@ const getProject = asyncHandler(async (req, res) => {
   res.status(200).json(projects);
 });
 
+// get All projects
 const getAllProject = asyncHandler(async (req, res) => {
   const projects = await project.find();
   if (!projects) {
@@ -21,6 +24,24 @@ const getAllProject = asyncHandler(async (req, res) => {
   }
   res.status(200).send(projects);
 });
+
+// get all projects by Client Id
+const getAllProjectByClientId = asyncHandler(async (req, res) => {
+  try {
+    const projectClient = await project.find({ userId: req.params.id });
+
+    if (!projectClient) {
+      res.status(400);
+      throw new Error("is not projects");
+    }
+
+    return res.status(200).send(projectClient);
+  } catch (error) {
+    return res.status(500).send({ err: error.message });
+  }
+});
+
+
 
 // create method
 const setProjects = asyncHandler(async (req, res) => {
@@ -81,4 +102,5 @@ export {
   getAllProject,
   updateProjects,
   delateProjects,
+  getAllProjectByClientId,
 };

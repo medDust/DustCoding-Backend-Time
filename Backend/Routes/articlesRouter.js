@@ -12,8 +12,8 @@ import {
 const router = express.Router();
 //const upload = multer();
 router.route("/").get(getArticle);
-router.route("/", uploads.single("image")).post(setArticles);
-router.route("/:id", uploads.single("image")).put(updateArticles);
+router.route("/").post(setArticles);
+router.route("/").put(updateArticles);
 router.route("/:id").delete(delateArticle).get(getArticleById);
 
 export default router;

@@ -13,6 +13,7 @@ import logo from "../../../assets/images/logowhite.png";
 import { logout } from "../../../helpers/auth.jsx";
 import { IoLogOutOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import { AiFillHome } from "react-icons/ai";
 let routes = [
   {
     path: "/Admin/Dashboard",
@@ -125,6 +126,17 @@ const SideBar = () => {
             </Link>
           </li>
           <li>
+            <Link
+              to="/"
+              className="relative flex h-11 flex-row items-center border-l-4 border-transparent pr-6 text-white hover:translate-x-7 hover:border-dustLight hover:bg-dustM hover:text-white hover:duration-150 hover:ease-linear focus:outline-none "
+            >
+              <span className="ml-4 inline-flex items-center justify-center">
+                <AiFillHome />
+              </span>
+              <span className="ml-2 truncate text-sm tracking-wide">Home</span>
+            </Link>
+          </li>
+          <li>
             <button
               onClick={handleLogout}
               className="relative flex h-11 w-full flex-row items-center  border-l-4 border-transparent pr-6 text-white hover:translate-x-7 hover:border-dustLight hover:bg-dustM hover:text-white hover:duration-150 hover:ease-linear focus:outline-none "
@@ -138,11 +150,11 @@ const SideBar = () => {
             </button>
           </li>
 
-          <li>
+          {/* <li>
             <p className="mx-auto my-auto hidden items-center justify-center px-5 py-3 text-center text-xs md:flex">
               <img className=" w-1/2" src={logo} alt="logo" />
             </p>
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>

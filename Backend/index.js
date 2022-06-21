@@ -23,12 +23,13 @@ const port = process.env.PORT || 5000;
 connectDB();
 
 const app = express();
-const route = express.Router();
+
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+
 app.use(morgan("dev"));
 app.use(uploads.single("image"));
 
@@ -37,8 +38,31 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // image path
-app.use("image", express.static(path.join(__dirname, "/images")));
-
+// app.use(
+//   "../images/Articles",
+//   express.static(
+//     path.join(
+//       __dirname,
+//       "image"
+//     )
+//   )
+// );
+app.get("/images/", function (req, res) {
+  // Render the 'game' template and pass in the gameid to the template
+  res.sendFile(path.join(
+      __dirname,"../images/Articles/"));
+});
+app.get("/images/:name", function (req, res, next) {
+ 
+});
+// app.get("/images", (req, res) => {
+//   res.sendFile(
+//     path.join(
+//       __dirname,
+//       "../images/Articles/1655038355821-2f18b6111447233.Y3JvcCwxMDA3LDc4OCwxNDIsMA.jpg"
+//     )
+//   );
+// });
 // authentication routes
 app.use("/api/auth", apiUser);
 
@@ -53,13 +77,23 @@ app.use("/api/Tasks", apiTask);
 app.use("/api/Team", apiTeam);
 
 // production path
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../dustcoding/build")));
-  app.get("*", (req, res) =>
-    res.sendFile(path.join(__dirname, "dustcoding", "build", "index.html"))
-  );
-} else {
-  app.get("/", (req, res) => res.send("change to production mode please"));
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname, "../dustcoding/build")));
+//   app.get("*", (req, res) =>
+//     res.sendFile(path.join(__dirname, "dustcoding", "build", "index.html"))
+//   );
+// } else {
+//   app.get("/", (req, res) => res.send("change to production mode please"));
+// }
+
+app.post("/api/image-upload", uploads.single("image"), (req, res) => {
+  const image = req.file.filename;
+  //console.log(req.image);
+  res.send(apiResponse({ message: "5achena wala", imagename: image }));
+});
+
+function apiResponse(results) {
+  return JSON.stringify({ status: 200, error: null, response: results });
 }
 
 app.use(errorHandler);
