@@ -24,8 +24,8 @@ const ProjectEmpComponent = () => {
   const currentProject = list.slice(indexOfFirstTasks, indexOfLastTasks);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
-    <div className="flex h-screen flex-col items-center justify-center">
-      <div className="top-16 mx-auto grid items-center justify-center">
+    <div className="mt-3 flex h-screen flex-col">
+      <div className="top-16 mx-auto grid items-center justify-center gap-y-5">
         <Link
           to="/Employer/Projects"
           className="group flex items-center justify-between rounded-md border-b-4 border-blue-600 bg-blue-500 p-3 font-medium text-white shadow-lg "
@@ -38,7 +38,7 @@ const ProjectEmpComponent = () => {
             <p>{list.length}</p>
           </div>
         </Link>
-        <div className="top-16 mt-16 flex flex-auto flex-shrink-0 flex-col bg-white text-black antialiased">
+        <div className="top-16 flex flex-auto flex-shrink-0 flex-col bg-white text-black antialiased">
           <table className="whitespace-no-wrap w-full">
             <thead>
               <tr className="border-b-2 bg-gray-50 text-left text-xs font-semibold uppercase text-gray-500 ">

@@ -62,7 +62,7 @@ const SideBar = () => {
 
   const handleLogout = (e) => {
     logout(() => {
-      navigate("/home");
+      navigate("/");
     });
   };
   return (

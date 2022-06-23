@@ -13,7 +13,7 @@ const HeaderComponent = () => {
   const navigate = useNavigate();
   const handleLogout = () => {
     logout(() => {
-      navigate("/home");
+      navigate("/");
     });
   };
   const [active, setActive] = useState(false);

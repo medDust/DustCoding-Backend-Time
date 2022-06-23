@@ -22,6 +22,7 @@ const getAllProject = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("is not projects");
   }
+
   res.status(200).send(projects);
 });
 
@@ -40,8 +41,6 @@ const getAllProjectByClientId = asyncHandler(async (req, res) => {
     return res.status(500).send({ err: error.message });
   }
 });
-
-
 
 // create method
 const setProjects = asyncHandler(async (req, res) => {
@@ -86,14 +85,17 @@ const updateProjects = asyncHandler(async (req, res) => {
 // delate method
 const delateProjects = asyncHandler(async (req, res) => {
   const projects = await project.findById(req.params.id);
-  // const Task = await Tasks.countDocuments({ projectId: req.params.id });
+
   if (!projects) {
     res.status(400);
     throw new Error("is not projects");
   }
-  // await Tasks.deleteMany({projectId : projects._id});
-  await projects.deleteOne();
-  res.status(200).json({ id: req.params.id }, { Task });
+
+  const deleted = await projects.deleteOne();
+  if (deleted) {
+    await Tasks.deleteMany({ projectId: req.params.id });
+  }
+  res.status(200).json({ id: req.params.id });
 });
 
 export {

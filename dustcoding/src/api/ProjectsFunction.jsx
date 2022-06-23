@@ -78,17 +78,17 @@ export const GetTasksbyId = async ({ TaskId }) => {
   return res;
 };
 // tasks Update
-export const UpdateTasks = async ({ TaskId }, data) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
-    },
-  };
+export const UpdateTasks = async ({ id }, data) => {
+  // const config = {
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
+  //   },
+  // };
   const res = await axios.put(
-    `http://localhost:5000/api/Tasks/${TaskId}`,
-    data,
-    config
+    `http://localhost:5000/api/Tasks/${id}`,
+    data
+    // config
   );
   return res;
 };
@@ -127,6 +127,20 @@ export const CreateProject = async (data) => {
 
 //  get project Details
 
+export const UpdateProjectbyId = async ({ projectId }, data) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
+    },
+  };
+  const res = await axios.put(
+    `http://localhost:5000/api/project/${projectId}/`,
+    data,
+    config
+  );
+  return res;
+};
 export const GetProjectbyId = async ({ projectId }) => {
   const config = {
     headers: {
@@ -155,3 +169,6 @@ export const GetProjectbyUserId = async ({ userId }) => {
   );
   return res;
 };
+
+
+// Project Request

@@ -44,9 +44,26 @@ const TasksInformations = ({ Tasks, IdProject }) => {
           to={`/Admin/Projects/${IdProject}/Task/${tasks._id}`}
           className="font-medium text-blue-600 hover:underline "
         >
-          <span className="rounded-full bg-blue-400 px-2 py-1 font-semibold leading-tight text-white ">
-            {tasks.position}
-          </span>
+          {tasks.position === 0 && (
+            <span className="rounded-full bg-gray-400 px-2 py-1 font-semibold leading-tight text-white ">
+              To do
+            </span>
+          )}
+          {tasks.position === 1 && (
+            <span className="rounded-full bg-blue-400 px-2 py-1 font-semibold leading-tight text-white ">
+              progress
+            </span>
+          )}
+          {tasks.position === 2 && (
+            <span className="rounded-full bg-orange-400 px-2 py-1 font-semibold leading-tight text-white ">
+              Testing
+            </span>
+          )}
+          {tasks.position === 3 && (
+            <span className="rounded-full bg-green-400 px-2 py-1 font-semibold leading-tight text-white ">
+              done
+            </span>
+          )}
         </Link>
       </td>
       <td className="flex  justify-evenly px-6 py-4 ">

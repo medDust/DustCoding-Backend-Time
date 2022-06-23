@@ -23,10 +23,11 @@ const UpdateTasksForm = () => {
     e.preventDefault();
 
     const data = { name, url, position, userId };
-    UpdateTasks({ tasksId: TaskId }, data).then((res) => {
-      console.log("Updated");
-      navigate(`/Admin/Projects/${id}/`);
-    });
+    UpdateTasks({ id: TaskId }, data)
+      .then((res) => {
+        navigate(`/Admin/Projects/${id}/`);
+      })
+      .catch((err) => console.log({ err: err.message }));
   };
 
   return (
@@ -90,10 +91,10 @@ const UpdateTasksForm = () => {
               <div className="mr-4 flex items-center">
                 <input
                   type="radio"
-                  value="To do"
+                  value="0"
                   onChange={(e) => setPosition(e.target.value)}
                   name="position"
-                  checked={position === "To do"}
+                  // checked={position === 0}
                   className="h-4 w-4 border-gray-300 bg-gray-100 text-purple-600 focus:ring-2 focus:ring-purple-500 "
                 />
                 <label
@@ -106,10 +107,10 @@ const UpdateTasksForm = () => {
               <div className="mr-4 flex items-center">
                 <input
                   type="radio"
-                  value="In progress"
+                  value="1"
                   name="position"
                   onChange={(e) => setPosition(e.target.value)}
-                  checked={position === "In progress"}
+                  //  checked={position === 1}
                   className="h-4 w-4 border-gray-300 bg-gray-100 text-teal-600 focus:ring-2 focus:ring-teal-500 "
                 />
                 <label
@@ -123,9 +124,9 @@ const UpdateTasksForm = () => {
                 <input
                   type="radio"
                   name="position"
-                  value="Testing"
+                  value="2"
                   onChange={(e) => setPosition(e.target.value)}
-                  checked={position === "Testing"}
+                  //   checked={position === "2"}
                   className="h-4 w-4 border-gray-300 bg-gray-100 text-yellow-400 focus:ring-2 focus:ring-yellow-500"
                 />
                 <label
@@ -139,9 +140,9 @@ const UpdateTasksForm = () => {
                 <input
                   type="radio"
                   name="position"
-                  value="Done"
+                  value="3"
                   onChange={(e) => setPosition(e.target.value)}
-                  checked={position === "Done"}
+                  //   checked={position === "3"}
                   className="h-4 w-4 border-gray-300 bg-gray-100 text-green-600 focus:ring-2 focus:ring-green-500 "
                 />
                 <label
@@ -158,7 +159,7 @@ const UpdateTasksForm = () => {
           onClick={onSubmit}
           className="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto"
         >
-          Submit
+          add new updates
         </button>
       </form>
     </div>

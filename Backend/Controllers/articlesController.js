@@ -16,7 +16,6 @@ const getArticle = AsyncHandler(async (req, res) => {
 const getArticleById = AsyncHandler(async (req, res) => {
   const articles = await article.findById({ _id: req.params.id });
   if (!article) {
-    console.log(res);
     res.status(400);
     throw new Error("is not article");
   }

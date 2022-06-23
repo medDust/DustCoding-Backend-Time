@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { deleteProjectsById } from "../../../../api/ContentsFunctions";
 
 const InformationProjects = ({ Projects }) => {
- 
   const deleteHandler = (idProject) => {
     deleteProjectsById(idProject).then((res) => {
       window.location.reload(false);
@@ -53,9 +52,26 @@ const InformationProjects = ({ Projects }) => {
       <td className="px-4 py-3">
         <Link className="w-full" to={`/Admin/Projects/${project._id}`}>
           <div className="flex items-center text-sm">
-            <div>
-              <p className="font-semibold">{project.state}</p>
-            </div>
+            {project.state === 0 && (
+              <div className="rounded-2xl bg-gray-400 p-2">
+                <p className=" font-semibold">waiting to start</p>
+              </div>
+            )}
+            {project.state === 1 && (
+              <div className="rounded-2xl bg-blue-400 p-2">
+                <p className="font-semibold">started</p>
+              </div>
+            )}
+            {project.state === 2 && (
+              <div className="rounded-2xl bg-orange-400 p-2">
+                <p className="font-semibold">in testing</p>
+              </div>
+            )}
+            {project.state === 3 && (
+              <div className="rounded-2xl bg-green-400 p-2">
+                <p className="font-semibold">done</p>
+              </div>
+            )}
           </div>
         </Link>
       </td>

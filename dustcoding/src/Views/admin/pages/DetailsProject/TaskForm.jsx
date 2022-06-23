@@ -80,7 +80,7 @@ const TaskForm = () => {
           value={formik.values.name}
         >
           <option>Choose responsible for a task</option>
-          {User.filter((user) => user.role === 1).map((user) => (
+          {User.filter((user) => user.role !== 0).map((user) => (
             <option key={user._id} value={user._id}>
               {user.fullName}
             </option>

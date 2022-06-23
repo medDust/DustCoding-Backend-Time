@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { GetProjects } from "../../../../api/ContentsFunctions";
-import { isAuthenticated } from "../../../../helpers/auth";
-import Pagination from "../../../admin/pages/Project/Pagination";
-import InformationProjectClient from "./DetailsProject/InformationProjectClient";
+
 import { AiOutlineFundProjectionScreen } from "react-icons/ai";
-const ClientProject = () => {
+import { isAuthenticated } from "../../../../../helpers/auth";
+import { GetProjects } from "../../../../../api/ContentsFunctions";
+import InformationProjectClient from "./InformationProjectClient";
+import Pagination from "../../../../admin/pages/Project/Pagination";
+const ClientProjectProfile = () => {
   const [Projects, setProjects] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [projectsPerPage, setProjectPerPage] = useState(5);
@@ -30,16 +31,7 @@ const ClientProject = () => {
   ).length;
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
-    <div className="mx-auto flex h-screen flex-col items-center justify-center space-y-4">
-      <h1 className="text-center text-2xl font-bold uppercase ">
-        Projects Page
-      </h1>
-      <Link
-        to="/Client/Projects/Requests"
-        className="text-base font-medium text-blue-600"
-      >
-        Request new project
-      </Link>
+    <div>
       {isAuthenticated() && isAuthenticated().data.id === id && (
         <div className="top-16 mx-auto grid items-center justify-center">
           <Link
@@ -81,4 +73,4 @@ const ClientProject = () => {
   );
 };
 
-export default ClientProject;
+export default ClientProjectProfile;

@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+
 import { TasksListTodo } from "../../../api/ProjectsFunction";
 import { isAuthenticated } from "../../../helpers/auth";
 import InformationProjectEmployer from "./projects/InformationProjectEmployer";
@@ -25,7 +25,6 @@ const TableProjectEmployer = () => {
               <tr>
                 <th className="rounded-md p-3">Brand</th>
                 <th className="rounded-md p-3 text-left">Category</th>
-                <th className="rounded-md p-3 text-left">Price</th>
                 <th className="rounded-md p-3 text-left">Status</th>
                 <th className="rounded-md p-3 text-left">Action</th>
               </tr>

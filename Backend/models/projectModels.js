@@ -7,8 +7,8 @@ const projectSchema = mongoose.Schema(
       required: [true, "choose name please"],
     },
     state: {
-      type: String,
-      default: "In Progress",
+      type: Number,
+      default: 0,
     },
     userId: {
       type: mongoose.Schema.Types.ObjectId,

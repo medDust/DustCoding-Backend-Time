@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { FaFacebook, FaLinkedin } from "react-icons/fa";
 import { getLocalStorage } from "../../../../helpers/LocalStorage";
 
-const Profile = () => {
+const ProfileComponent = () => {
   const [user, setUser] = useState([]);
   useEffect(() => {
     setUser(getLocalStorage("user").data);
   }, []);
   return (
-    <div className="ml-14 flex flex-shrink-0 flex-col bg-white text-black antialiased ">
-      <div className=" relative h-64 w-full overflow-hidden bg-blue-600">
+    <div className="ml-14 flex w-full flex-shrink-0 flex-col bg-white text-black antialiased ">
+      <div className=" relative h-64  overflow-hidden bg-blue-600">
         <img
           src={user.image}
           alt=""
@@ -49,26 +48,7 @@ const Profile = () => {
                 <h3 className="text-2xl font-semibold">Curnte project</h3>
               </div>
 
-              {/* <div className="form-item flex gap-4 font-semibold">
-                <a
-                  href="https://facebook.com/"
-                  className="flex items-center gap-3 text-2xl "
-                >
-                  <span className="text-blue-800">
-                    <FaFacebook />
-                  </span>
-                  <p>Facebook</p>
-                </a>
-                <a
-                  href="https://twitter.com/"
-                  className="flex items-center gap-3  text-2xl "
-                >
-                  <span className="text-blue-700">
-                    <FaLinkedin />
-                  </span>
-                  <p>LinkedIn</p>
-                </a>
-              </div> */}
+           
             </div>
           </div>
         </div>
@@ -77,4 +57,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfileComponent;

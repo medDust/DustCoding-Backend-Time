@@ -13,6 +13,7 @@ import apiMails from "./Routes/mailRouter.js";
 import apiTask from "./Routes/tasksRouter.js";
 import apiProject from "./Routes/projectRouter.js";
 import apiSrv from "./Routes/servicesRouter.js";
+import apiReq from "./Routes/RequestRoutes.js";
 import errorHandler from "./Middleware/errorMiddleware.js";
 import morgan from "morgan";
 import fs from "fs/promises";
@@ -37,32 +38,12 @@ const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename);
 
-// image path
-// app.use(
-//   "../images/Articles",
-//   express.static(
-//     path.join(
-//       __dirname,
-//       "image"
-//     )
-//   )
-// );
 app.get("/images/", function (req, res) {
   // Render the 'game' template and pass in the gameid to the template
-  res.sendFile(path.join(
-      __dirname,"../images/Articles/"));
+  res.sendFile(path.join(__dirname, "../images/Articles/"));
 });
-app.get("/images/:name", function (req, res, next) {
- 
-});
-// app.get("/images", (req, res) => {
-//   res.sendFile(
-//     path.join(
-//       __dirname,
-//       "../images/Articles/1655038355821-2f18b6111447233.Y3JvcCwxMDA3LDc4OCwxNDIsMA.jpg"
-//     )
-//   );
-// });
+app.get("/images/:name", function (req, res, next) {});
+
 // authentication routes
 app.use("/api/auth", apiUser);
 
@@ -70,21 +51,21 @@ app.use("/api/auth", apiUser);
 app.use("/api/articles", apiArt);
 app.use("/api/services", apiSrv);
 app.use("/api/mails", apiMails);
-
+app.use("/api/request", apiReq);
 // project management routes
 app.use("/api/project", apiProject);
 app.use("/api/Tasks", apiTask);
 app.use("/api/Team", apiTeam);
 
 // production path
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static(path.join(__dirname, "../dustcoding/build")));
-//   app.get("*", (req, res) =>
-//     res.sendFile(path.join(__dirname, "dustcoding", "build", "index.html"))
-//   );
-// } else {
-//   app.get("/", (req, res) => res.send("change to production mode please"));
-// }
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../dustcoding/build")));
+  app.get("*", (req, res) =>
+    res.sendFile(path.join(__dirname, "dustcoding", "build", "index.html"))
+  );
+} else {
+  app.get("/", (req, res) => res.send("change to production mode please"));
+}
 
 app.post("/api/image-upload", uploads.single("image"), (req, res) => {
   const image = req.file.filename;

@@ -29,7 +29,7 @@ const DashboardPage = () => {
       .catch((err) => {
         console.log({ err: err.message });
       });
-    setEmployers(user.filter((user) => user.role === 1));
+    setEmployers(user.filter((user) => user.role !== 0));
     getService()
       .then((res) => {
         const service = res.data;
@@ -47,7 +47,7 @@ const DashboardPage = () => {
   return (
     <div className="flex min-h-screen w-3/4 flex-auto flex-shrink-0 flex-col bg-white text-black antialiased ">
       <div className=" ml-14 mt-5 mb-10 h-full gap-6 tracking-wide md:ml-64 ">
-        <CardsComponent client={client} service={service} teams={project} project={project} />
+        <CardsComponent client={client} service={service} teams={employer} project={project} />
         {/* <div className="grid grid-cols-1 gap-4 p-4 lg:grid-cols-2">
           <CardComponent />
         </div> */}

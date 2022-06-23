@@ -8,7 +8,11 @@ import { Loading } from "../../../helpers/LodingFunction";
 import dust from "../../../assets/images/dust.png";
 import contact from "../../../assets/images/contact.png";
 import { register } from "../../../api/AuthFunction";
-import { isAuthenticated, setAuthentication } from "../../../helpers/auth";
+import {
+  isAuthenticated,
+  logout,
+  setAuthentication,
+} from "../../../helpers/auth";
 
 const SignUp = () => {
   const [FormData, setFromData] = useState({
@@ -31,19 +35,19 @@ const SignUp = () => {
     isLoading,
   } = FormData;
 
-  useEffect(() => {
-    if (isAuthenticated()) {
-      if (isAuthenticated().data.role === 2) {
-        navigate("/Admin");
-      } else if (isAuthenticated().data.role === 1) {
-        navigate("/Employer");
-      } else if (isAuthenticated().data.role === 0) {
-        navigate("/Client");
-      }
-    } else {
-      console.log("auth problem");
-    }
-  }, [navigate]);
+  // useEffect(() => {
+  //   if (isAuthenticated()) {
+  //     if (isAuthenticated().data.role === 2) {
+  //       navigate("/Admin");
+  //     } else if (isAuthenticated().data.role === 1) {
+  //       navigate("/Employer");
+  //     } else if (isAuthenticated().data.role === 0) {
+  //       navigate("/Client");
+  //     }
+  //   } else {
+  //     console.log("auth problem");
+  //   }
+  // }, [navigate]);
   const onChange = (e) => {
     setFromData((prevState) => ({
       ...prevState,
@@ -94,6 +98,7 @@ const SignUp = () => {
           const user = res.data;
 
           setAuthentication(Token, user);
+          logout();
           navigate("/LogIn");
         })
         .catch((err) => {

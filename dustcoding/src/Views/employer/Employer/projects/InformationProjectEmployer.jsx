@@ -1,11 +1,6 @@
-import React, { useEffect } from "react";
-import { AiFillCheckSquare } from "react-icons/ai";
-import { Link, useParams } from "react-router-dom";
-import { TasksListTodo } from "../../../../api/ProjectsFunction";
-import { isAuthenticated } from "../../../../helpers/auth.jsx";
+import React from "react";
+import { Link } from "react-router-dom";
 const InformationProjectEmployer = ({ TasksList }) => {
-  const id = useParams();
-
   return (
     <>
       {TasksList.map((TasksList) => (
@@ -31,7 +26,10 @@ const InformationProjectEmployer = ({ TasksList }) => {
             >
               <i className="material-icons-outlined text-base">visibility</i>
             </Link>
-            <Link to="#" className="mx-2 text-gray-400  hover:text-gray-100">
+            <Link
+              to={`/Employer/Projects/${TasksList.projectId}/Tasks/${TasksList._id}`}
+              className="mx-2 text-gray-400  hover:text-gray-100"
+            >
               <i className="material-icons-outlined text-base">edit</i>
             </Link>
           </td>

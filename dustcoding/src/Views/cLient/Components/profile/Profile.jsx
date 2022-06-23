@@ -1,12 +1,10 @@
-import React, { useEffect } from "react";
-import { GetProjects } from "../../../../api/ContentsFunctions";
+import React from "react";
+
 import { isAuthenticated } from "../../../../helpers/auth";
-import ClientProject from "../Projects/ClientProject";
+
+import ClientProjectProfile from "../Projects/DetailsProject/ClientProjectProfile.jsx";
 
 const Profile = () => {
-
- 
-
   return (
     <div className="relative h-screen w-full overflow-hidden rounded shadow-2xl">
       <div className=" relative h-64 w-full overflow-hidden bg-blue-600">
@@ -62,8 +60,7 @@ const Profile = () => {
         </div>
         <div className=" px-4 pt-4">
           <h3 className="text-2xl font-semibold">Curnte project</h3>
-
-          <ClientProject />
+          <ClientProjectProfile />
         </div>
       </div>
     </div>

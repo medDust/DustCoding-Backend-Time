@@ -70,7 +70,6 @@ const TeamForms = () => {
           <div>
             <button
               type="submit"
-              // onSubmit={handleSubmit}
               className="rounded-full bg-blue-500 p-2 text-xl text-white shadow-lg hover:bg-blue-900"
             >
               <IoMdAddCircleOutline />

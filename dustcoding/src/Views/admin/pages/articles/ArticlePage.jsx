@@ -24,7 +24,7 @@ const ArticlePage = () => {
    
         setImages(res.data.response.imagename);
 
-        alert("File Upload success");
+      //  alert("File Upload success");
       })
       .catch((err) => alert("File Upload Error"));
     const data = { title, description, images };
@@ -40,22 +40,7 @@ const ArticlePage = () => {
   return (
     <div className="flex min-h-screen flex-auto flex-shrink-0 flex-col bg-white text-black antialiased dark:bg-gray-700 dark:text-white">
       <div className=" ml-14 mt-5 mb-10 grid h-full md:ml-64">
-        {/* <h1>Upload and Display Image using React Hook's</h1>
-        {image && (
-          <div>
-            {title}
-            <img
-              alt="not fount"
-              width={"250px"}
-              src={URL.createObjectURL(image)}
-            />
-            <br />
-            <button onClick={() => setImage(null)}>Remove</button>
-          </div>
-        )}
-        <br />
-
-        <br /> */}
+     
         <form onSubmit={onSubmit} id="form-data">
           <div className="min-h-screen bg-indigo-50 pt-6 md:px-20">
             <div className=" mx-auto max-w-2xl rounded-md bg-white px-6 py-10">

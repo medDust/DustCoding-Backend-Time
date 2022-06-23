@@ -1,1 +1,1 @@
-export { default as Profile } from "./Profile.Component.jsx";
+export { default as ProfileComponent } from "./ProfileComponent.jsx";

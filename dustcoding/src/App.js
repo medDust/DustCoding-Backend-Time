@@ -33,7 +33,7 @@ import {
 import { isAuthenticated } from "./helpers/auth";
 import { ArticleSection } from "./components";
 import { EditeTasks, TasksDetails } from "./Views/admin/pages/DetailsProject";
-import { ProjectPage } from "./Views/admin/pages/Project";
+import { EditeProjectPage, ProjectPage } from "./Views/admin/pages/Project";
 import { ModalsEmployer, UserForms } from "./Views/admin/pages/Modals";
 
 import {
@@ -61,6 +61,8 @@ import {
 import { ClientProject, ClientTasksList, Profile } from "./Views/cLient";
 import EmployerSettingPage from "./Views/employer/Employer/EmployerSettingPage";
 import TableProjectEmployer from "./Views/employer/Employer/TableProjectEmployer";
+import { ProfileComponent } from "./Views/admin/pages/user";
+import ClientRequestsPage from "./Views/cLient/Components/Projects/DetailsProject/ClientRequestsPage";
 
 const App = () => {
   return (
@@ -132,6 +134,7 @@ const App = () => {
             }
           />
 
+          <Route path="/Home/LogIn" element={<Login />} />
           <Route path="/LogIn" element={<Login />} />
           <Route path="/SignUp" element={<SignUp />} />
 
@@ -139,6 +142,7 @@ const App = () => {
           {/* client route */}
           <Route element={<ProtectedRouterUser isLogged={isAuthenticated()} />}>
             <Route
+              exact
               path="/Client"
               element={
                 <>
@@ -170,7 +174,7 @@ const App = () => {
             <Route
               path="/Client/Projects/"
               element={
-                <div className="grid justify-between gap-16">
+                <div className="grid ">
                   <HeaderComponent />
                   <ClientProject />
                 </div>
@@ -179,7 +183,7 @@ const App = () => {
             <Route
               path="/Client/Projects/:id/"
               element={
-                <div className="grid justify-between">
+                <div className="">
                   <HeaderComponent />
                   <ClientTasksList />
                 </div>
@@ -191,6 +195,15 @@ const App = () => {
                 <div className="flex justify-between">
                   <HeaderComponent />
                   <ClientTasksList />
+                </div>
+              }
+            />
+            <Route
+              path="/Client/Projects/Requests"
+              element={
+                <div className="flex justify-between">
+                  <HeaderComponent />
+                  <ClientRequestsPage />
                 </div>
               }
             />
@@ -275,11 +288,12 @@ const App = () => {
               }
             />
             <Route
+              exact
               path="/Admin/Profile/"
               element={
                 <div className="flex justify-between">
                   <SideBar />
-                  <Profile />
+                  <ProfileComponent />
                 </div>
               }
             />
@@ -416,6 +430,15 @@ const App = () => {
                 <div className="flex justify-between">
                   <SideBar />
                   <ProjectPage />
+                </div>
+              }
+            />
+            <Route
+              path="/Admin/Projects/:id/Edit"
+              element={
+                <div className="flex justify-between">
+                  <SideBar />
+                  <EditeProjectPage />
                 </div>
               }
             />

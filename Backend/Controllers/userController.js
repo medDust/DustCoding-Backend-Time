@@ -200,28 +200,32 @@ const createAccessToken = ({ id }) => {
 };
 
 const UpdateUser = asyncHandler(async (req, res) => {
-  const userName = req.body.username;
-  const fullName = req.body.fullName;
-  const email = req.body.email;
-  const password = req.body.password;
-  const passwordConfirm = req.body.passwordConfirm;
-  if (password) {
-    if (password === passwordConfirm) {
-      const passwordHash = await bcrypt.hash(password, 15);
+  try {
+    const userName = req.body.username;
+    const fullName = req.body.fullName;
+    const email = req.body.email;
+    const password = req.body.password;
+    const passwordConfirm = req.body.passwordConfirm;
+    if (password) {
+      if (password === passwordConfirm) {
+        const passwordHash = await bcrypt.hash(password, 15);
+      }
     }
-  }
-  const role = req.body.role;
-  const image = req.file.image;
-  const NewInfo = Users.findById(req.params._id);
-  if (NewInfo) {
-    newInfo.username = userName || newInfo.username;
-    newInfo.fullName = fullName || newInfo.fullName;
-    newInfo.email = email || newInfo.email;
-    newInfo.role = role || newInfo.role;
-    newInfo.image = userName || newInfo.image;
-    newInfo.password = passwordHash || newInfo.password;
-    const UserUpdated = await NewInfo.save();
-    return res.status(200).send({ UserUpdated });
+    const role = req.body.role;
+    const image = req.file.image;
+    const NewInfo = Users.findById(req.params._id);
+    if (NewInfo) {
+      newInfo.username = userName || newInfo.username;
+      newInfo.fullName = fullName || newInfo.fullName;
+      newInfo.email = email || newInfo.email;
+      newInfo.role = role || newInfo.role;
+      newInfo.image = image || newInfo.image;
+      newInfo.password = passwordHash || newInfo.password;
+      const UserUpdated = await NewInfo.save();
+      return res.status(200).send({ UserUpdated });
+    }
+  } catch (error) {
+    return res.status(400).send({ err: err.message });
   }
 });
 

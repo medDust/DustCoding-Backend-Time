@@ -8,7 +8,7 @@ const TasksDetails = () => {
     GetTaskById({ projectId: id, TaskId: TaskId }).then((res) =>
       setTask(res.data)
     );
-  }, [TaskId]);
+  }, [id, TaskId]);
 
   return (
     <div className="flex min-h-screen flex-auto flex-shrink-0 flex-col bg-white text-black antialiased">
@@ -24,9 +24,26 @@ const TasksDetails = () => {
           <p className="mx-4 my-2 text-left text-xl font-bold text-black">
             {task.url}
           </p>
-          <p className="mx-4 my-2 text-left text-xl font-bold text-black">
-            {task.position}
-          </p>
+          {task.position === 0 && (
+            <p className="mx-4 my-2 text-left text-xl font-bold text-black">
+              To do
+            </p>
+          )}
+          {task.position === 1 && (
+            <p className="mx-4 my-2 text-left text-xl font-bold text-black">
+              progress
+            </p>
+          )}
+          {task.position === 2 && (
+            <p className="mx-4 my-2 text-left text-xl font-bold text-black">
+              Testing
+            </p>
+          )}
+          {task.position === 3 && (
+            <p className="mx-4 my-2 text-left text-xl font-bold text-black">
+              Done
+            </p>
+          )}
           <div className="items-center">
             <Link
               to={`/Admin/Projects/${id}/Task/${TaskId}/Edit`}
