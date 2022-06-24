@@ -170,5 +170,69 @@ export const GetProjectbyUserId = async ({ userId }) => {
   return res;
 };
 
-
 // Project Request
+
+export const RequestProject = async (data) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
+    },
+  };
+  const res = await axios.post(
+    `http://localhost:5000/api/request/`,
+    data,
+    config
+  );
+  return res;
+};
+export const UpdateRequestProject = async ({ RequestId }, data) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
+    },
+  };
+  const res = await axios.put(
+    `http://localhost:5000/api/request/${RequestId}`,
+    data,
+    config
+  );
+  return res;
+};
+export const getAllRequest = async () => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
+    },
+  };
+  const res = await axios.get(`http://localhost:5000/api/request/`, config);
+  return res;
+};
+export const getRequestById = async (id) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
+    },
+  };
+  const res = await axios.get(
+    `http://localhost:5000/api/request/${id}`,
+    config
+  );
+  return res;
+};
+export const getRequestByCLientId = async (id) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem(process.env.JWT_ACCESS)}`,
+    },
+  };
+  const res = await axios.get(
+    `http://localhost:5000/api/request/Client/${id}`,
+    config
+  );
+  return res;
+};

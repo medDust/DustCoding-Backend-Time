@@ -51,8 +51,8 @@ export const GetAllUsers = async () => {
   const res = axios.get("http://localhost:5000/api/auth/infos", config);
   return res;
 };
-//UPDATE USER
 
+//UPDATE USER
 export const UpdateUser = async (id, data) => {
   const config = {
     headers: {

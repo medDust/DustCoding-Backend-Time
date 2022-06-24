@@ -5,10 +5,10 @@ const setRequest = asyncHandler(async (req, res) => {
   const user = req.body.userId;
   const title = req.body.title;
   const description = req.body.description;
-  console.log({ user, title, description });
+
   if (user && title && description) {
     const name = await Users.findById(user).then((res) => res.username);
-    console.log(name);
+
     const newRequest = await Request.create({
       title: title,
       description: description,
@@ -21,4 +21,63 @@ const setRequest = asyncHandler(async (req, res) => {
   }
 });
 
-export { setRequest };
+const getAllRequests = asyncHandler(async (req, res) => {
+  try {
+    const Requests = await Request.find().all();
+    if (Requests) {
+      res.status(200).send(Requests);
+    } else {
+      res.status(400).send("No request");
+    }
+  } catch (error) {
+    res.status(500).send({ err: error.message });
+  }
+});
+
+const getRequestByClientId = asyncHandler(async (req, res) => {
+  const Requests = await Request.find({ userId: req.params.ClientId }).all();
+  if (Requests) {
+    res.status(200).send(Requests);
+  } else {
+    res.status(400);
+    throw new Error("is not services");
+  }
+});
+const getRequestById = asyncHandler(async (req, res) => {
+  try {
+    const Requests = await Request.findById(req.params.id);
+    if (Requests) {
+      res.status(200).send(Requests);
+    } else {
+      res.status(400).send("No request");
+    }
+  } catch (error) {
+    res.status(500).send({ err: error.message });
+  }
+});
+const UpdateRequest = asyncHandler(async (req, res) => {
+  try {
+    const Requests = await Request.findById(req.params.id);
+
+    if (!Requests) {
+      res.status(401);
+      throw new Error("Task not found");
+    } else {
+      Requests.title = req.body.title || Requests.title;
+      Requests.url = req.body.url || Requests.url;
+      Requests.status = req.body.status || Requests.status;
+      const updated = await Requests.save();
+      res.status(200).send({ updated });
+    }
+  } catch (error) {
+    res.status(500).send({ err: error.message });
+  }
+});
+
+export {
+  setRequest,
+  getAllRequests,
+  getRequestById,
+  UpdateRequest,
+  getRequestByClientId,
+};

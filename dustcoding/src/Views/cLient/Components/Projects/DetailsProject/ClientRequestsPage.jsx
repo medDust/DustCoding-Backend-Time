@@ -1,12 +1,22 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { RequestProject } from "../../../../../api/ProjectsFunction";
+import { isAuthenticated } from "../../../../../helpers/auth";
 
 const ClientRequestsPage = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const userId = isAuthenticated().data.id;
+  const navigate = useNavigate();
   const onSubmit = async (e) => {
     e.preventDefault();
-    const data = { title, description };
-    console.log(data);
+
+    const data = { title, description, userId };
+
+    RequestProject(data)
+      .then((res) => console.log("Request sended"))
+      .catch((err) => console.log({ err: err.message }));
+    navigate("/Client/Projects");
   };
   return (
     <div className="top-16 mx-auto flex h-screen w-full flex-col items-center justify-center space-y-4">
@@ -20,6 +30,12 @@ const ClientRequestsPage = () => {
             <h1 className="mb-8 text-center text-2xl font-bold text-gray-500">
               Send Request project
             </h1>
+            <Link
+              to="/Client/Requests"
+              className="text-md my-2 flex w-full items-center justify-center text-center font-medium text-blue-600"
+            >
+              Show Request
+            </Link>
             <div className="space-y-4">
               <div>
                 <label htmlFor="title" className="text-lx font-serif">

@@ -15,9 +15,26 @@ const InformationProjectEmployer = ({ TasksList }) => {
           <td className="p-3">{TasksList.name}</td>
 
           <td className="p-3">
-            <span className="rounded-md bg-green-400 px-2 font-bold uppercase text-gray-50">
-              {TasksList.position}
-            </span>
+            {TasksList.position === 0 && (
+              <span className="rounded-full bg-gray-400 px-2 py-1 font-semibold leading-tight text-white ">
+                To do
+              </span>
+            )}
+            {TasksList.position === 1 && (
+              <span className="rounded-full bg-blue-400 px-2 py-1 font-semibold leading-tight text-white ">
+                progress
+              </span>
+            )}
+            {TasksList.position === 2 && (
+              <span className="rounded-full bg-orange-400 px-2 py-1 font-semibold leading-tight text-white ">
+                Testing
+              </span>
+            )}
+            {TasksList.position === 3 && (
+              <span className="rounded-full bg-green-400 px-2 py-1 font-semibold leading-tight text-white ">
+                done
+              </span>
+            )}
           </td>
           <td className="p-3 ">
             <Link

@@ -32,7 +32,11 @@ import {
 
 import { isAuthenticated } from "./helpers/auth";
 import { ArticleSection } from "./components";
-import { EditeTasks, TasksDetails } from "./Views/admin/pages/DetailsProject";
+import {
+  EditeTasks,
+  RequestProject,
+  TasksDetails,
+} from "./Views/admin/pages/DetailsProject";
 import { EditeProjectPage, ProjectPage } from "./Views/admin/pages/Project";
 import { ModalsEmployer, UserForms } from "./Views/admin/pages/Modals";
 
@@ -58,11 +62,18 @@ import {
   TaskDetailsComponent,
   TaskEmpComponent,
 } from "./Views/employer";
-import { ClientProject, ClientTasksList, Profile } from "./Views/cLient";
+import {
+  ClientProject,
+  ClientTasksList,
+  Profile,
+  RequestList,
+} from "./Views/cLient";
 import EmployerSettingPage from "./Views/employer/Employer/EmployerSettingPage";
 import TableProjectEmployer from "./Views/employer/Employer/TableProjectEmployer";
 import { ProfileComponent } from "./Views/admin/pages/user";
 import ClientRequestsPage from "./Views/cLient/Components/Projects/DetailsProject/ClientRequestsPage";
+import RequestDetails from "./Views/admin/pages/DetailsProject/RequestDetails";
+import EditeTask from "./Views/employer/Employer/projects/EditeTask";
 
 const App = () => {
   return (
@@ -148,6 +159,16 @@ const App = () => {
                 <>
                   <HeaderComponent />
                   <Profile />
+                </>
+              }
+            />
+            <Route
+              exact
+              path="/Client/Requests"
+              element={
+                <>
+                  <HeaderComponent />
+                  <RequestList />
                 </>
               }
             />
@@ -267,6 +288,15 @@ const App = () => {
               }
             />
             <Route
+              path="/Employer/Projects/:ProjectId/Task/:TaskId"
+              element={
+                <div className="grid">
+                  <HeaderComponent />
+                  <EditeTask />
+                </div>
+              }
+            />
+            <Route
               path="/Employer/Projects/:ProjectId/Tasks/:TaskId/update"
               element={
                 <div className="grid">
@@ -325,6 +355,25 @@ const App = () => {
                 </div>
               }
             />
+            <Route
+              path="/Admin/Requests"
+              element={
+                <div className="flex justify-between">
+                  <SideBar />
+                  <RequestProject />
+                </div>
+              }
+            />
+            <Route
+              path="/Admin/Requests/:RequestId"
+              element={
+                <div className="flex justify-between">
+                  <SideBar />
+                  <RequestDetails />
+                </div>
+              }
+            />
+
             <Route
               path="/Admin/Articles/update-article/:id"
               element={
